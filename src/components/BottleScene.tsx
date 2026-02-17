@@ -10,6 +10,9 @@ const Bottle = () => {
   const targetRotation = useRef({ x: 0, y: 0 });
   const currentRotation = useRef({ x: 0, y: 0 });
   const logoTexture = useTexture(logoImg);
+  
+  // Make logo blend nicely - use additive blending to hide black background
+  logoTexture.colorSpace = THREE.SRGBColorSpace;
 
   const { viewport } = useThree();
 
@@ -140,17 +143,27 @@ const Bottle = () => {
             <meshStandardMaterial color="#C8A951" metalness={0.95} roughness={0.08} />
           </mesh>
 
-          {/* Logo on bottle - front */}
-          <mesh position={[0, 0.1, 0.591]}>
-            <planeGeometry args={[0.75, 0.45]} />
-            <meshStandardMaterial
+          {/* Logo on bottle - front, larger and brighter */}
+          <mesh position={[0, 0.05, 0.58]}>
+            <planeGeometry args={[1.0, 0.6]} />
+            <meshBasicMaterial
               map={logoTexture}
               transparent
-              opacity={0.95}
-              emissive="#ffffff"
-              emissiveIntensity={hovered ? 0.15 : 0.05}
-              emissiveMap={logoTexture}
-              side={THREE.FrontSide}
+              blending={THREE.AdditiveBlending}
+              depthWrite={false}
+              opacity={1.0}
+              toneMapped={false}
+              color="#ffffff"
+            />
+          </mesh>
+
+          {/* Logo glow behind */}
+          <mesh position={[0, 0.05, 0.57]}>
+            <planeGeometry args={[1.05, 0.65]} />
+            <meshBasicMaterial
+              color="#C8A951"
+              transparent
+              opacity={hovered ? 0.15 : 0.05}
             />
           </mesh>
 
