@@ -2,9 +2,11 @@ import { useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import MarqueeStrip from "@/components/MarqueeStrip";
 import ProductsSection from "@/components/ProductsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import ReviewsSection from "@/components/ReviewsSection";
+import CTABanner from "@/components/CTABanner";
 import FooterSection from "@/components/FooterSection";
 import { toast } from "sonner";
 
@@ -28,9 +30,11 @@ const Index = () => {
       <LoadingScreen />
       <Navbar cartCount={cartCount} />
       <HeroSection />
+      <MarqueeStrip />
       <ProductsSection onAddToCart={handleAddToCart} />
       <ExperienceSection />
       <ReviewsSection />
+      <CTABanner />
       <FooterSection />
     </div>
   );
