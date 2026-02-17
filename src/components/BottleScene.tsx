@@ -19,7 +19,7 @@ const Bottle = () => {
     if (!hovered) return;
     const x = (e.point.x / viewport.width) * 2;
     const y = (e.point.y / viewport.height) * 2;
-    targetRotation.current = { x: y * 0.3, y: x * 0.8 };
+    targetRotation.current = { x: y * 0.5, y: x * Math.PI };
   }, [hovered, viewport]);
 
   useFrame(() => {
