@@ -174,8 +174,8 @@ const Bottle = () => {
           </mesh>
 
           {/* Logo on bottle - front */}
-          <mesh position={[0, -0.2, 0.685]}>
-            <planeGeometry args={[0.9, 0.55]} />
+          <mesh position={[0, -0.15, 0.685]}>
+            <planeGeometry args={[1.05, 0.45]} />
             <meshBasicMaterial
               map={logoTexture}
               transparent
@@ -188,22 +188,22 @@ const Bottle = () => {
           </mesh>
 
           {/* Logo glow behind */}
-          <mesh position={[0, -0.2, 0.68]}>
-            <planeGeometry args={[0.95, 0.6]} />
+          <mesh position={[0, -0.15, 0.68]}>
+            <planeGeometry args={[1.1, 0.5]} />
             <meshBasicMaterial
               color="#C8A951"
               transparent
-              opacity={hovered ? 0.18 : 0.06}
+              opacity={hovered ? 0.2 : 0.08}
             />
           </mesh>
 
           {/* Label border lines */}
-          <mesh position={[0, 0.1, 0.69]}>
-            <planeGeometry args={[0.7, 0.002]} />
+          <mesh position={[0, 0.12, 0.69]}>
+            <planeGeometry args={[0.85, 0.002]} />
             <meshStandardMaterial color="#C8A951" emissive="#C8A951" emissiveIntensity={0.8} />
           </mesh>
-          <mesh position={[0, -0.5, 0.69]}>
-            <planeGeometry args={[0.7, 0.002]} />
+          <mesh position={[0, -0.42, 0.69]}>
+            <planeGeometry args={[0.85, 0.002]} />
             <meshStandardMaterial color="#C8A951" emissive="#C8A951" emissiveIntensity={0.8} />
           </mesh>
         </group>
