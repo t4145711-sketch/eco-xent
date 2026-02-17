@@ -1,13 +1,15 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Float, MeshTransmissionMaterial, Environment, RoundedBox } from "@react-three/drei";
+import { Float, MeshTransmissionMaterial, Environment, useTexture } from "@react-three/drei";
 import { useRef, Suspense, useState, useCallback } from "react";
 import * as THREE from "three";
+import logoImg from "@/assets/ecoxent-logo.png";
 
 const Bottle = () => {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const targetRotation = useRef({ x: 0, y: 0 });
   const currentRotation = useRef({ x: 0, y: 0 });
+  const logoTexture = useTexture(logoImg);
 
   const { viewport } = useThree();
 
@@ -138,26 +140,27 @@ const Bottle = () => {
             <meshStandardMaterial color="#C8A951" metalness={0.95} roughness={0.08} />
           </mesh>
 
-          {/* Label area - front */}
-          <mesh position={[0, 0.1, 0.59]}>
-            <planeGeometry args={[0.7, 0.9]} />
+          {/* Logo on bottle - front */}
+          <mesh position={[0, 0.1, 0.591]}>
+            <planeGeometry args={[0.75, 0.45]} />
             <meshStandardMaterial
-              color="#C8A951"
-              emissive="#C8A951"
-              emissiveIntensity={hovered ? 0.5 : 0.2}
+              map={logoTexture}
               transparent
-              opacity={0.12}
-              side={THREE.DoubleSide}
+              opacity={0.95}
+              emissive="#ffffff"
+              emissiveIntensity={hovered ? 0.15 : 0.05}
+              emissiveMap={logoTexture}
+              side={THREE.FrontSide}
             />
           </mesh>
 
           {/* Label border lines */}
-          <mesh position={[0, 0.55, 0.595]}>
-            <planeGeometry args={[0.6, 0.005]} />
+          <mesh position={[0, 0.38, 0.595]}>
+            <planeGeometry args={[0.8, 0.003]} />
             <meshStandardMaterial color="#C8A951" emissive="#C8A951" emissiveIntensity={0.6} />
           </mesh>
-          <mesh position={[0, -0.35, 0.595]}>
-            <planeGeometry args={[0.6, 0.005]} />
+          <mesh position={[0, -0.18, 0.595]}>
+            <planeGeometry args={[0.8, 0.003]} />
             <meshStandardMaterial color="#C8A951" emissive="#C8A951" emissiveIntensity={0.6} />
           </mesh>
 
