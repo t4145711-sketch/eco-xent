@@ -4,10 +4,15 @@ import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
+import ProblemSection from "@/components/ProblemSection";
+import SolutionSection from "@/components/SolutionSection";
+import HorizontalFeatures from "@/components/HorizontalFeatures";
+import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
+import InteractiveDemo from "@/components/InteractiveDemo";
 import ExperienceSection from "@/components/ExperienceSection";
 import ReviewsSection from "@/components/ReviewsSection";
-import CTABanner from "@/components/CTABanner";
+import FinalCTA from "@/components/FinalCTA";
 import FooterSection from "@/components/FooterSection";
 import { toast } from "sonner";
 
@@ -33,10 +38,15 @@ const Index = () => {
       <Navbar cartCount={cartCount} />
       <HeroSection />
       <MarqueeStrip />
+      <ProblemSection />
+      <SolutionSection />
+      <HorizontalFeatures />
+      <StatsBar />
       <ProductsSection onAddToCart={handleAddToCart} />
+      <InteractiveDemo />
       <ExperienceSection />
       <ReviewsSection />
-      <CTABanner />
+      <FinalCTA />
       <FooterSection />
     </div>
   );
