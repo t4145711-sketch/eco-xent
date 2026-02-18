@@ -1,71 +1,52 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const phrases = [
-  "100% Organic",
-  "✦",
-  "Cruelty Free",
-  "✦",
-  "Handcrafted Luxury",
-  "✦",
-  "Zero Chemicals",
-  "✦",
-  "Ayurvedic Heritage",
-  "✦",
-  "Premium Quality",
-  "✦",
-  "Eco Friendly",
-  "✦",
-  "Nature's Best",
-  "✦",
-];
-
 const MarqueeStrip = () => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  
-  // Speed up marquee on scroll
-  const x1 = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
-  const x2 = useTransform(scrollYProgress, [0, 1], ["-20%", "0%"]);
-  const fullText = phrases.join("   ");
+
+  const x1 = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+  const x2 = useTransform(scrollYProgress, [0, 1], ["-25%", "0%"]);
+  const lineScale = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+
+  const words1 = "ORGANIC  ✦  LUXURY  ✦  HANDCRAFTED  ✦  PURE  ✦  BOTANICAL  ✦  PREMIUM  ✦  ";
+  const words2 = "ECO-XENT  ✦  AYURVEDIC  ✦  CRUELTY FREE  ✦  SUSTAINABLE  ✦  NATURAL  ✦  ARTISAN  ✦  ";
 
   return (
-    <div ref={ref} className="relative py-8 overflow-hidden border-y border-primary/10 bg-secondary/20">
-      {/* Glow lines at top and bottom */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-
-      {/* Row 1 - moves left */}
+    <div ref={ref} className="relative py-16 overflow-hidden select-none">
+      {/* Animated center line */}
       <motion.div
-        className="flex whitespace-nowrap mb-3"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-      >
+        className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+        style={{ scaleX: lineScale }}
+      />
+
+      {/* Row 1 — giant outlined text */}
+      <motion.div className="flex whitespace-nowrap mb-4" style={{ x: x1 }}>
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="text-xs tracking-[0.3em] uppercase text-primary/40 font-body font-medium mx-4"
+            className="text-[clamp(3rem,8vw,7rem)] font-heading font-black tracking-tight mx-2"
+            style={{
+              WebkitTextStroke: "1.5px hsl(43 50% 55% / 0.25)",
+              WebkitTextFillColor: "transparent",
+            }}
           >
-            {fullText}
+            {words1}
           </span>
         ))}
       </motion.div>
 
-      {/* Row 2 - moves right (opposite) */}
-      <motion.div
-        className="flex whitespace-nowrap"
-        animate={{ x: ["-50%", "0%"] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-      >
+      {/* Row 2 — filled text, smaller, opposite direction */}
+      <motion.div className="flex whitespace-nowrap" style={{ x: x2 }}>
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="text-[10px] tracking-[0.4em] uppercase text-primary/20 font-body font-medium mx-4"
+            className="text-lg md:text-xl font-body font-light tracking-[0.4em] uppercase text-primary/15 mx-4"
           >
-            {fullText}
+            {words2}
           </span>
         ))}
       </motion.div>

@@ -1,14 +1,37 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Leaf, Sparkles, Shield, Droplets } from "lucide-react";
 import TextReveal from "./TextReveal";
 
 const features = [
-  { icon: Leaf, title: "100% Organic", desc: "Pure botanical ingredients sourced from pristine ecosystems around the world.", color: "hsl(120, 40%, 50%)" },
-  { icon: Sparkles, title: "Handcrafted", desc: "Every product is artisan-made with meticulous attention to detail.", color: "hsl(43, 50%, 55%)" },
-  { icon: Shield, title: "Cruelty Free", desc: "Ethically produced with zero animal testing — a promise we live by.", color: "hsl(200, 50%, 55%)" },
-  { icon: Droplets, title: "Pure Formulas", desc: "No parabens, sulfates, or synthetic chemicals. Ever.", color: "hsl(280, 40%, 55%)" },
+  { icon: Leaf, title: "100% Organic", desc: "Pure botanical ingredients sourced from pristine ecosystems around the world.", stat: "100%", statLabel: "Pure" },
+  { icon: Sparkles, title: "Handcrafted", desc: "Every product is artisan-made with meticulous attention to detail.", stat: "50+", statLabel: "Hours" },
+  { icon: Shield, title: "Cruelty Free", desc: "Ethically produced with zero animal testing — a promise we live by.", stat: "Zero", statLabel: "Harm" },
+  { icon: Droplets, title: "Pure Formulas", desc: "No parabens, sulfates, or synthetic chemicals. Ever.", stat: "0%", statLabel: "Chemicals" },
 ];
+
+const AnimatedCounter = ({ value, inView }: { value: string; inView: boolean }) => {
+  const [display, setDisplay] = useState(value);
+  
+  useEffect(() => {
+    if (!inView) return;
+    const numMatch = value.match(/\d+/);
+    if (!numMatch) { setDisplay(value); return; }
+    const target = parseInt(numMatch[0]);
+    let current = 0;
+    const steps = 30;
+    const interval = setInterval(() => {
+      current++;
+      const progress = 1 - Math.pow(1 - current / steps, 3);
+      const num = Math.round(progress * target);
+      setDisplay(value.replace(/\d+/, String(num)));
+      if (current >= steps) clearInterval(interval);
+    }, 40);
+    return () => clearInterval(interval);
+  }, [value, inView]);
+
+  return <span>{display}</span>;
+};
 
 const ExperienceSection = () => {
   const ref = useRef(null);
@@ -19,21 +42,30 @@ const ExperienceSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
     <section ref={sectionRef} id="experience" className="relative py-32 overflow-hidden">
       {/* Rotating gradient orb */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.07]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.05]"
         style={{
-          background: "conic-gradient(from 0deg, hsl(43 50% 55%), hsl(160 70% 14%), hsl(43 50% 55%))",
+          background: "conic-gradient(from 0deg, hsl(43 50% 55%), hsl(160 70% 14%), hsl(43 40% 40%), hsl(160 70% 14%), hsl(43 50% 55%))",
           rotate: bgRotate,
-          filter: "blur(80px)",
+          filter: "blur(100px)",
         }}
       />
 
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-24 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+      {/* Floating line elements */}
+      <motion.div
+        className="absolute right-0 top-1/4 w-px h-48 bg-gradient-to-b from-transparent via-primary/15 to-transparent"
+        style={{ y: parallaxY }}
+      />
+      <motion.div
+        className="absolute left-0 bottom-1/4 w-px h-32 bg-gradient-to-b from-transparent via-primary/10 to-transparent"
+        style={{ y: useTransform(parallaxY, v => -v) }}
+      />
 
       <div ref={ref} className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -67,44 +99,52 @@ const ExperienceSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {/* Bento-style grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              initial={{ opacity: 0, y: 50, rotateY: -15 }}
-              animate={isInView ? { opacity: 1, y: 0, rotateY: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ 
-                y: -12, 
-                transition: { duration: 0.4 },
+              initial={{ opacity: 0, y: 60, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.3 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{
+                y: -8,
+                transition: { duration: 0.3 },
               }}
-              className="group relative rounded-2xl p-8 text-center overflow-hidden transition-all duration-700"
+              className="group relative rounded-2xl p-6 lg:p-8 text-center overflow-hidden"
               style={{
-                background: "linear-gradient(160deg, hsl(43 50% 55% / 0.05), hsl(160 40% 12% / 0.3))",
-                border: "1px solid hsl(43 50% 55% / 0.08)",
+                background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.3))",
+                border: "1px solid hsl(43 50% 55% / 0.06)",
               }}
             >
-              {/* Hover glow behind */}
-              <motion.div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                style={{
-                  background: `radial-gradient(circle at 50% 30%, ${f.color}15, transparent 70%)`,
-                }}
+              {/* Hover shimmer */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/3" />
+              </div>
+
+              {/* Border glow */}
+              <div
+                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                style={{ boxShadow: "inset 0 0 0 1px hsl(43 50% 55% / 0.12)" }}
               />
 
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                style={{ boxShadow: "inset 0 0 0 1px hsl(43 50% 55% / 0.15), 0 0 40px hsl(43 50% 55% / 0.08)" }}
-              />
+              {/* Big stat number */}
+              <div className="mb-4">
+                <p className="text-3xl lg:text-4xl font-heading font-bold text-gradient-gold leading-none">
+                  <AnimatedCounter value={f.stat} inView={isInView} />
+                </p>
+                <p className="text-[9px] text-primary/40 font-body tracking-[0.3em] uppercase mt-1">{f.statLabel}</p>
+              </div>
 
               <motion.div
-                className="w-16 h-16 rounded-2xl bg-primary/8 flex items-center justify-center mx-auto mb-5 group-hover:bg-primary/15 transition-colors duration-500 border border-primary/10"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
+                className="w-12 h-12 rounded-xl bg-primary/5 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/10 transition-colors duration-500 border border-primary/8"
+                whileHover={{ rotate: 180 }}
+                transition={{ duration: 0.5 }}
               >
-                <f.icon className="w-7 h-7 text-primary" />
+                <f.icon className="w-5 h-5 text-primary" />
               </motion.div>
-              <h3 className="text-lg font-heading font-semibold text-foreground mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground font-body leading-relaxed">{f.desc}</p>
+              <h3 className="text-base font-heading font-semibold text-foreground mb-2">{f.title}</h3>
+              <p className="text-xs text-muted-foreground font-body leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
         </div>
