@@ -68,6 +68,74 @@ const ProblemSection = () => {
           </motion.p>
         </div>
 
+        {/* Product Details - Hair Healer Oil */}
+        <motion.div
+          className="max-w-3xl mx-auto mb-20 rounded-2xl p-8 md:p-10"
+          style={{
+            background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.5))",
+            border: "1px solid hsl(43 50% 55% / 0.1)",
+          }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.9, duration: 0.8 }}
+        >
+          <h3 className="text-2xl md:text-3xl font-heading font-bold text-gradient-gold mb-4">Hair Healer Oil</h3>
+          <p className="text-muted-foreground font-body text-sm md:text-base leading-relaxed mb-6">
+            Indulge in a powerful solution to stop hair fall and promote healthier hair. This nourishing oil is designed to strengthen hair follicles, reduce hair fall, and stimulate new hair growth. It deeply nourishes and revitalizes the scalp, while promoting thicker, fuller hair. With regular use, this oil helps to restore hair strength, prevent breakage, and support long-term hair health, leaving your hair looking vibrant and resilient.
+          </p>
+
+          {/* Key Benefits */}
+          <div className="mb-6">
+            <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Key Benefits</h4>
+            <ul className="space-y-2">
+              {[
+                "Reduces hair fall effectively.",
+                "Promotes natural hair growth.",
+                "Strengthens and repairs damaged hair.",
+                "Deeply nourishes the scalp.",
+                "Enhances shine and smooth texture.",
+              ].map((b, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground font-body">
+                  <span className="text-primary mt-0.5">✦</span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Ingredients */}
+          <div className="mb-6">
+            <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Ingredients</h4>
+            <p className="text-sm text-muted-foreground font-body leading-relaxed">
+              Coconut Oil, Castor Oil, Mustard Oil, Black Seed Oil, Onion Oil, Amla Oil, Neem Oil, Fenugreek, Hibiscus, Bhringraj, Rosemary Oil, Peppermint Oil, Vitamin E
+            </p>
+          </div>
+
+          {/* How to Use */}
+          <div className="mb-6">
+            <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">How to Use</h4>
+            <p className="text-sm text-muted-foreground font-body leading-relaxed">
+              Massage into scalp and hair. Leave overnight. Rinse with shampoo. Use 2–3 times weekly.
+            </p>
+          </div>
+
+          {/* Caution & Storage */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Caution</h4>
+              <p className="text-xs text-muted-foreground font-body leading-relaxed">
+                Suitable for all hair types, perform a patch test before use. Avoid contact with eyes. Store in a cool, dry place, away from sunlight. For external use only.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">How to Store</h4>
+              <p className="text-xs text-muted-foreground font-body leading-relaxed">
+                Store in a cool and dry place, away from direct sunlight.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Shocking stats */}
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {[
