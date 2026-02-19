@@ -136,38 +136,6 @@ const ProblemSection = () => {
           </div>
         </motion.div>
 
-        {/* Shocking stats */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {[
-            { percent: 85, label: "of skincare products", sublabel: "contain harmful chemicals", icon: "⚠️" },
-            { percent: 70, label: "of ingredients", sublabel: "never penetrate the skin", icon: "🧪" },
-            { percent: 60, label: "of consumers", sublabel: "unknowingly use toxins daily", icon: "💔" },
-          ].map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 60, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ delay: 1 + i * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-2xl p-8 text-center group overflow-hidden"
-              style={{
-                background: "linear-gradient(160deg, hsl(0 30% 15% / 0.15), hsl(160 40% 8% / 0.5))",
-                border: "1px solid hsl(0 30% 40% / 0.1)",
-              }}
-            >
-              <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                style={{ background: "radial-gradient(circle at center, hsl(0 50% 50% / 0.05), transparent 70%)" }}
-              />
-              <div className="text-3xl mb-3">{stat.icon}</div>
-              <p className="text-4xl md:text-5xl font-heading font-bold text-foreground/90 mb-2">
-                <AnimatedPercent target={stat.percent} inView={isInView} />
-              </p>
-              <p className="text-sm text-foreground/60 font-body font-medium">{stat.label}</p>
-              <p className="text-xs text-muted-foreground font-body mt-1">{stat.sublabel}</p>
-            </motion.div>
-          ))}
-        </div>
-
         {/* Transition question */}
         <motion.div
           className="text-center mt-20"
