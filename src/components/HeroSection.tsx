@@ -63,69 +63,7 @@ const HeroSection = () => {
             Nature Reimagined. Luxury Redefined.
           </motion.p>
 
-          {/* CTA */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-4 mt-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.1 }}
-          >
-            <a
-              href="#products"
-              className="px-10 py-4 bg-primary text-primary-foreground font-body font-semibold tracking-[0.15em] uppercase text-xs rounded-full hover:shadow-lg hover:shadow-primary/30 transition-shadow duration-300"
-            >
-              Shop Now
-            </a>
-            <a
-              href="#experience"
-              className="px-10 py-4 border border-primary/30 text-primary font-body font-semibold tracking-[0.15em] uppercase text-xs rounded-full hover:bg-primary/5 transition-colors duration-300"
-            >
-              Explore
-            </a>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            className="flex gap-12 mt-6 pt-6 border-t border-border/20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            {[
-              { value: "100%", label: "Organic" },
-              { value: "5K+", label: "Happy Clients" },
-              { value: "0%", label: "Chemicals" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-2xl md:text-3xl font-heading font-bold text-gradient-gold">
-                  {stat.value}
-                </p>
-                <p className="text-[10px] md:text-xs text-muted-foreground font-body tracking-wider uppercase mt-1">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
         </div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <p className="text-[9px] tracking-[0.4em] uppercase text-muted-foreground/40 font-body">
-          Scroll
-        </p>
-        <motion.div className="w-5 h-8 rounded-full border border-primary/20 flex items-start justify-center p-1.5">
-          <motion.div
-            className="w-1 h-1.5 rounded-full bg-primary/50"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.div>
       </motion.div>
     </section>
   );
