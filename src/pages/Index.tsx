@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
-import CustomCursor from "@/components/CustomCursor";
+
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
@@ -33,7 +33,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <CustomCursor />
+      
       <LoadingScreen />
       <Navbar cartCount={cartCount} />
       <HeroSection />
