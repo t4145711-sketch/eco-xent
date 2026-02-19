@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
+import heroProducts from "@/assets/hero-products.jpg";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -9,6 +10,7 @@ const HeroSection = () => {
   });
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
     <section
@@ -16,6 +18,16 @@ const HeroSection = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
+      {/* Hero background image */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+        <img
+          src={heroProducts}
+          alt="Eco-Xent organic products collection"
+          className="w-full h-full object-cover opacity-20 scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70" />
+      </motion.div>
       <motion.div
         className="container mx-auto px-6 relative z-10"
         style={{ y: textY, opacity }}
