@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import logoImg from "@/assets/ecoxent-logo-new.jpeg";
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -58,21 +59,18 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
         {/* Logo */}
         <motion.a
           href="#hero"
-          className="flex items-center gap-3 group"
-          whileHover={{ scale: 1.02 }}
+          className="flex items-center group"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
         >
-          <motion.div
-            className="relative w-10 h-10 rounded-xl border border-primary/30 flex items-center justify-center overflow-hidden group-hover:border-primary/60 transition-colors duration-500"
-            whileHover={{ rotate: 90 }}
+          <motion.img
+            src={logoImg}
+            alt="Eco-Xent Logo"
+            className="h-10 md:h-12 w-auto rounded-lg object-contain"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
-            <span className="text-primary font-heading font-bold text-sm relative z-10">E</span>
-          </motion.div>
-          <div className="flex flex-col">
-            <span className="text-lg font-heading font-bold text-gradient-gold leading-none">Eco-Xent</span>
-            <span className="text-[8px] text-muted-foreground/40 tracking-[0.3em] uppercase font-body">Premium Organics</span>
-          </div>
+          />
         </motion.a>
 
         {/* Desktop nav with pill indicator */}
