@@ -56,16 +56,6 @@ const ProblemSection = () => {
             delay={0.2}
           />
 
-          <motion.p
-            className="text-muted-foreground font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.8, duration: 0.8 }}
-          >
-            Most of what you apply sits on the surface. Synthetic chemicals, parabens, 
-            and harsh sulfates create an illusion of care — while silently damaging 
-            your skin's natural barrier.
-          </motion.p>
         </div>
 
         {/* Product Details - Hair Healer Oil */}
