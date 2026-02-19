@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
@@ -70,6 +70,29 @@ const HeroSection = () => {
             >
               Explore
             </a>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            className="flex gap-12 mt-6 pt-6 border-t border-border/20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 1.4 }}
+          >
+            {[
+              { value: "100%", label: "Organic" },
+              { value: "5K+", label: "Happy Clients" },
+              { value: "0%", label: "Chemicals" },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-2xl md:text-3xl font-heading font-bold text-gradient-gold">
+                  {stat.value}
+                </p>
+                <p className="text-[10px] md:text-xs text-muted-foreground font-body tracking-wider uppercase mt-1">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
           </motion.div>
         </div>
       </motion.div>
