@@ -1,4 +1,4 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 
 const stats = [
@@ -27,37 +27,26 @@ const Counter = ({ value, suffix, inView }: { value: number; suffix: string; inV
 const StatsBar = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const sectionScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <motion.section ref={sectionRef} className="relative py-20 overflow-hidden" style={{ scale: sectionScale }}>
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-r from-secondary via-forest to-secondary" />
-      <div className="absolute inset-0 overflow-hidden opacity-[0.03]">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute border border-primary/20 rounded-full"
-            style={{
-              width: `${200 + i * 150}px`,
-              height: `${200 + i * 150}px`,
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-            animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-            transition={{ duration: 30 + i * 10, repeat: Infinity, ease: "linear" }}
-          />
-        ))}
-      </div>
 
       <div ref={ref} className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.12, duration: 0.7 }}
+              initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+              animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ delay: i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="text-center group"
             >
               <motion.p
@@ -73,7 +62,7 @@ const StatsBar = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

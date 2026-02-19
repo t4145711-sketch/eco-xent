@@ -42,21 +42,17 @@ const ExperienceSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const bgRotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const parallaxY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const sectionScale = useTransform(scrollYProgress, [0, 0.2], [0.92, 1]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
   return (
-    <section ref={sectionRef} id="experience" className="relative py-32 overflow-hidden">
-      {/* Rotating gradient orb */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.05]"
-        style={{
-          background: "conic-gradient(from 0deg, hsl(43 50% 55%), hsl(160 70% 14%), hsl(43 40% 40%), hsl(160 70% 14%), hsl(43 50% 55%))",
-          rotate: bgRotate,
-          filter: "blur(100px)",
-        }}
-      />
-
+    <motion.section
+      ref={sectionRef}
+      id="experience"
+      className="relative py-32 overflow-hidden"
+      style={{ scale: sectionScale, opacity: sectionOpacity }}
+    >
       {/* Floating line elements */}
       <motion.div
         className="absolute right-0 top-1/4 w-px h-48 bg-gradient-to-b from-transparent via-primary/15 to-transparent"
@@ -99,14 +95,14 @@ const ExperienceSection = () => {
           </p>
         </motion.div>
 
-        {/* Bento-style grid */}
+        {/* Bento-style grid with blur-in animation */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              initial={{ opacity: 0, y: 60, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.3 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 50, filter: "blur(8px)" }}
+              animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ duration: 0.7, delay: 0.3 + i * 0.15, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{
                 y: -8,
                 transition: { duration: 0.3 },
@@ -149,7 +145,7 @@ const ExperienceSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

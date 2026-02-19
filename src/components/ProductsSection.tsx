@@ -1,4 +1,4 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { ShoppingCart, Clock, Eye, ArrowRight, Sparkles } from "lucide-react";
 
@@ -31,71 +31,36 @@ const products: Product[] = [
 const ProductCard = ({ product, index, onAddToCart }: { product: Product; index: number; onAddToCart: (id: number) => void }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  // 3D tilt effect
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { stiffness: 200, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { stiffness: 200, damping: 20 });
-
-  // Spotlight position
-  const spotlightX = useMotionValue(50);
-  const spotlightY = useMotionValue(50);
-
   const [hovered, setHovered] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-    spotlightX.set(((e.clientX - rect.left) / rect.width) * 100);
-    spotlightY.set(((e.clientY - rect.top) / rect.height) * 100);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-    setHovered(false);
-  };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 80 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-        transformPerspective: 1200,
-      }}
-      onMouseMove={handleMouseMove}
+      initial={{ opacity: 0, y: 60, filter: "blur(10px)" }}
+      animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={() => setHovered(false)}
       className="group relative rounded-2xl overflow-hidden"
     >
-      {/* Spotlight effect */}
-      <motion.div
-        className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+      {/* Card background with animated border */}
+      <div
+        className="absolute inset-0 rounded-2xl transition-all duration-700"
         style={{
-          background: useTransform(
-            [spotlightX, spotlightY],
-            ([x, y]: number[]) =>
-              `radial-gradient(400px circle at ${x}% ${y}%, hsl(43 50% 55% / 0.12), transparent 60%)`
-          ),
+          background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.5))",
+          border: hovered ? "1px solid hsl(43 50% 55% / 0.25)" : "1px solid hsl(43 50% 55% / 0.08)",
         }}
       />
 
-      {/* Card background */}
-      <div
-        className="absolute inset-0 rounded-2xl"
+      {/* Shimmer sweep on hover */}
+      <motion.div
+        className="absolute inset-0 z-10 pointer-events-none"
+        initial={{ x: "-100%", opacity: 0 }}
+        animate={hovered ? { x: "200%", opacity: 0.08 } : { x: "-100%", opacity: 0 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
         style={{
-          background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.5))",
-          border: "1px solid hsl(43 50% 55% / 0.08)",
+          background: "linear-gradient(90deg, transparent, hsl(43 50% 55%), transparent)",
+          width: "50%",
         }}
       />
 
@@ -124,28 +89,25 @@ const ProductCard = ({ product, index, onAddToCart }: { product: Product; index:
           </div>
         ) : null}
 
-        {/* Image with parallax depth */}
+        {/* Image with scale + reveal */}
         <div className="relative h-72 overflow-hidden">
           <motion.img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
-            style={{
-              scale: hovered ? 1.1 : 1,
-              transition: "scale 0.7s cubic-bezier(0.22, 1, 0.36, 1)",
-            }}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out"
+            style={{ scale: hovered ? 1.08 : 1 }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
 
-          {/* Quick view */}
+          {/* Quick view - slide up from bottom */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-background/30 backdrop-blur-sm flex items-center justify-center"
+            className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-6"
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: hovered ? 0 : 40, opacity: hovered ? 1 : 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 bg-background/60 text-primary"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 bg-background/70 backdrop-blur-md text-primary"
               whileHover={{ scale: 1.05 }}
             >
               <Eye className="w-4 h-4" />
@@ -157,46 +119,64 @@ const ProductCard = ({ product, index, onAddToCart }: { product: Product; index:
         {/* Content */}
         <div className="p-6 flex flex-col gap-3">
           <div>
-            <p className="text-[10px] text-primary/60 font-body tracking-[0.25em] uppercase mb-1 flex items-center gap-1.5">
+            <motion.p
+              className="text-[10px] text-primary/60 font-body tracking-[0.25em] uppercase mb-1 flex items-center gap-1.5"
+              initial={{ x: -10, opacity: 0 }}
+              animate={isInView ? { x: 0, opacity: 1 } : {}}
+              transition={{ delay: index * 0.15 + 0.4, duration: 0.5 }}
+            >
               <Sparkles className="w-3 h-3" />
               {product.tagline}
-            </p>
+            </motion.p>
             <h3 className="text-xl font-heading font-semibold text-foreground">{product.name}</h3>
             <p className="text-sm text-muted-foreground font-body leading-relaxed mt-2">{product.description}</p>
           </div>
 
-          <div className="h-[1px] w-full bg-gradient-to-r from-primary/15 via-primary/10 to-transparent my-1" />
+          <motion.div
+            className="h-[1px] w-full bg-gradient-to-r from-primary/15 via-primary/10 to-transparent my-1"
+            initial={{ scaleX: 0, originX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ delay: index * 0.15 + 0.6, duration: 0.8 }}
+          />
 
           <div className="flex items-center justify-between">
-            <span className="text-2xl font-heading font-bold text-gradient-gold">{product.price}</span>
+            <motion.span
+              className="text-2xl font-heading font-bold text-gradient-gold"
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: index * 0.15 + 0.7, duration: 0.5 }}
+            >
+              {product.price}
+            </motion.span>
             {!product.comingSoon ? (
               <motion.button
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: "0 8px 30px hsl(43 50% 55% / 0.3)" }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => onAddToCart(product.id)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-body font-semibold text-xs tracking-[0.1em] uppercase shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-shadow duration-500"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground font-body font-semibold text-xs tracking-[0.1em] uppercase shadow-lg shadow-primary/20 transition-shadow duration-500"
               >
                 <ShoppingCart className="w-3.5 h-3.5" />
                 Add to Cart
               </motion.button>
             ) : (
-              <button className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 text-primary/60 font-body text-xs tracking-[0.1em] uppercase hover:border-primary/40 hover:text-primary transition-all duration-300">
+              <motion.button
+                whileHover={{ scale: 1.05, borderColor: "hsl(43 50% 55% / 0.4)" }}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/20 text-primary/60 font-body text-xs tracking-[0.1em] uppercase transition-all duration-300"
+              >
                 <span>Notify Me</span>
                 <ArrowRight className="w-3 h-3" />
-              </button>
+              </motion.button>
             )}
           </div>
         </div>
       </div>
 
-      {/* Hover border glow */}
+      {/* Bottom glow on hover */}
       <motion.div
-        className="absolute inset-0 rounded-2xl pointer-events-none"
-        animate={{
-          boxShadow: hovered
-            ? "inset 0 0 0 1px hsl(43 50% 55% / 0.2), 0 0 40px hsl(43 50% 55% / 0.08), 0 20px 60px -20px hsl(0 0% 0% / 0.5)"
-            : "inset 0 0 0 1px hsl(43 50% 55% / 0.05), 0 0 0px transparent",
-        }}
+        className="absolute bottom-0 left-[10%] right-[10%] h-[2px] rounded-full pointer-events-none"
+        style={{ background: "linear-gradient(90deg, transparent, hsl(43 50% 55% / 0.5), transparent)" }}
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: hovered ? 1 : 0, scaleX: hovered ? 1 : 0 }}
         transition={{ duration: 0.5 }}
       />
     </motion.div>
@@ -206,9 +186,21 @@ const ProductCard = ({ product, index, onAddToCart }: { product: Product; index:
 const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void }) => {
   const headingRef = useRef(null);
   const isHeadingInView = useInView(headingRef, { once: true });
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const sectionScale = useTransform(scrollYProgress, [0, 0.2], [0.95, 1]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
   return (
-    <section id="products" className="relative py-32 overflow-hidden">
+    <motion.section
+      ref={sectionRef}
+      id="products"
+      className="relative py-32 overflow-hidden"
+      style={{ scale: sectionScale, opacity: sectionOpacity }}
+    >
       <div className="absolute inset-0 gradient-radial-gold opacity-15" />
 
       <div className="container mx-auto px-6 relative z-10">
@@ -242,13 +234,13 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto perspective-1000">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} onAddToCart={onAddToCart} />
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

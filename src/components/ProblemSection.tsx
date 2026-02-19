@@ -2,22 +2,6 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import SpacedHeading from "./SpacedHeading";
 
-const AnimatedPercent = ({ target, inView }: { target: number; inView: boolean }) => {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    let step = 0;
-    const steps = 40;
-    const timer = setInterval(() => {
-      step++;
-      setVal(Math.round((1 - Math.pow(1 - step / steps, 3)) * target));
-      if (step >= steps) clearInterval(timer);
-    }, 30);
-    return () => clearInterval(timer);
-  }, [inView, target]);
-  return <span>{val}%</span>;
-};
-
 const ProblemSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -27,9 +11,15 @@ const ProblemSection = () => {
     offset: ["start end", "end start"],
   });
   const bgY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const sectionScale = useTransform(scrollYProgress, [0, 0.3], [0.92, 1]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <motion.section
+      ref={sectionRef}
+      className="relative py-32 overflow-hidden"
+      style={{ scale: sectionScale, opacity: sectionOpacity }}
+    >
       {/* Background texture */}
       <motion.div
         className="absolute inset-0 opacity-[0.03]"
@@ -45,7 +35,7 @@ const ProblemSection = () => {
             className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
           >
             The Hidden Truth
           </motion.p>
@@ -55,7 +45,6 @@ const ProblemSection = () => {
             className="text-3xl md:text-4xl lg:text-5xl text-gradient-gold mb-8 leading-tight"
             delay={0.2}
           />
-
         </div>
 
         {/* Product Details - Hair Healer Oil */}
@@ -65,9 +54,9 @@ const ProblemSection = () => {
             background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.5))",
             border: "1px solid hsl(43 50% 55% / 0.1)",
           }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.9, duration: 0.8 }}
+          initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
           <h3 className="text-2xl md:text-3xl font-heading font-bold text-gradient-gold mb-4">Hair Healer Oil</h3>
           <p className="text-muted-foreground font-body text-sm md:text-base leading-relaxed mb-6">
@@ -85,32 +74,53 @@ const ProblemSection = () => {
                 "Deeply nourishes the scalp.",
                 "Enhances shine and smooth texture.",
               ].map((b, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground font-body">
+                <motion.li
+                  key={i}
+                  className="flex items-start gap-2 text-sm text-muted-foreground font-body"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.7 + i * 0.1, duration: 0.5 }}
+                >
                   <span className="text-primary mt-0.5">✦</span>
                   {b}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>
 
           {/* Ingredients */}
-          <div className="mb-6">
+          <motion.div
+            className="mb-6"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 1.2, duration: 0.6 }}
+          >
             <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Ingredients</h4>
             <p className="text-sm text-muted-foreground font-body leading-relaxed">
               Coconut Oil, Castor Oil, Mustard Oil, Black Seed Oil, Onion Oil, Amla Oil, Neem Oil, Fenugreek, Hibiscus, Bhringraj, Rosemary Oil, Peppermint Oil, Vitamin E
             </p>
-          </div>
+          </motion.div>
 
           {/* How to Use */}
-          <div className="mb-6">
+          <motion.div
+            className="mb-6"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 1.4, duration: 0.6 }}
+          >
             <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">How to Use</h4>
             <p className="text-sm text-muted-foreground font-body leading-relaxed">
               Massage into scalp and hair. Leave overnight. Rinse with shampoo. Use 2–3 times weekly.
             </p>
-          </div>
+          </motion.div>
 
           {/* Caution & Storage */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <motion.div
+            className="grid md:grid-cols-2 gap-6"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 1.6, duration: 0.6 }}
+          >
             <div>
               <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Caution</h4>
               <p className="text-xs text-muted-foreground font-body leading-relaxed">
@@ -123,7 +133,7 @@ const ProblemSection = () => {
                 Store in a cool and dry place, away from direct sunlight.
               </p>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Transition question */}
@@ -140,7 +150,7 @@ const ProblemSection = () => {
           />
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

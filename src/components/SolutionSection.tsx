@@ -31,11 +31,11 @@ const SolutionSection = () => {
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const scale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.3], [0.92, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <motion.section ref={sectionRef} className="relative py-32 overflow-hidden" style={{ scale, opacity }}>
       {/* Glow background */}
       <motion.div
         className="absolute inset-0"
@@ -49,7 +49,7 @@ const SolutionSection = () => {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <motion.div ref={ref} className="container mx-auto px-6 relative z-10" style={{ scale, opacity }}>
+      <div ref={ref} className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.p
             className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium mb-6"
@@ -93,14 +93,14 @@ const SolutionSection = () => {
           </motion.div>
         </div>
 
-        {/* Feature cards */}
+        {/* Feature cards with stagger + blur reveal */}
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
-              initial={{ opacity: 0, y: 60 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.8 + i * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 50, filter: "blur(8px)" }}
+              animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+              transition={{ delay: 0.8 + i * 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -8, transition: { duration: 0.3 } }}
               className="group relative rounded-2xl p-8 overflow-hidden"
               style={{
@@ -121,8 +121,8 @@ const SolutionSection = () => {
             </motion.div>
           ))}
         </div>
-      </motion.div>
-    </section>
+      </div>
+    </motion.section>
   );
 };
 
