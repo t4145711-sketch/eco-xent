@@ -38,7 +38,39 @@ const HeroSection = () => {
         className="container mx-auto px-6 relative z-10"
         style={{ y: textY, opacity }}
       >
-        <div className="flex flex-col items-center text-center gap-8 max-w-2xl mx-auto">
+        <div className="flex flex-col items-center text-center gap-6 max-w-2xl mx-auto">
+          {/* Overline with clip reveal */}
+          <motion.div
+            className="overflow-hidden"
+            initial={{ width: 0 }}
+            animate={{ width: "auto" }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="text-primary tracking-[0.5em] uppercase text-[10px] md:text-xs font-body font-medium whitespace-nowrap">
+              Premium Organic Collection
+            </p>
+          </motion.div>
+
+          {/* Brand name with character stagger */}
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-heading font-bold leading-[0.85]">
+            <div className="overflow-hidden">
+              {"Eco‑Xent".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  className="text-gradient-gold inline-block"
+                  initial={{ y: "110%", rotateX: 40 }}
+                  animate={{ y: "0%", rotateX: 0 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.5 + i * 0.05,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </div>
+          </h1>
 
           {/* Tagline slide up */}
           <div className="overflow-hidden">
