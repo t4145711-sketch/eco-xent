@@ -3,11 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const reviews = [
-  { name: "Fatima Malik", location: "Lahore", text: "Hair Healer Oil ne mera hair fall bilkul band kar diya! 3 hafte mein farq aaya. Pehle bahut zyada baal girte the, ab bilkul nahi. Shukria Eco-Xent! 🌿", rating: 5, initials: "FM", product: "Hair Healer Oil" },
-  { name: "Sara Ahmed", location: "Karachi", text: "Cold Process Soap use kiya — 2 hafte mein acne marks halke ho gaye! Pehle har cheez try ki thi, kuch kaam nahi aaya. Yeh soap sach mein heal karta hai.", rating: 5, initials: "SA", product: "Cold Process Soap" },
-  { name: "Zainab Khan", location: "Islamabad", text: "Herbal Shampoo se mere baal itne silky ho gaye hain jitne kabhi nahi the. Koi chemical wali smell bhi nahi. Natural fragrance bahut pyari hai. Highly recommend!", rating: 5, initials: "ZK", product: "Herbal Shampoo" },
-  { name: "Usman Raza", location: "Rawalpindi", text: "Meri wife ke liye order kiya tha serum — usne kaha ke 1 mahine mein skin glow kar rahi hai. Ab toh hum dono use karte hain! COD bhi mila, bahut asan tha.", rating: 5, initials: "UR", product: "Face Serum" },
-  { name: "Hina Butt", location: "Faisalabad", text: "Pehle mujhe trust nahi tha online order ka. Par Eco-Xent ne delivery time par di, packaging zabardast thi. Aur Hair Oil ne sach mein baalon ki healing ki! Ab main regular customer hoon.", rating: 5, initials: "HB", product: "Hair Healer Oil" },
+  { name: "Fatima Malik", location: "Lahore", text: "Hair Oil ne mera hair fall bilkul band kar diya! 3 hafte mein farq aaya. Pehle bahut zyada baal girte the, ab bilkul nahi. Shukria Eco-Xent! 🌿", rating: 5, initials: "FM" },
+  { name: "Sara Ahmed", location: "Karachi", text: "Cold Process Soap use kiya — 2 hafte mein acne marks halke ho gaye! Pehle har cheez try ki thi, kuch kaam nahi aaya. Yeh soap amazing hai.", rating: 5, initials: "SA" },
+  { name: "Zainab Khan", location: "Islamabad", text: "Herbal Shampoo se mere baal itne silky ho gaye hain jitne kabhi nahi the. Koi chemical wali smell bhi nahi. Natural fragrance bahut pyari hai. Highly recommend!", rating: 5, initials: "ZK" },
+  { name: "Usman Raza", location: "Rawalpindi", text: "Meri wife ke liye order kiya tha serum — usne kaha ke 1 mahine mein skin glow kar rahi hai. Ab toh hum dono use karte hain! COD bhi mila, bahut asan tha.", rating: 5, initials: "UR" },
+  { name: "Hina Butt", location: "Faisalabad", text: "Pehle mujhe trust nahi tha online order ka. Par Eco-Xent ne delivery time par di, packaging zabardast thi. Aur products sach mein kaam karte hain! Ab main regular customer hoon.", rating: 5, initials: "HB" },
 ];
 
 const ReviewsSection = () => {
@@ -42,13 +42,13 @@ const ReviewsSection = () => {
         >
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary/50" />
-            <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">Real Healing Stories</p>
+            <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">Testimonials</p>
             <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary/50" />
           </div>
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-gradient-gold">
-            Customers Ka Sach
+            Real Results, Real People
           </h2>
-          <p className="text-muted-foreground font-body text-sm mt-3">Pakistan ke hazaron customers ne heal kiya — ab aapki bari</p>
+          <p className="text-muted-foreground font-body text-sm mt-3">Pakistan ke hazaron customers ki zindagi badal di</p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto">
@@ -67,8 +67,8 @@ const ReviewsSection = () => {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="relative rounded-3xl p-10 md:p-14 text-center"
               style={{
-                background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.3))",
-                border: "1px solid hsl(43 50% 55% / 0.08)",
+                background: "linear-gradient(160deg, hsl(var(--primary) / 0.04), hsl(var(--secondary) / 0.3))",
+                border: "1px solid hsl(var(--primary) / 0.08)",
               }}
             >
               {/* Large quote mark */}
@@ -101,7 +101,6 @@ const ReviewsSection = () => {
                 <div>
                   <p className="text-primary font-heading font-semibold text-lg">{reviews[current].name}</p>
                   <p className="text-xs text-muted-foreground font-body tracking-wider">{reviews[current].location}</p>
-                  <p className="text-xs text-primary/60 font-body mt-1">✦ {reviews[current].product}</p>
                 </div>
               </div>
             </motion.div>

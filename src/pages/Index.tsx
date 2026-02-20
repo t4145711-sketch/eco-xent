@@ -10,7 +10,6 @@ import SolutionSection from "@/components/SolutionSection";
 import HorizontalFeatures from "@/components/HorizontalFeatures";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
-import HealingIngredientsSection from "@/components/HealingIngredientsSection";
 import InteractiveDemo from "@/components/InteractiveDemo";
 import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
@@ -19,7 +18,6 @@ import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
 import FooterSection from "@/components/FooterSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import MobileStickyBar from "@/components/MobileStickyBar";
 import { toast } from "sonner";
 
 const Index = () => {
@@ -30,16 +28,15 @@ const Index = () => {
     toast.success("Added to cart", {
       description: "Your item has been added successfully.",
       style: {
-        background: "hsl(160 50% 8%)",
-        border: "1px solid hsl(43 50% 55% / 0.2)",
-        color: "hsl(40 20% 90%)",
+        background: "hsl(var(--secondary))",
+        border: "1px solid hsl(var(--primary) / 0.2)",
+        color: "hsl(var(--foreground))",
       },
     });
   };
 
   return (
     <div className="min-h-screen bg-background">
-      
       <LoadingScreen />
       <AnnouncementBar />
       <Navbar cartCount={cartCount} />
@@ -50,7 +47,6 @@ const Index = () => {
       <HorizontalFeatures />
       <StatsBar />
       <ProductsSection onAddToCart={handleAddToCart} />
-      <HealingIngredientsSection />
       <InteractiveDemo />
       <ExperienceSection />
       <AboutSection />
@@ -59,7 +55,6 @@ const Index = () => {
       <FinalCTA />
       <FooterSection />
       <WhatsAppButton />
-      <MobileStickyBar />
     </div>
   );
 };
