@@ -9,7 +9,7 @@ interface SpacedHeadingProps {
 
 const SpacedHeading = ({ text, className = "", delay = 0 }: SpacedHeadingProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: false, margin: "-80px" });
 
   return (
     <h2 ref={ref} className={`font-heading font-bold ${className}`}>

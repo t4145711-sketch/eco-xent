@@ -26,7 +26,7 @@ const Counter = ({ value, suffix, inView }: { value: number; suffix: string; inV
 
 const StatsBar = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,

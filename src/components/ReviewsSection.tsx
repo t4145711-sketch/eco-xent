@@ -12,7 +12,7 @@ const reviews = [
 
 const ReviewsSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: false });
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
 

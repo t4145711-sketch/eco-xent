@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 const FinalCTA = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: false });
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,

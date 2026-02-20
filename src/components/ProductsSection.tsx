@@ -32,7 +32,7 @@ const products: Product[] = [
 
 const ProductCard = ({ product, index, onAddToCart }: { product: Product; index: number; onAddToCart: (id: number) => void }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -200,7 +200,7 @@ const ProductCard = ({ product, index, onAddToCart }: { product: Product; index:
 
 const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void }) => {
   const headingRef = useRef(null);
-  const isHeadingInView = useInView(headingRef, { once: true });
+  const isHeadingInView = useInView(headingRef, { once: false });
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
