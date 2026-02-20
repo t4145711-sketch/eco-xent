@@ -58,34 +58,31 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
         <motion.a
           href="#hero"
           className="flex items-center group"
-          whileHover={{ scale: 1.03 }}
+          whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Logo container with professional treatment */}
-          <div
-            className="relative overflow-hidden rounded-xl"
-            style={{
-              padding: "4px 10px",
-              background: "linear-gradient(135deg, hsl(160 60% 8% / 0.9), hsl(160 50% 12% / 0.7))",
-              border: "1px solid hsl(43 50% 55% / 0.18)",
-              boxShadow: "0 2px 16px hsl(43 50% 40% / 0.08), inset 0 1px 0 hsl(43 60% 60% / 0.06)",
-            }}
-          >
-            {/* Subtle top-left glow */}
+          {/* Professional logo container — clean, no distracting box */}
+          <div className="relative flex items-center">
+            {/* Soft ambient glow behind logo */}
             <div
-              className="absolute top-0 left-0 w-12 h-full pointer-events-none"
-              style={{ background: "linear-gradient(to right, hsl(43 60% 55% / 0.05), transparent)" }}
+              className="absolute inset-0 rounded-2xl pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse at center, hsl(43 60% 55% / 0.12) 0%, transparent 70%)",
+                filter: "blur(8px)",
+                transform: "scale(1.3)",
+              }}
             />
             <img
               src={logoImg}
               alt="Eco-Xent Logo"
-              className="relative z-10 object-contain"
+              className="relative z-10 object-contain drop-shadow-sm"
               style={{
-                height: "38px",
+                height: "52px",
                 width: "auto",
+                filter: "drop-shadow(0 2px 12px hsl(43 60% 50% / 0.25)) drop-shadow(0 1px 3px hsl(0 0% 0% / 0.4))",
               }}
             />
           </div>
