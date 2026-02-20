@@ -6,52 +6,56 @@
 
 @layer base {
   :root {
-    --background: 160 70% 5%;
-    --foreground: 40 20% 90%;
+    /* Core — olive-army green base from logo (#4D6741 vibe) */
+    --background: 95 28% 6%;
+    --foreground: 0 0% 88%;
 
-    --card: 160 50% 8%;
-    --card-foreground: 40 20% 90%;
+    --card: 95 22% 9%;
+    --card-foreground: 0 0% 88%;
 
-    --popover: 160 50% 8%;
-    --popover-foreground: 40 20% 90%;
+    --popover: 95 22% 9%;
+    --popover-foreground: 0 0% 88%;
 
-    --primary: 43 50% 55%;
-    --primary-foreground: 160 70% 5%;
+    /* Primary — natural leaf green from logo */
+    --primary: 95 38% 50%;
+    --primary-foreground: 95 28% 6%;
 
-    --secondary: 160 40% 12%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 95 18% 13%;
+    --secondary-foreground: 0 0% 85%;
 
-    --muted: 160 30% 15%;
-    --muted-foreground: 40 10% 60%;
+    --muted: 95 14% 16%;
+    --muted-foreground: 0 0% 52%;
 
-    --accent: 160 60% 15%;
-    --accent-foreground: 43 50% 55%;
+    /* Accent — deeper olive */
+    --accent: 95 25% 18%;
+    --accent-foreground: 95 38% 68%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 160 30% 18%;
-    --input: 160 30% 18%;
-    --ring: 43 50% 55%;
+    --border: 95 18% 20%;
+    --input: 95 18% 20%;
+    --ring: 95 38% 50%;
 
     --radius: 0.75rem;
 
-    --gold: 43 50% 55%;
-    --gold-light: 43 60% 70%;
-    --gold-dark: 43 40% 40%;
-    --forest: 160 70% 14%;
-    --forest-deep: 160 70% 5%;
-    --forest-light: 160 40% 20%;
-    --cream: 40 30% 92%;
+    /* Brand tokens */
+    --gold: 95 38% 50%;
+    --gold-light: 95 42% 65%;
+    --gold-dark: 95 28% 36%;
+    --forest: 95 28% 16%;
+    --forest-deep: 95 28% 6%;
+    --forest-light: 95 22% 22%;
+    --cream: 0 0% 88%;
 
-    --sidebar-background: 160 70% 5%;
-    --sidebar-foreground: 40 20% 90%;
-    --sidebar-primary: 43 50% 55%;
-    --sidebar-primary-foreground: 160 70% 5%;
-    --sidebar-accent: 160 40% 12%;
-    --sidebar-accent-foreground: 40 20% 90%;
-    --sidebar-border: 160 30% 18%;
-    --sidebar-ring: 43 50% 55%;
+    --sidebar-background: 95 28% 6%;
+    --sidebar-foreground: 0 0% 88%;
+    --sidebar-primary: 95 38% 50%;
+    --sidebar-primary-foreground: 95 28% 6%;
+    --sidebar-accent: 95 18% 13%;
+    --sidebar-accent-foreground: 0 0% 88%;
+    --sidebar-border: 95 18% 20%;
+    --sidebar-ring: 95 38% 50%;
   }
 }
 
@@ -70,8 +74,8 @@
   }
 
   ::selection {
-    background: hsl(43 50% 55% / 0.3);
-    color: hsl(40 30% 92%);
+    background: hsl(95 38% 50% / 0.3);
+    color: hsl(0 0% 88%);
   }
 }
 
@@ -81,34 +85,33 @@
   }
 
   .glass-gold {
-    background: linear-gradient(135deg, hsl(43 50% 55% / 0.08), hsl(160 40% 12% / 0.5));
+    background: linear-gradient(135deg, hsl(95 38% 50% / 0.08), hsl(95 18% 13% / 0.5));
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(43 50% 55% / 0.15);
+    border: 1px solid hsl(95 38% 50% / 0.15);
   }
 
   .glow-gold {
-    box-shadow: 0 0 30px hsl(43 50% 55% / 0.15), 0 0 60px hsl(43 50% 55% / 0.05);
+    box-shadow: 0 0 30px hsl(95 38% 50% / 0.15), 0 0 60px hsl(95 38% 50% / 0.05);
   }
 
   .glow-gold-strong {
-    box-shadow: 0 0 20px hsl(43 50% 55% / 0.3), 0 0 40px hsl(43 50% 55% / 0.1);
+    box-shadow: 0 0 20px hsl(95 38% 50% / 0.3), 0 0 40px hsl(95 38% 50% / 0.1);
   }
 
   .text-gradient-gold {
-    background: linear-gradient(135deg, hsl(43 60% 70%), hsl(43 50% 55%), hsl(43 40% 40%));
+    background: linear-gradient(135deg, hsl(95 45% 72%), hsl(95 38% 55%), hsl(95 28% 40%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-forest {
-    background: linear-gradient(180deg, hsl(160 70% 5%), hsl(160 50% 8%), hsl(160 70% 5%));
+    background: linear-gradient(180deg, hsl(95 28% 6%), hsl(95 22% 9%), hsl(95 28% 6%));
   }
 
   .gradient-radial-gold {
-    background: radial-gradient(ellipse at center, hsl(43 50% 55% / 0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, hsl(95 38% 50% / 0.08) 0%, transparent 70%);
   }
-
 
   .perspective-1000 {
     perspective: 1000px;
@@ -120,7 +123,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Section reveal on scroll */
 section {
   will-change: transform;
 }
@@ -130,12 +132,12 @@ section {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(160 70% 5%);
+  background: hsl(95 28% 6%);
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(43 50% 55% / 0.3);
+  background: hsl(95 38% 50% / 0.3);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(43 50% 55% / 0.5);
+  background: hsl(95 38% 50% / 0.5);
 }
