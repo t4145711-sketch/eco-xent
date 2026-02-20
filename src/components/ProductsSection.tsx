@@ -1,6 +1,7 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { ShoppingCart, Clock, Eye, ArrowRight, Sparkles, MessageCircle } from "lucide-react";
+import CheckoutModal from "@/components/CheckoutModal";
 
 import productShampoo from "@/assets/product-shampoo.png";
 import productHairOil from "@/assets/product-hairoil.png";
@@ -30,7 +31,7 @@ const products: Product[] = [
   { id: 6, name: "Anti-Aging Serum", tagline: "Youth Healing", description: "Organic anti-aging herbs se bana ye serum skin cells ko heal kare — jhurriyan mitaye, jawani wali chhaap wapas laaye.", price: "Rs. 1,650", originalPrice: "Rs. 2,100", image: productSerum, stock: 7, category: "Skincare" },
 ];
 
-const ProductCard = ({ product, index, onAddToCart }: { product: Product; index: number; onAddToCart: (id: number) => void }) => {
+const ProductCard = ({ product, index, onAddToCart, onBuyNow }: { product: Product; index: number; onAddToCart: (id: number) => void; onBuyNow: (p: Product) => void }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
   const [hovered, setHovered] = useState(false);
@@ -151,21 +152,16 @@ const ProductCard = ({ product, index, onAddToCart }: { product: Product; index:
           <div className="flex flex-col gap-2">
             {!product.comingSoon ? (
               <>
-                {/* WhatsApp Order Button */}
+                {/* Order Now Button */}
                 <motion.button
                   whileHover={{ scale: 1.03, boxShadow: "0 8px 24px rgba(37,211,102,0.35)" }}
                   whileTap={{ scale: 0.96 }}
-                  onClick={() => {
-                    const msg = encodeURIComponent(
-                      `السلام علیکم! 🌿\nMujhe *${product.name}* order karna hai.\nPrice: ${product.price}\n\nPlease confirm availability. Shukriya!`
-                    );
-                    window.open(`https://wa.me/923295991062?text=${msg}`, "_blank");
-                  }}
+                  onClick={() => onBuyNow(product)}
                   className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-full font-body font-semibold text-xs tracking-[0.08em] uppercase transition-all duration-300"
                   style={{ background: "linear-gradient(135deg, #25D366, #128C7E)", color: "#fff" }}
                 >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  WhatsApp pe Order
+                  <ShoppingCart className="w-3.5 h-3.5" />
+                  Abhi Order Karein
                 </motion.button>
                 {/* Add to Cart */}
                 <motion.button
@@ -207,6 +203,7 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
   const headingRef = useRef(null);
   const isHeadingInView = useInView(headingRef, { once: false });
   const sectionRef = useRef(null);
+  const [checkoutProduct, setCheckoutProduct] = useState<Product | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -215,73 +212,87 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
   return (
-    <motion.section
-      ref={sectionRef}
-      id="products"
-      className="relative py-32 overflow-hidden"
-      style={{ scale: sectionScale, opacity: sectionOpacity }}
-    >
-      <div className="absolute inset-0 gradient-radial-gold opacity-15" />
+    <>
+      <motion.section
+        ref={sectionRef}
+        id="products"
+        className="relative py-32 overflow-hidden"
+        style={{ scale: sectionScale, opacity: sectionOpacity }}
+      >
+        <div className="absolute inset-0 gradient-radial-gold opacity-15" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          ref={headingRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          {/* Eid Special Offer Banner */}
+        <div className="container mx-auto px-6 relative z-10">
           <motion.div
-            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full mb-8"
-            style={{ background: "linear-gradient(135deg, hsl(43 50% 55% / 0.15), hsl(43 50% 55% / 0.05))", border: "1px solid hsl(43 50% 55% / 0.35)" }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isHeadingInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6 }}
+            ref={headingRef}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20"
           >
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-lg"
-            >🌙</motion.span>
-            <span className="text-primary font-heading font-bold text-sm tracking-[0.2em] uppercase">Eid Special Offer</span>
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-              className="text-lg"
-            >⭐</motion.span>
+            {/* Eid Special Offer Banner */}
+            <motion.div
+              className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full mb-8"
+              style={{ background: "linear-gradient(135deg, hsl(43 50% 55% / 0.15), hsl(43 50% 55% / 0.05))", border: "1px solid hsl(43 50% 55% / 0.35)" }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isHeadingInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="text-lg"
+              >🌙</motion.span>
+              <span className="text-primary font-heading font-bold text-sm tracking-[0.2em] uppercase">Eid Special Offer</span>
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                className="text-lg"
+              >⭐</motion.span>
+            </motion.div>
+
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <motion.div
+                className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary/50"
+                initial={{ scaleX: 0 }}
+                animate={isHeadingInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1, delay: 0.2 }}
+              />
+              <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">The Collection</p>
+              <motion.div
+                className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary/50"
+                initial={{ scaleX: 0 }}
+                animate={isHeadingInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1, delay: 0.2 }}
+              />
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gradient-gold mb-4">
+              Healing Collection
+            </h2>
+            <p className="text-sm text-muted-foreground font-body max-w-md mx-auto">
+              Har product qudrat ki healing taqat se banaya gaya hai — andar se theek kare, bahar se nikhaare.
+            </p>
           </motion.div>
 
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <motion.div
-              className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary/50"
-              initial={{ scaleX: 0 }}
-              animate={isHeadingInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1, delay: 0.2 }}
-            />
-            <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">The Collection</p>
-            <motion.div
-              className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary/50"
-              initial={{ scaleX: 0 }}
-              animate={isHeadingInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1, delay: 0.2 }}
-            />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {products.map((product, i) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                index={i}
+                onAddToCart={onAddToCart}
+                onBuyNow={setCheckoutProduct}
+              />
+            ))}
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gradient-gold mb-4">
-            Healing Collection
-          </h2>
-          <p className="text-sm text-muted-foreground font-body max-w-md mx-auto">
-            Har product qudrat ki healing taqat se banaya gaya hai — andar se theek kare, bahar se nikhaare.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {products.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} onAddToCart={onAddToCart} />
-          ))}
         </div>
-      </div>
-    </motion.section>
+      </motion.section>
+
+      <CheckoutModal
+        product={checkoutProduct}
+        isOpen={!!checkoutProduct}
+        onClose={() => setCheckoutProduct(null)}
+      />
+    </>
   );
 };
 
