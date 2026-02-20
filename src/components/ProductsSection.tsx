@@ -14,6 +14,7 @@ interface Product {
   tagline: string;
   description: string;
   price: string;
+  originalPrice: string;
   image: string;
   comingSoon?: boolean;
   stock?: number;
@@ -21,11 +22,12 @@ interface Product {
 }
 
 const products: Product[] = [
-  { id: 1, name: "Herbal Shampoo", tagline: "Ayurvedic Brilliance", description: "Infused with ancient Ayurvedic herbs for lustrous, healthy hair that radiates vitality.", price: "₹899", image: productShampoo, stock: 12, category: "Haircare" },
-  { id: 2, name: "Herbal Hair Oil", tagline: "Botanical Elixir", description: "A potent elixir of rare botanical oils that deeply nourishes roots and strengthens every strand.", price: "₹749", image: productHairOil, stock: 8, category: "Haircare" },
-  { id: 3, name: "Pour Soap", tagline: "Botanical Art", description: "Elegantly designed botanical soap bars that transform your daily routine into a luxury experience.", price: "₹499", image: productPourSoap, stock: 15, category: "Skincare" },
-  { id: 4, name: "Melt Pour Soap", tagline: "Artisan Ritual", description: "Artisan-crafted with organic butters and essential oils for an indulgent cleansing ritual.", price: "₹449", image: productMeltPourSoap, stock: 20, category: "Skincare" },
-  { id: 5, name: "Anti Aging Serum", tagline: "Timeless Youth", description: "Revolutionary formula with organic retinol alternatives for timeless, youthful radiance.", price: "₹1,299", image: productSerum, comingSoon: true, category: "Skincare" },
+  { id: 1, name: "Herbal Hair Growth Shampoo", tagline: "Ayurvedic Brilliance", description: "Infused with ancient Ayurvedic herbs for lustrous, healthy hair growth that radiates vitality.", price: "Rs. 750", originalPrice: "Rs. 850", image: productShampoo, stock: 12, category: "Haircare" },
+  { id: 2, name: "Healing Hair Oil", tagline: "Botanical Elixir", description: "A potent elixir of rare botanical oils that deeply nourishes roots and strengthens every strand.", price: "Rs. 750", originalPrice: "Rs. 850", image: productHairOil, stock: 8, category: "Haircare" },
+  { id: 3, name: "Healing Soap", tagline: "Botanical Art", description: "Elegantly designed botanical soap bars that transform your daily routine into a luxury healing experience.", price: "Rs. 750", originalPrice: "Rs. 900", image: productPourSoap, stock: 15, category: "Skincare" },
+  { id: 4, name: "Acne Soap", tagline: "Clear Skin Ritual", description: "Artisan-crafted with organic ingredients specifically formulated to combat acne and restore clear skin.", price: "Rs. 650", originalPrice: "Rs. 790", image: productMeltPourSoap, stock: 20, category: "Skincare" },
+  { id: 5, name: "Whitening Serum", tagline: "Radiant Glow", description: "Advanced brightening formula with natural whitening agents for a luminous, even-toned complexion.", price: "Rs. 1,550", originalPrice: "Rs. 1,999", image: productSerum, stock: 10, category: "Skincare" },
+  { id: 6, name: "Anti-Aging Serum", tagline: "Timeless Youth", description: "Revolutionary formula with organic retinol alternatives for timeless, youthful radiance.", price: "Rs. 1,650", originalPrice: "Rs. 2,100", image: productSerum, stock: 7, category: "Skincare" },
 ];
 
 const ProductCard = ({ product, index, onAddToCart }: { product: Product; index: number; onAddToCart: (id: number) => void }) => {
@@ -140,14 +142,27 @@ const ProductCard = ({ product, index, onAddToCart }: { product: Product; index:
           />
 
           <div className="flex items-center justify-between">
-            <motion.span
-              className="text-2xl font-heading font-bold text-gradient-gold"
-              initial={{ opacity: 0, y: 10 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: index * 0.15 + 0.7, duration: 0.5 }}
-            >
-              {product.price}
-            </motion.span>
+            <div className="flex flex-col gap-0.5">
+              <div className="flex items-center gap-2">
+                <motion.span
+                  className="text-2xl font-heading font-bold text-gradient-gold"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: index * 0.15 + 0.7, duration: 0.5 }}
+                >
+                  {product.price}
+                </motion.span>
+                <motion.span
+                  className="text-sm font-body text-muted-foreground line-through"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ delay: index * 0.15 + 0.8, duration: 0.5 }}
+                >
+                  {product.originalPrice}
+                </motion.span>
+              </div>
+              <span className="text-[9px] font-body text-primary/50 tracking-wider uppercase">Batch No. 6</span>
+            </div>
             {!product.comingSoon ? (
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: "0 8px 30px hsl(43 50% 55% / 0.3)" }}
@@ -211,6 +226,27 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
+          {/* Eid Special Offer Banner */}
+          <motion.div
+            className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full mb-8"
+            style={{ background: "linear-gradient(135deg, hsl(43 50% 55% / 0.15), hsl(43 50% 55% / 0.05))", border: "1px solid hsl(43 50% 55% / 0.35)" }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isHeadingInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="text-lg"
+            >🌙</motion.span>
+            <span className="text-primary font-heading font-bold text-sm tracking-[0.2em] uppercase">Eid Special Offer</span>
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+              className="text-lg"
+            >⭐</motion.span>
+          </motion.div>
+
           <div className="flex items-center justify-center gap-4 mb-6">
             <motion.div
               className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary/50"
