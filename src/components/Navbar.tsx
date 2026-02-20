@@ -49,8 +49,8 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         scrolled
-          ? "py-2 bg-background/60 backdrop-blur-2xl border-b border-primary/5 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.5)]"
-          : "py-5 bg-transparent"
+          ? "py-2 bg-white/95 backdrop-blur-2xl border-b border-border shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)]"
+          : "py-4 bg-white border-b border-border/50"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -64,46 +64,33 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Professional logo container — clean, no distracting box */}
-          <div className="relative flex items-center">
-            {/* Soft ambient glow behind logo */}
-            <div
-              className="absolute inset-0 rounded-2xl pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at center, hsl(43 60% 55% / 0.12) 0%, transparent 70%)",
-                filter: "blur(8px)",
-                transform: "scale(1.3)",
-              }}
-            />
-            <img
-              src={logoImg}
-              alt="Eco-Xent Logo"
-              className="relative z-10 object-contain drop-shadow-sm"
-              style={{
-                height: "72px",
-                width: "auto",
-                filter: "drop-shadow(0 2px 12px hsl(43 60% 50% / 0.25)) drop-shadow(0 1px 3px hsl(0 0% 0% / 0.4))",
-              }}
-            />
-          </div>
+          <img
+            src={logoImg}
+            alt="Eco-Xent Logo"
+            className="relative z-10 object-contain"
+            style={{
+              height: "64px",
+              width: "auto",
+            }}
+          />
         </motion.a>
 
-        {/* Desktop nav with pill indicator */}
-        <div className="hidden md:flex items-center gap-1 p-1.5 rounded-full bg-secondary/30 backdrop-blur-xl border border-border/30">
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="relative px-5 py-2 rounded-full text-[11px] tracking-[0.15em] uppercase font-body font-medium transition-colors duration-300"
+              className="relative px-5 py-2 rounded-full text-[12px] tracking-[0.12em] uppercase font-body font-medium transition-colors duration-300"
             >
               {activeSection === item.href && (
                 <motion.div
                   layoutId="nav-pill"
-                  className="absolute inset-0 rounded-full bg-primary/15 border border-primary/20"
+                  className="absolute inset-0 rounded-full bg-primary/10 border border-primary/20"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-              <span className={`relative z-10 ${activeSection === item.href ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}>
+              <span className={`relative z-10 ${activeSection === item.href ? "text-primary" : "text-foreground/60 hover:text-foreground"}`}>
                 {item.label}
               </span>
             </a>
@@ -113,11 +100,11 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
         <div className="flex items-center gap-3">
           {/* Cart */}
           <motion.button
-            className="relative w-10 h-10 rounded-xl border border-border/30 flex items-center justify-center bg-secondary/20 hover:bg-secondary/40 hover:border-primary/20 transition-all duration-300 group"
+            className="relative w-10 h-10 rounded-xl border border-border flex items-center justify-center bg-secondary hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <ShoppingBag className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <ShoppingBag className="w-4 h-4 text-foreground/60 group-hover:text-primary transition-colors" />
             <AnimatePresence>
               {cartCount > 0 && (
                 <motion.span
@@ -134,7 +121,7 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
 
           {/* Mobile menu */}
           <motion.button
-            className="md:hidden w-10 h-10 rounded-xl border border-border/30 flex items-center justify-center bg-secondary/20"
+            className="md:hidden w-10 h-10 rounded-xl border border-border flex items-center justify-center bg-secondary"
             onClick={() => setMenuOpen(!menuOpen)}
             whileTap={{ scale: 0.9 }}
           >
@@ -161,7 +148,7 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
             animate={{ opacity: 1, height: "auto", y: 0 }}
             exit={{ opacity: 0, height: 0, y: -10 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden mx-4 mt-2 rounded-2xl overflow-hidden bg-card/90 backdrop-blur-2xl border border-border/50"
+            className="md:hidden mx-4 mt-2 rounded-2xl overflow-hidden bg-white border border-border shadow-lg"
           >
             <div className="p-4 flex flex-col gap-1">
               {navItems.map((item, i) => (
@@ -174,8 +161,8 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
                   transition={{ delay: i * 0.08 }}
                   className={`px-4 py-3 rounded-xl text-sm tracking-[0.1em] uppercase font-body transition-all duration-300 ${
                     activeSection === item.href
-                      ? "text-primary bg-primary/10 border border-primary/15"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
+                      ? "text-primary bg-primary/10 border border-primary/20"
+                      : "text-foreground/60 hover:text-foreground hover:bg-secondary"
                   }`}
                 >
                   {item.label}

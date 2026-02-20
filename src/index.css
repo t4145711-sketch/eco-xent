@@ -6,56 +6,56 @@
 
 @layer base {
   :root {
-    /* Core — olive-army green base from logo (#4D6741 vibe) */
-    --background: 95 28% 6%;
-    --foreground: 0 0% 88%;
+    /* Light theme — white + green like reference site */
+    --background: 0 0% 100%;
+    --foreground: 95 35% 10%;
 
-    --card: 95 22% 9%;
-    --card-foreground: 0 0% 88%;
+    --card: 0 0% 98%;
+    --card-foreground: 95 35% 10%;
 
-    --popover: 95 22% 9%;
-    --popover-foreground: 0 0% 88%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 95 35% 10%;
 
-    /* Primary — natural leaf green from logo */
-    --primary: 95 38% 50%;
-    --primary-foreground: 95 28% 6%;
+    /* Primary — deep forest green from logo */
+    --primary: 95 45% 32%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 95 18% 13%;
-    --secondary-foreground: 0 0% 85%;
+    --secondary: 95 20% 94%;
+    --secondary-foreground: 95 35% 18%;
 
-    --muted: 95 14% 16%;
-    --muted-foreground: 0 0% 52%;
+    --muted: 95 15% 93%;
+    --muted-foreground: 95 15% 40%;
 
-    /* Accent — deeper olive */
-    --accent: 95 25% 18%;
-    --accent-foreground: 95 38% 68%;
+    /* Accent — light green tint */
+    --accent: 95 30% 88%;
+    --accent-foreground: 95 45% 22%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 95 18% 20%;
-    --input: 95 18% 20%;
-    --ring: 95 38% 50%;
+    --border: 95 20% 85%;
+    --input: 95 20% 88%;
+    --ring: 95 45% 32%;
 
     --radius: 0.75rem;
 
     /* Brand tokens */
-    --gold: 95 38% 50%;
-    --gold-light: 95 42% 65%;
-    --gold-dark: 95 28% 36%;
-    --forest: 95 28% 16%;
-    --forest-deep: 95 28% 6%;
-    --forest-light: 95 22% 22%;
-    --cream: 0 0% 88%;
+    --gold: 95 45% 32%;
+    --gold-light: 95 42% 45%;
+    --gold-dark: 95 40% 22%;
+    --forest: 95 40% 22%;
+    --forest-deep: 95 45% 15%;
+    --forest-light: 95 30% 88%;
+    --cream: 95 20% 97%;
 
-    --sidebar-background: 95 28% 6%;
-    --sidebar-foreground: 0 0% 88%;
-    --sidebar-primary: 95 38% 50%;
-    --sidebar-primary-foreground: 95 28% 6%;
-    --sidebar-accent: 95 18% 13%;
-    --sidebar-accent-foreground: 0 0% 88%;
-    --sidebar-border: 95 18% 20%;
-    --sidebar-ring: 95 38% 50%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 95 35% 10%;
+    --sidebar-primary: 95 45% 32%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 95 20% 94%;
+    --sidebar-accent-foreground: 95 35% 18%;
+    --sidebar-border: 95 20% 85%;
+    --sidebar-ring: 95 45% 32%;
   }
 }
 
@@ -81,36 +81,36 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/80 backdrop-blur-xl border border-border/50;
   }
 
   .glass-gold {
-    background: linear-gradient(135deg, hsl(95 38% 50% / 0.08), hsl(95 18% 13% / 0.5));
+    background: linear-gradient(135deg, hsl(95 45% 32% / 0.08), hsl(95 20% 94%));
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(95 38% 50% / 0.15);
+    border: 1px solid hsl(95 45% 32% / 0.15);
   }
 
   .glow-gold {
-    box-shadow: 0 0 30px hsl(95 38% 50% / 0.15), 0 0 60px hsl(95 38% 50% / 0.05);
+    box-shadow: 0 0 30px hsl(95 45% 32% / 0.12), 0 0 60px hsl(95 45% 32% / 0.05);
   }
 
   .glow-gold-strong {
-    box-shadow: 0 0 20px hsl(95 38% 50% / 0.3), 0 0 40px hsl(95 38% 50% / 0.1);
+    box-shadow: 0 0 20px hsl(95 45% 32% / 0.25), 0 0 40px hsl(95 45% 32% / 0.1);
   }
 
   .text-gradient-gold {
-    background: linear-gradient(135deg, hsl(95 45% 72%), hsl(95 38% 55%), hsl(95 28% 40%));
+    background: linear-gradient(135deg, hsl(95 50% 25%), hsl(95 45% 38%), hsl(95 38% 28%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-forest {
-    background: linear-gradient(180deg, hsl(95 28% 6%), hsl(95 22% 9%), hsl(95 28% 6%));
+    background: linear-gradient(180deg, hsl(0 0% 100%), hsl(95 20% 96%), hsl(0 0% 100%));
   }
 
   .gradient-radial-gold {
-    background: radial-gradient(ellipse at center, hsl(95 38% 50% / 0.08) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, hsl(95 45% 32% / 0.06) 0%, transparent 70%);
   }
 
   .perspective-1000 {
@@ -132,12 +132,12 @@ section {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(95 28% 6%);
+  background: hsl(0 0% 96%);
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(95 38% 50% / 0.3);
+  background: hsl(95 45% 32% / 0.3);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(95 38% 50% / 0.5);
+  background: hsl(95 45% 32% / 0.5);
 }

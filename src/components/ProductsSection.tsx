@@ -46,12 +46,13 @@ const ProductCard = ({ product, index, onAddToCart, onBuyNow }: { product: Produ
       onMouseLeave={() => setHovered(false)}
       className="group relative rounded-2xl overflow-hidden"
     >
-      {/* Card background with animated border */}
+      {/* Card background */}
       <div
         className="absolute inset-0 rounded-2xl transition-all duration-700"
         style={{
-          background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.5))",
-          border: hovered ? "1px solid hsl(43 50% 55% / 0.25)" : "1px solid hsl(43 50% 55% / 0.08)",
+          background: "hsl(0 0% 100%)",
+          border: hovered ? "1px solid hsl(95 45% 32% / 0.35)" : "1px solid hsl(95 20% 85%)",
+          boxShadow: hovered ? "0 8px 30px -8px hsl(95 45% 32% / 0.15)" : "0 2px 12px -4px rgba(0,0,0,0.06)",
         }}
       />
 
@@ -59,10 +60,10 @@ const ProductCard = ({ product, index, onAddToCart, onBuyNow }: { product: Produ
       <motion.div
         className="absolute inset-0 z-10 pointer-events-none"
         initial={{ x: "-100%", opacity: 0 }}
-        animate={hovered ? { x: "200%", opacity: 0.08 } : { x: "-100%", opacity: 0 }}
+        animate={hovered ? { x: "200%", opacity: 0.06 } : { x: "-100%", opacity: 0 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
         style={{
-          background: "linear-gradient(90deg, transparent, hsl(43 50% 55%), transparent)",
+          background: "linear-gradient(90deg, transparent, hsl(95 45% 32%), transparent)",
           width: "50%",
         }}
       />
@@ -70,7 +71,7 @@ const ProductCard = ({ product, index, onAddToCart, onBuyNow }: { product: Produ
       {/* Content wrapper */}
       <div className="relative z-20">
         {/* Category tag */}
-        <div className="absolute top-4 left-4 z-30 px-3 py-1 rounded-full bg-background/50 backdrop-blur-xl border border-border/30">
+        <div className="absolute top-4 left-4 z-30 px-3 py-1 rounded-full bg-white/90 backdrop-blur-xl border border-primary/20">
           <span className="text-[10px] font-body font-semibold text-primary tracking-[0.15em] uppercase">{product.category}</span>
         </div>
 
@@ -100,7 +101,7 @@ const ProductCard = ({ product, index, onAddToCart, onBuyNow }: { product: Produ
             className="w-full h-full object-cover transition-transform duration-700 ease-out"
             style={{ scale: hovered ? 1.08 : 1 }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
 
           {/* Quick view - slide up from bottom */}
           <motion.div
@@ -110,7 +111,7 @@ const ProductCard = ({ product, index, onAddToCart, onBuyNow }: { product: Produ
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 bg-background/70 backdrop-blur-md text-primary"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary/30 bg-white/90 backdrop-blur-md text-primary"
               whileHover={{ scale: 1.05 }}
             >
               <Eye className="w-4 h-4" />
@@ -216,10 +217,10 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
       <motion.section
         ref={sectionRef}
         id="products"
-        className="relative py-32 overflow-hidden"
+        className="relative py-24 overflow-hidden bg-secondary/30"
         style={{ scale: sectionScale, opacity: sectionOpacity }}
       >
-        <div className="absolute inset-0 gradient-radial-gold opacity-15" />
+        <div className="absolute inset-0 gradient-radial-gold opacity-40" />
 
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
