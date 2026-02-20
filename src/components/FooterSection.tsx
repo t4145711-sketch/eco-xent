@@ -49,7 +49,7 @@ const FooterSection = () => {
           <div className="flex items-center justify-center gap-3">
             {[
               { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/eco_xent?igsh=MTF3Y3R4eGwycmRoeA==" },
-              { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/ecoxent" },
+              { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1Bx4wMoGHi/" },
               { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@eco_xent?_r=1&_t=ZS-9438nZAYCUk" },
             ].map(({ icon: Icon, label, href }, i) => (
               <motion.a
