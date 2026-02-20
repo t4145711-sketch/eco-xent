@@ -10,7 +10,7 @@ import SolutionSection from "@/components/SolutionSection";
 import HorizontalFeatures from "@/components/HorizontalFeatures";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
-import InteractiveDemo from "@/components/InteractiveDemo";
+
 import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
 import ReviewsSection from "@/components/ReviewsSection";
@@ -47,7 +47,7 @@ const Index = () => {
       <HorizontalFeatures />
       <StatsBar />
       <ProductsSection onAddToCart={handleAddToCart} />
-      <InteractiveDemo />
+      
       <ExperienceSection />
       <AboutSection />
       <ReviewsSection />
