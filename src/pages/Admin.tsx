@@ -38,15 +38,52 @@ const LoginForm = ({ onLogin }: { onLogin: () => void }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [noAdminExists, setNoAdminExists] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Check if any admin exists — only allow signup if no admin yet
+    supabase
+      .from("user_roles")
+      .select("id", { count: "exact", head: true })
+      .eq("role", "admin")
+      .then(({ count }) => {
+        setNoAdminExists((count ?? 0) === 0);
+      });
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      toast.error("Login fail ho gaya: " + error.message);
+      toast.error("Login fail: " + error.message);
     } else {
       onLogin();
+    }
+    setLoading(false);
+  };
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      toast.error("Signup fail: " + error.message);
+      setLoading(false);
+      return;
+    }
+    if (data.user) {
+      // Assign admin role
+      const { error: roleError } = await supabase
+        .from("user_roles")
+        .insert({ user_id: data.user.id, role: "admin" });
+      if (roleError) {
+        toast.error("Admin role assign nahi ho saka: " + roleError.message);
+      } else {
+        toast.success("Admin account ban gaya! Ab login karein.");
+        setMode("login");
+      }
     }
     setLoading(false);
   };
@@ -62,10 +99,38 @@ const LoginForm = ({ onLogin }: { onLogin: () => void }) => {
           <div className="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4">
             <Package className="w-7 h-7 text-primary" />
           </div>
-          <h1 className="text-2xl font-heading font-bold text-foreground">Admin Login</h1>
+          <h1 className="text-2xl font-heading font-bold text-foreground">
+            {mode === "login" ? "Admin Login" : "Admin Setup"}
+          </h1>
           <p className="text-sm text-muted-foreground font-body mt-1">EcoXent Orders Dashboard</p>
+          {noAdminExists && (
+            <p className="text-xs text-primary/70 font-body mt-2 px-2">
+              🔐 Pehli baar setup — pehla account automatically admin banega
+            </p>
+          )}
         </div>
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+
+        {/* Mode toggle — only show if no admin exists yet */}
+        {noAdminExists && (
+          <div className="flex rounded-xl border border-border overflow-hidden mb-6">
+            {(["login", "signup"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => setMode(m)}
+                className={`flex-1 py-2 text-xs font-body font-semibold uppercase tracking-wider transition-all ${
+                  mode === m
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {m === "login" ? "Login" : "Naya Account"}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <form onSubmit={mode === "login" ? handleLogin : handleSignup} className="flex flex-col gap-4">
           <input
             type="email"
             value={email}
@@ -89,7 +154,11 @@ const LoginForm = ({ onLogin }: { onLogin: () => void }) => {
             disabled={loading}
             className="w-full py-3 rounded-full font-body font-bold text-sm tracking-wider uppercase bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-60"
           >
-            {loading ? "Log in ho raha hai..." : "Login"}
+            {loading
+              ? "Ho raha hai..."
+              : mode === "login"
+              ? "Login"
+              : "Admin Account Banao"}
           </motion.button>
         </form>
       </motion.div>
