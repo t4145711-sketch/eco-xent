@@ -1,7 +1,43 @@
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import logoImg from "@/assets/ecoxent-logo-new.jpeg";
+
+// Inline professional logo component
+const EcoXentLogo = () => (
+  <div className="flex items-center gap-2.5">
+    {/* Leaf icon mark */}
+    <div className="relative flex items-center justify-center w-8 h-8 rounded-lg shrink-0" style={{ background: "linear-gradient(135deg, hsl(160 60% 10%), hsl(160 50% 14%))", border: "1px solid hsl(43 50% 55% / 0.2)" }}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        {/* Main leaf */}
+        <path d="M12 3C12 3 5 7 5 14C5 18.4 8.1 21 12 21C15.9 21 19 18.4 19 14C19 7 12 3 12 3Z" fill="hsl(160 55% 35%)" opacity="0.9"/>
+        {/* Leaf vein */}
+        <path d="M12 3 L12 18" stroke="hsl(43 65% 60%)" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
+        <path d="M12 10 Q9 12 8 14" stroke="hsl(43 65% 60%)" strokeWidth="0.6" strokeLinecap="round" opacity="0.5"/>
+        <path d="M12 13 Q15 14 16 16" stroke="hsl(43 65% 60%)" strokeWidth="0.6" strokeLinecap="round" opacity="0.5"/>
+        {/* Highlight */}
+        <path d="M10 6 Q9 9 9.5 12" stroke="hsl(160 70% 70%)" strokeWidth="0.7" strokeLinecap="round" opacity="0.4"/>
+      </svg>
+      {/* Corner glow */}
+      <div className="absolute inset-0 rounded-lg pointer-events-none" style={{ background: "radial-gradient(circle at 30% 30%, hsl(43 60% 55% / 0.08), transparent 60%)" }}/>
+    </div>
+
+    {/* Text mark */}
+    <div className="flex flex-col leading-none">
+      <span
+        className="font-heading font-bold tracking-[0.08em] leading-none"
+        style={{ fontSize: "17px", background: "linear-gradient(135deg, hsl(43 70% 72%), hsl(43 55% 58%), hsl(43 45% 48%))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
+      >
+        ECO-XENT
+      </span>
+      <span
+        className="font-body font-light tracking-[0.25em] uppercase"
+        style={{ fontSize: "7.5px", color: "hsl(43 40% 55% / 0.75)", marginTop: "2px" }}
+      >
+        By Ayesha Rao
+      </span>
+    </div>
+  </div>
+);
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -62,15 +98,11 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
           className="flex items-center group"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <motion.img
-            src={logoImg}
-            alt="Eco-Xent Logo"
-            className="h-10 md:h-12 w-auto rounded-lg object-contain"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          />
+          <EcoXentLogo />
         </motion.a>
 
         {/* Desktop nav with pill indicator */}
