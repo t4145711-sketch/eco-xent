@@ -1,6 +1,12 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Instagram, Facebook, Twitter, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { Instagram, Facebook, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
+
+const TikTokIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06Z"/>
+  </svg>
+);
 
 const FooterSection = () => {
   const ref = useRef(null);
@@ -44,7 +50,7 @@ const FooterSection = () => {
             {[
               { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/eco_xent?igsh=MTF3Y3R4eGwycmRoeA==" },
               { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/ecoxent" },
-              { icon: Twitter, label: "Twitter", href: "https://twitter.com/ecoxent" },
+              { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@eco_xent?_r=1&_t=ZS-9438nZAYCUk" },
             ].map(({ icon: Icon, label, href }, i) => (
               <motion.a
                 key={label}
@@ -58,7 +64,7 @@ const FooterSection = () => {
                 whileTap={{ scale: 0.95 }}
                 className="w-10 h-10 rounded-xl border border-border/30 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/25 hover:bg-primary/5 transition-all duration-300"
               >
-                <Icon className="w-4 h-4" />
+                {label === "TikTok" ? <TikTokIcon /> : <Icon className="w-4 h-4" />}
               </motion.a>
             ))}
           </div>
