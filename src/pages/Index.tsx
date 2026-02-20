@@ -12,7 +12,7 @@ import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
 import InteractiveDemo from "@/components/InteractiveDemo";
 import ExperienceSection from "@/components/ExperienceSection";
-
+import WhatsAppButton from "@/components/WhatsAppButton";
 import FinalCTA from "@/components/FinalCTA";
 import FooterSection from "@/components/FooterSection";
 import { toast } from "sonner";
@@ -50,6 +50,7 @@ const Index = () => {
       
       <FinalCTA />
       <FooterSection />
+      <WhatsAppButton />
     </div>
   );
 };

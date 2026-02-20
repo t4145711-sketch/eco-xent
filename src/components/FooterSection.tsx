@@ -101,13 +101,13 @@ const FooterSection = () => {
             <h4 className="text-xs font-body font-semibold text-foreground/70 tracking-[0.2em] uppercase mb-5">Get In Touch</h4>
             <ul className="space-y-3">
               {[
-                { icon: Mail, text: "contact@ecoxent.com" },
-                { icon: Phone, text: "+91 98765 43210" },
-                { icon: MapPin, text: "Mumbai, India" },
-              ].map(({ icon: Icon, text }) => (
+                { icon: Mail, text: "ecoxent@gmail.com", href: "mailto:ecoxent@gmail.com" },
+                { icon: Phone, text: "+92 300 1234567", href: "tel:+923001234567" },
+                { icon: MapPin, text: "Pakistan", href: "#" },
+              ].map(({ icon: Icon, text, href }) => (
                 <li key={text} className="flex items-start gap-2.5 group">
                   <Icon className="w-3.5 h-3.5 text-primary/50 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground/60 font-body group-hover:text-foreground/70 transition-colors">{text}</span>
+                  <a href={href} className="text-sm text-muted-foreground/60 font-body group-hover:text-primary transition-colors">{text}</a>
                 </li>
               ))}
             </ul>
