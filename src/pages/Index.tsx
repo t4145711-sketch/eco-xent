@@ -1,6 +1,5 @@
 import { useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
-import AnnouncementBar from "@/components/AnnouncementBar";
 
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -36,7 +35,6 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       
       <LoadingScreen />
-      <AnnouncementBar />
       <Navbar cartCount={cartCount} />
       <HeroSection />
       <MarqueeStrip />
