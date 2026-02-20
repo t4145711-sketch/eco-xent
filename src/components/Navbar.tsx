@@ -80,7 +80,7 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
               alt="Eco-Xent Logo"
               className="relative z-10 object-contain drop-shadow-sm"
               style={{
-                height: "52px",
+                height: "72px",
                 width: "auto",
                 filter: "drop-shadow(0 2px 12px hsl(43 60% 50% / 0.25)) drop-shadow(0 1px 3px hsl(0 0% 0% / 0.4))",
               }}
