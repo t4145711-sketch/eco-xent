@@ -3,10 +3,10 @@ import { useRef } from "react";
 import { Leaf, Heart, Star, Shield } from "lucide-react";
 
 const values = [
-  { icon: Leaf, title: "100% Organic", desc: "Har ingredient qudrati aur chemical-free hai." },
-  { icon: Heart, title: "Dil se Banaya", desc: "Har product haath se banaya jata hai — factory nahi." },
-  { icon: Star, title: "Proven Results", desc: "Hazaron customers ne results dekhe, phir wapas aaye." },
-  { icon: Shield, title: "Safe & Tested", desc: "Koi harmful chemical nahi — family ke liye bhi safe." },
+  { icon: Leaf, title: "Healing Ingredients", desc: "Har ingredient qudrati healing power se bhara hua hai — chemical-free." },
+  { icon: Heart, title: "Haath se Heal Kiya", desc: "Har product handcrafted hai — factory ki jagah dil se banaya gaya." },
+  { icon: Star, title: "Real Healing Results", desc: "Hazaron customers ne actual healing results dekhe aur phir wapas aaye." },
+  { icon: Shield, title: "Safe Healing Formula", desc: "Koi harmful chemical nahi — puri family ke liye safe therapeutic formula." },
 ];
 
 const AboutSection = () => {
@@ -37,11 +37,11 @@ const AboutSection = () => {
             <div className="h-px w-16 bg-gradient-to-l from-transparent to-primary/50" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gradient-gold mb-6">
-            Eco-Xent Kyun?
+            Healing ki Kahani
           </h2>
           <p className="text-muted-foreground font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Jab market mein chemical-laden products ka sailaab tha, humne ek sawaal poocha —
-            <span className="text-foreground/80 italic"> "Kya hum kuch alag aur sach mein acha bana sakte hain?"</span>
+            Jab market mein chemical products ne logon ko nuqsan pohuncha raha tha, humne ek sawaal poocha —
+            <span className="text-foreground/80 italic"> "Kya hum qudrat se healing wali cheez bana sakte hain?"</span>
           </p>
         </motion.div>
 
@@ -62,16 +62,16 @@ const AboutSection = () => {
               }}
             >
               <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                🌿 Qudrat se Ilham
+                🌿 Qudrat ki Healing Taqat
               </h3>
               <p className="text-muted-foreground font-body leading-relaxed mb-5">
-                Eco-Xent ki buniyad ek soch pe rakhi gayi — ke <strong className="text-foreground/90">qudrati cheezein hi sab se zyada kaam karti hain.</strong> Hamare founders ne dekha ke market mein jo products mil rahe hain, unme chemicals aur synthetics bhari hain jo lambe waqt mein nuqsan deti hain.
+                Eco-Xent ki buniyad ek soch pe rakhi gayi — ke <strong className="text-foreground/90">qudrati cheezein hi sach mein heal karti hain.</strong> Hamare founders ne dekha ke market mein chemical products sirf oopar se kaam karte hain — andar se nuqsan karte hain.
               </p>
               <p className="text-muted-foreground font-body leading-relaxed mb-5">
-                Is liye humne shuru ki ek journey — Ayurvedic knowledge ko modern science ke saath milaate hue. Har formula mahino ki research ka nateeja hai. Har ingredient carefully choose kiya gaya hai.
+                Is liye humne shuru ki ek healing journey — Ayurvedic herbs ko modern botanical science ke saath milaate hue. Har formula deep healing ke liye banaya gaya hai. Har ingredient therapeutic hai.
               </p>
               <p className="text-muted-foreground font-body leading-relaxed">
-                Aaj <strong className="text-foreground/90">hazaron Pakistan families</strong> Eco-Xent pe trust karti hain — aur ye trust hi hamara sab se bara award hai.
+                Aaj <strong className="text-foreground/90">hazaron Pakistan families</strong> Eco-Xent se heal ho rahi hain — aur unka trust hi hamara sab se bara award hai.
               </p>
             </div>
           </motion.div>

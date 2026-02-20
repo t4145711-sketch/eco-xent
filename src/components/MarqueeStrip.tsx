@@ -12,8 +12,8 @@ const MarqueeStrip = () => {
   const x2 = useTransform(scrollYProgress, [0, 1], ["-25%", "0%"]);
   const lineScale = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
-  const words1 = "ORGANIC  ✦  LUXURY  ✦  HANDCRAFTED  ✦  PURE  ✦  BOTANICAL  ✦  PREMIUM  ✦  ";
-  const words2 = "ECO-XENT  ✦  AYURVEDIC  ✦  CRUELTY FREE  ✦  SUSTAINABLE  ✦  NATURAL  ✦  ARTISAN  ✦  ";
+  const words1 = "HEALING  ✦  ORGANIC  ✦  HANDCRAFTED  ✦  PURE  ✦  BOTANICAL  ✦  NATURAL  ✦  ";
+  const words2 = "ECO-XENT  ✦  AYURVEDIC  ✦  HEAL NATURALLY  ✦  CHEMICAL FREE  ✦  ARTISAN  ✦  THERAPEUTIC  ✦  ";
 
   return (
     <div ref={ref} className="relative py-16 overflow-hidden select-none">

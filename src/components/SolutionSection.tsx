@@ -8,18 +8,18 @@ import { ArrowRight } from "lucide-react";
 const features = [
   {
     icon: "🌿",
-    title: "Smaller than a skin cell",
-    desc: "Our nano-botanical technology delivers nutrients deep within the dermis — not just on the surface.",
+    title: "Deep Healing Formula",
+    desc: "Hamare botanical healing formulas skin aur baalon ki jad tak kaam karte hain — sirf surface pe nahi.",
   },
   {
     icon: "✨",
-    title: "Effortlessly natural",
-    desc: "No complicated routines. No synthetic ingredients. Just pure organic power — simplified.",
+    title: "100% Qudrati Ilaaj",
+    desc: "Koi synthetic chemical nahi — sirf qudrat ki deni hoi healing power, seedha aapki skin ke liye.",
   },
   {
     icon: "🌍",
-    title: "Zero harmful chemicals",
-    desc: "We completely bypass parabens, sulfates, and silicones — no toxins, no compromise.",
+    title: "Proven Healing Results",
+    desc: "Hazaron customers ne real healing results dekhe — hair fall ruka, skin saaf huwi, confidence badhha.",
   },
 ];
 
@@ -60,7 +60,7 @@ const SolutionSection = () => {
           </motion.p>
 
           <SpacedHeading
-            text="We found a better way"
+            text="Qudrat se Healing — Har Product Mein"
             className="text-4xl md:text-5xl lg:text-6xl text-gradient-gold mb-6"
           />
 
@@ -71,8 +71,8 @@ const SolutionSection = () => {
             transition={{ delay: 0.6 }}
           >
             <TextReveal delay={0.4}>
-              Meet Eco-Xent. Powered by ancient Ayurvedic wisdom and modern botanical science, 
-              our formulas deliver 100% organic nutrition directly where your skin needs it most.
+              Eco-Xent ke har product mein ancient Ayurvedic healing aur modern botanical science ka kamaal hai —
+              jo aapki skin aur baalon ko andar se theek karta hai, sirf upar se nahi.
             </TextReveal>
           </motion.p>
 

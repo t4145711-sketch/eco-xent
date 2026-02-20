@@ -47,7 +47,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="text-primary tracking-[0.5em] uppercase text-[10px] md:text-xs font-body font-medium whitespace-nowrap">
-              Premium Organic Collection
+              Nature's Healing Power
             </p>
           </motion.div>
 
@@ -80,7 +80,7 @@ const HeroSection = () => {
               animate={{ y: "0%" }}
               transition={{ duration: 0.7, delay: 1, ease: [0.22, 1, 0.36, 1] }}
             >
-              Nature Reimagined. Luxury Redefined.
+              Heal Naturally. Glow Beautifully.
             </motion.p>
           </div>
         </div>

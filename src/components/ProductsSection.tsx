@@ -22,12 +22,12 @@ interface Product {
 }
 
 const products: Product[] = [
-  { id: 1, name: "Herbal Hair Growth Shampoo", tagline: "Ayurvedic Brilliance", description: "Infused with ancient Ayurvedic herbs for lustrous, healthy hair growth that radiates vitality.", price: "Rs. 750", originalPrice: "Rs. 850", image: productShampoo, stock: 12, category: "Haircare" },
-  { id: 2, name: "Healing Hair Oil", tagline: "Botanical Elixir", description: "A potent elixir of rare botanical oils that deeply nourishes roots and strengthens every strand.", price: "Rs. 750", originalPrice: "Rs. 850", image: productHairOil, stock: 8, category: "Haircare" },
-  { id: 3, name: "Healing Soap", tagline: "Botanical Art", description: "Elegantly designed botanical soap bars that transform your daily routine into a luxury healing experience.", price: "Rs. 750", originalPrice: "Rs. 900", image: productPourSoap, stock: 15, category: "Skincare" },
-  { id: 4, name: "Acne Soap", tagline: "Clear Skin Ritual", description: "Artisan-crafted with organic ingredients specifically formulated to combat acne and restore clear skin.", price: "Rs. 650", originalPrice: "Rs. 790", image: productMeltPourSoap, stock: 20, category: "Skincare" },
-  { id: 5, name: "Whitening Serum", tagline: "Radiant Glow", description: "Advanced brightening formula with natural whitening agents for a luminous, even-toned complexion.", price: "Rs. 1,550", originalPrice: "Rs. 1,999", image: productSerum, stock: 10, category: "Skincare" },
-  { id: 6, name: "Anti-Aging Serum", tagline: "Timeless Youth", description: "Revolutionary formula with organic retinol alternatives for timeless, youthful radiance.", price: "Rs. 1,650", originalPrice: "Rs. 2,100", image: productSerum, stock: 7, category: "Skincare" },
+  { id: 1, name: "Herbal Hair Growth Shampoo", tagline: "Healing Haircare", description: "Ancient Ayurvedic herbs se bana ye shampoo baalon ki jad tak heal karta hai — hair fall rokta hai, growth badhata hai.", price: "Rs. 750", originalPrice: "Rs. 850", image: productShampoo, stock: 12, category: "Haircare" },
+  { id: 2, name: "Healing Hair Oil", tagline: "Deep Heal Formula", description: "13+ qudrati therapeutic oils ka mazboot milaap — scalp ko heal kare, follicles ko mazboot kare, naye baal ugaye.", price: "Rs. 750", originalPrice: "Rs. 850", image: productHairOil, stock: 8, category: "Haircare" },
+  { id: 3, name: "Healing Soap", tagline: "Skin Healing Bar", description: "Handcrafted botanical soap jo skin ko qudrati taur pe heal karta hai — dryness, irritation aur roughness door kare.", price: "Rs. 750", originalPrice: "Rs. 900", image: productPourSoap, stock: 15, category: "Skincare" },
+  { id: 4, name: "Acne Healing Soap", tagline: "Clear Skin Healer", description: "Organic ingredients se bana ye soap acne ko andar se heal karta hai — pimples khatam kare, skin saaf aur clear kare.", price: "Rs. 650", originalPrice: "Rs. 790", image: productMeltPourSoap, stock: 20, category: "Skincare" },
+  { id: 5, name: "Whitening Serum", tagline: "Healing Glow", description: "Qudrati brightening agents se bana ye serum skin tone heal kare — dark spots mitaye, natural glow wapas laaye.", price: "Rs. 1,550", originalPrice: "Rs. 1,999", image: productSerum, stock: 10, category: "Skincare" },
+  { id: 6, name: "Anti-Aging Serum", tagline: "Youth Healing", description: "Organic anti-aging herbs se bana ye serum skin cells ko heal kare — jhurriyan mitaye, jawani wali chhaap wapas laaye.", price: "Rs. 1,650", originalPrice: "Rs. 2,100", image: productSerum, stock: 7, category: "Skincare" },
 ];
 
 const ProductCard = ({ product, index, onAddToCart }: { product: Product; index: number; onAddToCart: (id: number) => void }) => {
@@ -268,10 +268,10 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
             />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-gradient-gold mb-4">
-            Luxury Essentials
+            Healing Collection
           </h2>
           <p className="text-sm text-muted-foreground font-body max-w-md mx-auto">
-            Each product is a masterpiece of nature, crafted for those who accept nothing but the finest.
+            Har product qudrat ki healing taqat se banaya gaya hai — andar se theek kare, bahar se nikhaare.
           </p>
         </motion.div>
 
