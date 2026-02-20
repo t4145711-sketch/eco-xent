@@ -10,13 +10,16 @@ import SolutionSection from "@/components/SolutionSection";
 import HorizontalFeatures from "@/components/HorizontalFeatures";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
+import HealingIngredientsSection from "@/components/HealingIngredientsSection";
 import InteractiveDemo from "@/components/InteractiveDemo";
 import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
+import ReviewsSection from "@/components/ReviewsSection";
 import FAQSection from "@/components/FAQSection";
-import WhatsAppButton from "@/components/WhatsAppButton";
 import FinalCTA from "@/components/FinalCTA";
 import FooterSection from "@/components/FooterSection";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileStickyBar from "@/components/MobileStickyBar";
 import { toast } from "sonner";
 
 const Index = () => {
@@ -47,13 +50,16 @@ const Index = () => {
       <HorizontalFeatures />
       <StatsBar />
       <ProductsSection onAddToCart={handleAddToCart} />
+      <HealingIngredientsSection />
       <InteractiveDemo />
       <ExperienceSection />
       <AboutSection />
+      <ReviewsSection />
       <FAQSection />
       <FinalCTA />
       <FooterSection />
       <WhatsAppButton />
+      <MobileStickyBar />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import SpacedHeading from "./SpacedHeading";
 
 const ProblemSection = () => {
@@ -37,116 +37,94 @@ const ProblemSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
-            The Hidden Truth
+            Sach Jaano
           </motion.p>
 
           <SpacedHeading
-            text="Most skincare products never truly nourish your skin"
+            text="Chemical products hurt — Eco-Xent heals"
             className="text-3xl md:text-4xl lg:text-5xl text-gradient-gold mb-8 leading-tight"
             delay={0.2}
           />
+
+          <motion.p
+            className="text-muted-foreground font-body text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.35, duration: 0.6 }}
+          >
+            Market ke 90% products sirf oopar se kaam karte hain — <span className="text-foreground/80 italic">andar se nuqsan karte hain.</span> Parabens, sulfates, synthetic fragrances — yeh sab aapki skin aur baalon ko slowly damage kar rahe hain. Eco-Xent ne alag raasta chuna — <span className="text-primary font-medium">qudrat se healing ka raasta.</span>
+          </motion.p>
         </div>
 
-        {/* Product Details - Hair Healer Oil */}
+        {/* Comparison grid */}
         <motion.div
-          className="max-w-3xl mx-auto mb-20 rounded-2xl p-8 md:p-10"
-          style={{
-            background: "linear-gradient(160deg, hsl(43 50% 55% / 0.04), hsl(160 40% 12% / 0.5))",
-            border: "1px solid hsl(43 50% 55% / 0.1)",
-          }}
-          initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-          animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-          transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl mx-auto grid md:grid-cols-2 gap-6 mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.45, duration: 0.7 }}
         >
-          <h3 className="text-2xl md:text-3xl font-heading font-bold text-gradient-gold mb-4">Hair Healer Oil</h3>
-          <p className="text-muted-foreground font-body text-sm md:text-base leading-relaxed mb-6">
-            Indulge in a powerful solution to stop hair fall and promote healthier hair. This nourishing oil is designed to strengthen hair follicles, reduce hair fall, and stimulate new hair growth. It deeply nourishes and revitalizes the scalp, while promoting thicker, fuller hair. With regular use, this oil helps to restore hair strength, prevent breakage, and support long-term hair health, leaving your hair looking vibrant and resilient.
-          </p>
-
-          {/* Key Benefits */}
-          <div className="mb-6">
-            <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Key Benefits</h4>
-            <ul className="space-y-2">
+          {/* Chemical products — bad */}
+          <div
+            className="rounded-2xl p-6"
+            style={{
+              background: "linear-gradient(160deg, hsl(0 40% 15% / 0.3), hsl(0 30% 10% / 0.5))",
+              border: "1px solid hsl(0 50% 40% / 0.15)",
+            }}
+          >
+            <p className="text-xs font-body font-semibold tracking-[0.25em] uppercase text-red-400/70 mb-4">❌ Chemical Products</p>
+            <ul className="space-y-2.5">
               {[
-                "Reduces hair fall effectively.",
-                "Promotes natural hair growth.",
-                "Strengthens and repairs damaged hair.",
-                "Deeply nourishes the scalp.",
-                "Enhances shine and smooth texture.",
-              ].map((b, i) => (
-                <motion.li
-                  key={i}
-                  className="flex items-start gap-2 text-sm text-muted-foreground font-body"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.7 + i * 0.1, duration: 0.5 }}
-                >
-                  <span className="text-primary mt-0.5">✦</span>
-                  {b}
-                </motion.li>
+                "Sulfates se baal kamzor hote hain",
+                "Parabens hormones disturb karte hain",
+                "Synthetic fragrances skin irritate karte hain",
+                "Sirf temporary glow, andar nuqsan",
+                "Long-term mein skin damage karte hain",
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground/70 font-body">
+                  <span className="text-red-400/50 mt-0.5 flex-shrink-0">✗</span>
+                  {item}
+                </li>
               ))}
             </ul>
           </div>
 
-          {/* Ingredients */}
-          <motion.div
-            className="mb-6"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 1.2, duration: 0.6 }}
+          {/* Eco-Xent — good */}
+          <div
+            className="rounded-2xl p-6"
+            style={{
+              background: "linear-gradient(160deg, hsl(43 50% 55% / 0.06), hsl(160 40% 12% / 0.5))",
+              border: "1px solid hsl(43 50% 55% / 0.15)",
+            }}
           >
-            <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Ingredients</h4>
-            <p className="text-sm text-muted-foreground font-body leading-relaxed">
-              Coconut Oil, Castor Oil, Mustard Oil, Black Seed Oil, Onion Oil, Amla Oil, Neem Oil, Fenugreek, Hibiscus, Bhringraj, Rosemary Oil, Peppermint Oil, Vitamin E
-            </p>
-          </motion.div>
-
-          {/* How to Use */}
-          <motion.div
-            className="mb-6"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 1.4, duration: 0.6 }}
-          >
-            <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">How to Use</h4>
-            <p className="text-sm text-muted-foreground font-body leading-relaxed">
-              Massage into scalp and hair. Leave overnight. Rinse with shampoo. Use 2–3 times weekly.
-            </p>
-          </motion.div>
-
-          {/* Caution & Storage */}
-          <motion.div
-            className="grid md:grid-cols-2 gap-6"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 1.6, duration: 0.6 }}
-          >
-            <div>
-              <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">Caution</h4>
-              <p className="text-xs text-muted-foreground font-body leading-relaxed">
-                Suitable for all hair types, perform a patch test before use. Avoid contact with eyes. Store in a cool, dry place, away from sunlight. For external use only.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-body font-semibold text-primary tracking-[0.2em] uppercase mb-3">How to Store</h4>
-              <p className="text-xs text-muted-foreground font-body leading-relaxed">
-                Store in a cool and dry place, away from direct sunlight.
-              </p>
-            </div>
-          </motion.div>
+            <p className="text-xs font-body font-semibold tracking-[0.25em] uppercase text-primary mb-4">✦ Eco-Xent Healing</p>
+            <ul className="space-y-2.5">
+              {[
+                "Qudrati herbs baalon ko andar se mazboot karte hain",
+                "Zero harmful chemicals — 100% safe",
+                "Therapeutic ingredients deep healing karte hain",
+                "Long-term real results, koi side effect nahi",
+                "Poori family ke liye safe formula",
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-foreground/75 font-body">
+                  <span className="text-primary mt-0.5 flex-shrink-0">✦</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
 
         {/* Transition question */}
         <motion.div
-          className="text-center mt-20"
+          className="text-center mt-4"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 1.8 }}
+          transition={{ delay: 0.8 }}
         >
           <SpacedHeading
-            text="What if your skincare actually worked?"
+            text="Agar apka skincare actually heal kare — toh kaisa hoga?"
             className="text-2xl md:text-3xl lg:text-4xl text-foreground/50 italic"
-            delay={1.9}
+            delay={0.9}
           />
         </motion.div>
       </div>

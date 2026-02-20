@@ -3,11 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const reviews = [
-  { name: "Priya Sharma", location: "Mumbai", text: "The Herbal Shampoo transformed my hair completely. It's softer, shinier, and I've never felt more confident. Absolutely premium quality.", rating: 5, initials: "PS" },
-  { name: "Anika Roy", location: "Delhi", text: "Eco-Xent's Cold Process Soap is pure luxury. The scent is divine, and my skin has never been this smooth. Worth every rupee.", rating: 5, initials: "AR" },
-  { name: "Meera Kapoor", location: "Bangalore", text: "I've tried every premium brand out there. Nothing compares to the quality and purity of Eco-Xent products. A game changer.", rating: 5, initials: "MK" },
-  { name: "Ravi Tiwari", location: "Pune", text: "The Hair Oil is extraordinary. My hair growth has visibly improved in just 3 weeks of use. Highly recommended for everyone.", rating: 5, initials: "RT" },
-  { name: "Sanya Desai", location: "Hyderabad", text: "Finally, a brand that delivers on its promises. The organic ingredients truly make a visible difference. My go-to skincare now.", rating: 5, initials: "SD" },
+  { name: "Fatima Malik", location: "Lahore", text: "Hair Healer Oil ne mera hair fall bilkul band kar diya! 3 hafte mein farq aaya. Pehle bahut zyada baal girte the, ab bilkul nahi. Shukria Eco-Xent! 🌿", rating: 5, initials: "FM", product: "Hair Healer Oil" },
+  { name: "Sara Ahmed", location: "Karachi", text: "Cold Process Soap use kiya — 2 hafte mein acne marks halke ho gaye! Pehle har cheez try ki thi, kuch kaam nahi aaya. Yeh soap sach mein heal karta hai.", rating: 5, initials: "SA", product: "Cold Process Soap" },
+  { name: "Zainab Khan", location: "Islamabad", text: "Herbal Shampoo se mere baal itne silky ho gaye hain jitne kabhi nahi the. Koi chemical wali smell bhi nahi. Natural fragrance bahut pyari hai. Highly recommend!", rating: 5, initials: "ZK", product: "Herbal Shampoo" },
+  { name: "Usman Raza", location: "Rawalpindi", text: "Meri wife ke liye order kiya tha serum — usne kaha ke 1 mahine mein skin glow kar rahi hai. Ab toh hum dono use karte hain! COD bhi mila, bahut asan tha.", rating: 5, initials: "UR", product: "Face Serum" },
+  { name: "Hina Butt", location: "Faisalabad", text: "Pehle mujhe trust nahi tha online order ka. Par Eco-Xent ne delivery time par di, packaging zabardast thi. Aur Hair Oil ne sach mein baalon ki healing ki! Ab main regular customer hoon.", rating: 5, initials: "HB", product: "Hair Healer Oil" },
 ];
 
 const ReviewsSection = () => {
@@ -42,12 +42,13 @@ const ReviewsSection = () => {
         >
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary/50" />
-            <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">Testimonials</p>
+            <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">Real Healing Stories</p>
             <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary/50" />
           </div>
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-gradient-gold">
-            Trusted By Thousands
+            Customers Ka Sach
           </h2>
+          <p className="text-muted-foreground font-body text-sm mt-3">Pakistan ke hazaron customers ne heal kiya — ab aapki bari</p>
         </motion.div>
 
         <div className="max-w-3xl mx-auto">
@@ -100,6 +101,7 @@ const ReviewsSection = () => {
                 <div>
                   <p className="text-primary font-heading font-semibold text-lg">{reviews[current].name}</p>
                   <p className="text-xs text-muted-foreground font-body tracking-wider">{reviews[current].location}</p>
+                  <p className="text-xs text-primary/60 font-body mt-1">✦ {reviews[current].product}</p>
                 </div>
               </div>
             </motion.div>
