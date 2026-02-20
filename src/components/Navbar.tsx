@@ -84,10 +84,8 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
               alt="Eco-Xent Logo"
               className="relative z-10 object-contain"
               style={{
-                height: "36px",
+                height: "38px",
                 width: "auto",
-                mixBlendMode: "screen",
-                filter: "brightness(1.15) contrast(1.05) saturate(1.1)",
               }}
             />
           </div>
