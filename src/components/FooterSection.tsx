@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Instagram, Facebook, Twitter, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { Instagram, Facebook, Twitter, Youtube, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react";
 
 const TikTokIcon = () => (
   <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
@@ -51,6 +51,7 @@ const FooterSection = () => {
               { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/eco_xent?igsh=MTF3Y3R4eGwycmRoeA==" },
               { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1Bx4wMoGHi/" },
               { icon: Twitter, label: "X", href: "https://x.com/eco_xent" },
+              { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ecoxent?si=ONkgyW-MgbgOxPwi" },
               { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@eco_xent?_r=1&_t=ZS-9438nZAYCUk" },
             ].map(({ icon: Icon, label, href }, i) => (
               <motion.a
