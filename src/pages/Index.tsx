@@ -1,19 +1,16 @@
 import { useState } from "react";
 import LoadingScreen from "@/components/LoadingScreen";
 import AnnouncementBar from "@/components/AnnouncementBar";
-
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import TrustSection from "@/components/TrustSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
-
 import SolutionSection from "@/components/SolutionSection";
 import HorizontalFeatures from "@/components/HorizontalFeatures";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
-
 import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
-
 import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
 import FooterSection from "@/components/FooterSection";
@@ -41,16 +38,14 @@ const Index = () => {
       <AnnouncementBar />
       <Navbar cartCount={cartCount} />
       <HeroSection />
+      <TrustSection />
       <MarqueeStrip />
-      
       <SolutionSection />
       <HorizontalFeatures />
       <StatsBar />
       <ProductsSection onAddToCart={handleAddToCart} />
-      
       <ExperienceSection />
       <AboutSection />
-      
       <FAQSection />
       <FinalCTA />
       <FooterSection />

@@ -16,21 +16,21 @@ const MarqueeStrip = () => {
   const words2 = "ECO-XENT  ✦  AYURVEDIC  ✦  HEAL NATURALLY  ✦  CHEMICAL FREE  ✦  ARTISAN  ✦  THERAPEUTIC  ✦  ";
 
   return (
-    <div ref={ref} className="relative py-16 overflow-hidden select-none">
+    <div ref={ref} className="relative py-10 overflow-hidden select-none border-y border-border bg-secondary/20">
       {/* Animated center line */}
       <motion.div
-        className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"
+        className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent"
         style={{ scaleX: lineScale }}
       />
 
       {/* Row 1 — giant outlined text */}
-      <motion.div className="flex whitespace-nowrap mb-4" style={{ x: x1 }}>
+      <motion.div className="flex whitespace-nowrap mb-3" style={{ x: x1 }}>
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="text-[clamp(3rem,8vw,7rem)] font-heading font-black tracking-tight mx-2"
+            className="text-[clamp(2.5rem,6vw,5rem)] font-heading font-black tracking-tight mx-2"
             style={{
-              WebkitTextStroke: "1.5px hsl(43 50% 55% / 0.25)",
+              WebkitTextStroke: "1.5px hsl(95 45% 32% / 0.18)",
               WebkitTextFillColor: "transparent",
             }}
           >
@@ -44,7 +44,7 @@ const MarqueeStrip = () => {
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="text-lg md:text-xl font-body font-light tracking-[0.4em] uppercase text-primary/15 mx-4"
+            className="text-sm font-body font-medium tracking-[0.35em] uppercase text-primary/25 mx-4"
           >
             {words2}
           </span>

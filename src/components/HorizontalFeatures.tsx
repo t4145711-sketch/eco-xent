@@ -1,111 +1,124 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import SpacedHeading from "./SpacedHeading";
+import { CheckCircle2 } from "lucide-react";
 
 const features = [
   {
     icon: "💧",
-    title: "Just apply it",
-    desc: "No complicated routines needed. Our products absorb instantly — delivering pure organic goodness in seconds.",
-    stat: "30s",
-    statLabel: "absorption",
+    title: "Fori Nataij",
+    desc: "Products andar se kaam karte hain — sirf 2 hafte mein visible results dekhen.",
+    stat: "2 weeks",
+    statLabel: "to see results",
   },
   {
     icon: "🌱",
-    title: "100% pure ingredients",
-    desc: "Every ingredient is sourced from certified organic farms. No fillers, no synthetics, no compromise.",
+    title: "100% Pure",
+    desc: "Har ingredient organic farms se — koi filler, koi synthetic, koi compromise nahi.",
     stat: "100%",
-    statLabel: "organic",
+    statLabel: "organic sourced",
   },
   {
     icon: "🛡️",
-    title: "Zero side effects",
-    desc: "12 months of dermatological testing. Zero irritation events recorded. Safe for all skin types.",
+    title: "Safe Formula",
+    desc: "Dermatologist tested — koi side effect nahi, poori family ke liye safe.",
     stat: "0",
-    statLabel: "irritation",
+    statLabel: "side effects",
   },
   {
     icon: "♻️",
-    title: "Eco-friendly packaging",
-    desc: "Biodegradable materials, recyclable containers. Every product shipped with zero plastic waste.",
+    title: "Eco Packaging",
+    desc: "Biodegradable materials, recyclable packaging — environment ka khayal.",
     stat: "0%",
-    statLabel: "plastic",
+    statLabel: "plastic waste",
   },
+];
+
+const perks = [
+  "COD Available across Pakistan",
+  "Fast 2-4 day delivery",
+  "100% money back guarantee",
+  "No artificial preservatives",
+  "Cruelty free & vegan",
+  "Handcrafted in small batches",
 ];
 
 const HorizontalFeatures = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const x = useTransform(scrollYProgress, [0, 1], ["5%", "-15%"]);
-  const sectionScale = useTransform(scrollYProgress, [0, 0.2], [0.95, 1]);
+  const isInView = useInView(ref, { once: false, margin: "-60px" });
+  const perksRef = useRef(null);
+  const isPerksInView = useInView(perksRef, { once: false, margin: "-60px" });
 
   return (
-    <motion.section ref={containerRef} className="relative py-32 overflow-hidden" style={{ scale: sectionScale }}>
-      <div className="container mx-auto px-6 mb-16" ref={ref}>
-        <div className="text-center">
+    <section className="relative py-24 bg-white overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-[2px] rounded-full bg-primary/30" />
+
+      <div className="container mx-auto px-6">
+        {/* Section header */}
+        <div ref={ref} className="text-center mb-14">
           <motion.p
-            className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium mb-6"
+            className="text-primary tracking-[0.35em] uppercase text-[11px] font-body font-semibold mb-4"
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
           >
             Why Eco-Xent
           </motion.p>
-          <SpacedHeading
-            text="Meet Eco-Xent™"
-            className="text-4xl md:text-5xl lg:text-6xl text-gradient-gold"
-          />
-        </div>
-      </div>
-
-      {/* Horizontal scroll cards */}
-      <motion.div className="flex gap-6 px-6" style={{ x }}>
-        <div className="flex-shrink-0 w-[10vw]" />
-        {features.map((f, i) => (
-          <motion.div
-            key={f.title}
-            initial={{ opacity: 0, y: 40, filter: "blur(6px)" }}
-            animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-            transition={{ delay: 0.3 + i * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -10, transition: { duration: 0.3 } }}
-            className="flex-shrink-0 w-[320px] md:w-[380px] rounded-3xl p-8 md:p-10 group relative overflow-hidden"
-            style={{
-              background: "linear-gradient(160deg, hsl(43 50% 55% / 0.05), hsl(160 40% 12% / 0.4))",
-              border: "1px solid hsl(43 50% 55% / 0.08)",
-            }}
+          <motion.h2
+            className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1, duration: 0.6 }}
           >
-            {/* Hover glow */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/3" />
-            </div>
-            <div
-              className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{ boxShadow: "inset 0 0 0 1px hsl(43 50% 55% / 0.2), 0 0 40px hsl(43 50% 55% / 0.06)" }}
-            />
+            Kyun Choose Karein <span className="text-gradient-gold">Eco-Xent?</span>
+          </motion.h2>
+        </div>
 
-            <div className="relative z-10">
-              <div className="w-16 h-16 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center text-3xl mb-6 group-hover:bg-primary/10 transition-colors duration-500">
+        {/* 4-column feature grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.15 + i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -8, transition: { duration: 0.25 } }}
+              className="rounded-2xl p-7 border border-border bg-secondary/20 hover:border-primary/30 hover:bg-primary/3 transition-all duration-300 group text-center"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-primary/8 border border-primary/10 flex items-center justify-center text-2xl mx-auto mb-5 group-hover:bg-primary/15 group-hover:scale-110 transition-all duration-300">
                 {f.icon}
               </div>
-
-              <h3 className="text-xl font-heading font-bold text-foreground mb-3">{f.title}</h3>
-              <p className="text-sm text-muted-foreground font-body leading-relaxed mb-6">{f.desc}</p>
-
-              <div className="pt-4 border-t border-border/20">
-                <p className="text-3xl font-heading font-bold text-gradient-gold">{f.stat}</p>
-                <p className="text-[10px] text-primary/40 font-body tracking-[0.3em] uppercase mt-1">{f.statLabel}</p>
+              <h3 className="text-base font-heading font-bold text-foreground mb-2">{f.title}</h3>
+              <p className="text-sm text-muted-foreground font-body leading-relaxed mb-5">{f.desc}</p>
+              <div className="pt-4 border-t border-border">
+                <p className="text-2xl font-heading font-black text-gradient-gold">{f.stat}</p>
+                <p className="text-[10px] text-primary/50 font-body tracking-widest uppercase mt-1">{f.statLabel}</p>
               </div>
-            </div>
-          </motion.div>
-        ))}
-        <div className="flex-shrink-0 w-[10vw]" />
-      </motion.div>
-    </motion.section>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Perks checklist strip */}
+        <div
+          ref={perksRef}
+          className="rounded-2xl border border-primary/15 bg-primary/3 px-8 py-6"
+          style={{ background: "linear-gradient(135deg, hsl(95 45% 32% / 0.04), hsl(95 45% 32% / 0.02))" }}
+        >
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {perks.map((perk, i) => (
+              <motion.div
+                key={perk}
+                initial={{ opacity: 0, x: -15 }}
+                animate={isPerksInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="flex items-center gap-2.5"
+              >
+                <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-sm font-body text-foreground/70">{perk}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
