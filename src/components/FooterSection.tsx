@@ -8,6 +8,12 @@ const TikTokIcon = () => (
   </svg>
 );
 
+const SnapchatIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+    <path d="M12.065 2C9.49 2 7.116 3.17 5.605 5.172c-.87 1.148-1.25 2.46-1.25 4.044 0 .46.04.92.08 1.38-.29.14-.62.22-.96.22-.34 0-.68-.06-.96-.18l-.1-.04c-.06.2-.1.42-.1.64 0 .84.52 1.56 1.28 1.84-.08.18-.12.38-.12.58 0 .66.38 1.24.94 1.52-.1.3-.16.62-.16.94 0 1.54 1.12 2.84 2.62 3.08.04.008.08.012.12.016C7.285 20.56 9.101 21.5 11.085 21.5h1.96c1.984 0 3.8-.94 4.984-2.47.04-.004.08-.008.12-.016 1.5-.24 2.62-1.54 2.62-3.08 0-.32-.06-.64-.16-.94.56-.28.94-.86.94-1.52 0-.2-.04-.4-.12-.58.76-.28 1.28-1 1.28-1.84 0-.22-.04-.44-.1-.64l-.1.04c-.28.12-.62.18-.96.18-.34 0-.67-.08-.96-.22.04-.46.08-.92.08-1.38 0-1.584-.38-2.896-1.25-4.044C16.914 3.17 14.54 2 12.065 2Z"/>
+  </svg>
+);
+
 const FooterSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -53,6 +59,7 @@ const FooterSection = () => {
               { icon: Twitter, label: "X", href: "https://x.com/eco_xent" },
               { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ecoxent?si=ONkgyW-MgbgOxPwi" },
               { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@eco_xent?_r=1&_t=ZS-9438nZAYCUk" },
+              { icon: SnapchatIcon, label: "Snapchat", href: "https://www.snapchat.com/add/eco_xent?share_id=dBnxReSKuzk&locale=en-US" },
             ].map(({ icon: Icon, label, href }, i) => (
               <motion.a
                 key={label}
@@ -66,7 +73,7 @@ const FooterSection = () => {
                 whileTap={{ scale: 0.95 }}
                 className="w-10 h-10 rounded-xl border border-border/30 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/25 hover:bg-primary/5 transition-all duration-300"
               >
-                {label === "TikTok" ? <TikTokIcon /> : <Icon className="w-4 h-4" />}
+                {label === "TikTok" ? <TikTokIcon /> : label === "Snapchat" ? <SnapchatIcon /> : <Icon className="w-4 h-4" />}
               </motion.a>
             ))}
           </div>
