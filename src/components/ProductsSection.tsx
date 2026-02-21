@@ -8,6 +8,8 @@ import productHairOil from "@/assets/product-hairoil-premium.jpg";
 import productShampoo from "@/assets/product-shampoo-premium.jpg";
 import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner.png";
+import productNew1 from "@/assets/product-new-botanical.png";
+import productNew2 from "@/assets/product-new-herbal.png";
 
 interface Product {
   id: number;
@@ -92,6 +94,34 @@ const products: Product[] = [
     discount: 23,
     badge: "New",
     category: "Haircare",
+  },
+  {
+    id: 6,
+    name: "Botanical Face Wash",
+    tagline: "Deep Purify",
+    description: "Gentle botanical face wash that removes impurities while nourishing skin with natural plant extracts.",
+    price: 550,
+    originalPrice: 750,
+    priceDisplay: "Rs.550",
+    originalPriceDisplay: "Rs.750",
+    image: productNew1,
+    discount: 27,
+    badge: "New",
+    category: "Skincare",
+  },
+  {
+    id: 7,
+    name: "Herbal Body Lotion",
+    tagline: "Silk Hydration",
+    description: "Luxurious herbal body lotion infused with botanical oils for all-day deep moisture and silky smooth skin.",
+    price: 700,
+    originalPrice: 950,
+    priceDisplay: "Rs.700",
+    originalPriceDisplay: "Rs.950",
+    image: productNew2,
+    discount: 26,
+    badge: "New",
+    category: "Skincare",
   },
 ];
 
