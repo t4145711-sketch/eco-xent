@@ -11,7 +11,7 @@ const showcaseProducts = [
   {
     name: "All-in-One Serum",
     tagline: "Complete Skin Transformation",
-    highlights: ["Reduces Melasma", "Minimizes Fine Lines & Wrinkles", "Lightens Dark Circles & Puffiness", "Fades Dark Spots"],
+    highlights: ["Reduces Melasma", "Minimizes Fine Lines & Wrinkles", "Lightens Dark Circles & Puffiness", "Fades Dark Spots & Heals Dry Patches"],
     image: showcaseSerum,
   },
   {
