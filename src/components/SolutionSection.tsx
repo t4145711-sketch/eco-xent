@@ -9,7 +9,7 @@ const features = [
 
 const SolutionSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section className="relative py-28 bg-white overflow-hidden">

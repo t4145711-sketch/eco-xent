@@ -12,7 +12,7 @@ const trustPoints = [
 
 const TrustSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-60px" });
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section className="w-full py-16 bg-white border-b border-border">

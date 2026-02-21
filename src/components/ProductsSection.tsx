@@ -137,7 +137,7 @@ const ProductCard = ({
   onBuyNow: (p: Product) => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
@@ -268,7 +268,7 @@ const ProductCard = ({
 
 const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void }) => {
   const headingRef = useRef(null);
-  const isHeadingInView = useInView(headingRef, { once: false });
+  const isHeadingInView = useInView(headingRef, { once: true });
   const [checkoutProduct, setCheckoutProduct] = useState<Product | null>(null);
 
   return (
@@ -293,7 +293,7 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
           </motion.div>
 
           {/* 4-column product grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {products.map((product, i) => (
               <ProductCard
                 key={product.id}

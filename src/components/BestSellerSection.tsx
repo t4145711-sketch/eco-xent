@@ -5,7 +5,7 @@ import productSerum from "@/assets/product-serum-premium.jpg";
 
 const BestSellerSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section className="relative py-28 overflow-hidden bg-white">
@@ -46,9 +46,6 @@ const BestSellerSection = () => {
                 src={productSerum}
                 alt="Botanic Shield Serum"
                 className="w-full h-auto object-cover"
-                animate={{ rotateY: [0, 2, 0, -2, 0] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                style={{ transformStyle: "preserve-3d" }}
               />
               {/* Shimmer overlay */}
               <motion.div
