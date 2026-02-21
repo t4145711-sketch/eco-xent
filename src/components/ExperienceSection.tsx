@@ -47,11 +47,10 @@ const ExperienceSection = () => {
   const sectionOpacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
   return (
-    <motion.section
+    <section
       ref={sectionRef}
       id="experience"
       className="relative py-32 overflow-hidden"
-      style={{ scale: sectionScale, opacity: sectionOpacity }}
     >
       {/* Floating line elements */}
       <motion.div
@@ -145,7 +144,7 @@ const ExperienceSection = () => {
           ))}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
