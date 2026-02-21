@@ -6,7 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import TrustSection from "@/components/TrustSection";
 import MarqueeStrip from "@/components/MarqueeStrip";
 import SolutionSection from "@/components/SolutionSection";
-import HorizontalFeatures from "@/components/HorizontalFeatures";
+import ProductShowcase from "@/components/ProductShowcase";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
 import BestSellerSection from "@/components/BestSellerSection";
@@ -45,7 +45,7 @@ const Index = () => {
       <BestSellerSection />
       <StatsBar />
       <SolutionSection />
-      <HorizontalFeatures />
+      <ProductShowcase />
       <ExperienceSection />
       <AboutSection />
       <FAQSection />
