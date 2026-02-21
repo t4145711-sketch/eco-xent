@@ -129,9 +129,7 @@ html {
   scroll-behavior: smooth;
 }
 
-section {
-  will-change: transform;
-}
+/* Removed will-change: transform from all sections for better performance */
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

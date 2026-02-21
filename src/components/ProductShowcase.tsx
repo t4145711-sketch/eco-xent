@@ -42,7 +42,7 @@ const showcaseProducts = [
 
 const ProductShowcase = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Auto-scroll every 3.5 seconds, loops infinitely
@@ -107,6 +107,7 @@ const ProductShowcase = () => {
               <img
                 src={activeProduct.image}
                 alt={activeProduct.name}
+                loading="lazy"
                 className="w-full h-full object-cover scale-110"
               />
               {/* Shimmer effect */}
@@ -173,6 +174,7 @@ const ProductShowcase = () => {
                 <img
                   src={product.image}
                   alt={product.name}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>

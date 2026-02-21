@@ -11,7 +11,7 @@ const features = [
 
 const ExperienceSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section id="experience" className="relative py-28 overflow-hidden bg-white">

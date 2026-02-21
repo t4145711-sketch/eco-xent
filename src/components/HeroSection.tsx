@@ -14,10 +14,8 @@ const FloatingParticle = ({ delay, x, y, size }: { delay: number; x: string; y: 
       background: "radial-gradient(circle, hsl(80 45% 45% / 0.6) 0%, transparent 70%)",
     }}
     animate={{
-      y: [0, -30, -15, -35, 0],
-      x: [0, 8, -5, 12, 0],
-      opacity: [0.2, 0.7, 0.4, 0.8, 0.2],
-      scale: [1, 1.3, 0.9, 1.2, 1],
+      y: [0, -25, 0],
+      opacity: [0.2, 0.6, 0.2],
     }}
     transition={{
       duration: 6 + Math.random() * 4,
@@ -76,13 +74,13 @@ const HeroSection = () => {
 
         {/* Floating light particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {Array.from({ length: 12 }).map((_, i) => (
+          {Array.from({ length: 5 }).map((_, i) => (
             <FloatingParticle
               key={i}
-              delay={i * 0.7}
-              x={`${10 + Math.random() * 80}%`}
-              y={`${10 + Math.random() * 80}%`}
-              size={3 + Math.random() * 6}
+              delay={i * 1.2}
+              x={`${15 + i * 18}%`}
+              y={`${20 + i * 15}%`}
+              size={3 + i * 1.5}
             />
           ))}
         </div>
