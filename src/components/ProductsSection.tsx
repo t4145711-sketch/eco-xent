@@ -7,6 +7,7 @@ import productSerum from "@/assets/product-serum-premium.jpg";
 import productHairOil from "@/assets/product-hairoil-premium.jpg";
 import productShampoo from "@/assets/product-shampoo-premium.jpg";
 import productSoap from "@/assets/product-soap-premium.jpg";
+import productConditioner from "@/assets/product-conditioner.png";
 
 interface Product {
   id: number;
@@ -77,6 +78,20 @@ const products: Product[] = [
     discount: 24,
     badge: "Limited",
     category: "Skincare",
+  },
+  {
+    id: 5,
+    name: "Velvet Ritual Conditioner",
+    tagline: "Herbal Transformation",
+    description: "Advanced herbal conditioner that deeply hydrates, enhances shine, and provides a daily shield for silky hair.",
+    price: 850,
+    originalPrice: 1100,
+    priceDisplay: "Rs.850",
+    originalPriceDisplay: "Rs.1,100",
+    image: productConditioner,
+    discount: 23,
+    badge: "New",
+    category: "Haircare",
   },
 ];
 
