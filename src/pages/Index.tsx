@@ -9,6 +9,7 @@ import SolutionSection from "@/components/SolutionSection";
 import HorizontalFeatures from "@/components/HorizontalFeatures";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
+import BestSellerSection from "@/components/BestSellerSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
@@ -26,7 +27,7 @@ const Index = () => {
       description: "Your item has been added successfully.",
       style: {
         background: "hsl(var(--secondary))",
-        border: "1px solid hsl(var(--primary) / 0.2)",
+        border: "1px solid hsl(var(--gold) / 0.2)",
         color: "hsl(var(--foreground))",
       },
     });
@@ -40,10 +41,11 @@ const Index = () => {
       <HeroSection />
       <TrustSection />
       <MarqueeStrip />
+      <ProductsSection onAddToCart={handleAddToCart} />
+      <BestSellerSection />
+      <StatsBar />
       <SolutionSection />
       <HorizontalFeatures />
-      <StatsBar />
-      <ProductsSection onAddToCart={handleAddToCart} />
       <ExperienceSection />
       <AboutSection />
       <FAQSection />

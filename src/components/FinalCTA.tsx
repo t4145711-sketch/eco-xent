@@ -1,117 +1,93 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import SpacedHeading from "./SpacedHeading";
-import MagneticButton from "./MagneticButton";
 import { ArrowRight } from "lucide-react";
 
 const FinalCTA = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 0.4], [0.85, 1]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.3], [8, 0]);
 
   return (
-    <section ref={sectionRef} className="relative py-8 px-4 md:px-8 overflow-hidden">
+    <section className="relative py-8 px-4 md:px-8 overflow-hidden">
       <motion.div
-        className="relative rounded-3xl overflow-hidden min-h-[600px] flex items-center justify-center"
-        style={{ scale }}
+        ref={ref}
+        className="relative rounded-2xl overflow-hidden min-h-[500px] flex items-center justify-center"
+        style={{
+          background: "linear-gradient(135deg, hsl(150 30% 15%) 0%, hsl(150 25% 22%) 50%, hsl(150 30% 15%) 100%)",
+        }}
       >
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary via-forest to-secondary" />
-
-        {/* Animated circles */}
-        <div className="absolute inset-0 overflow-hidden opacity-[0.04]">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute border border-primary/30 rounded-full"
-              style={{
-                width: `${150 + i * 120}px`,
-                height: `${150 + i * 120}px`,
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-              animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-              transition={{ duration: 30 + i * 10, repeat: Infinity, ease: "linear" }}
-            />
-          ))}
-        </div>
-
-        {/* Floating glow */}
-        <motion.div
+        {/* Subtle gold light */}
+        <div
           className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(600px circle at 30% 50%, hsl(43 50% 55% / 0.1) 0%, transparent 60%)",
-              "radial-gradient(600px circle at 70% 50%, hsl(43 50% 55% / 0.1) 0%, transparent 60%)",
-              "radial-gradient(600px circle at 30% 50%, hsl(43 50% 55% / 0.1) 0%, transparent 60%)",
-            ],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, hsl(40 55% 52% / 0.08) 0%, transparent 70%)" }}
         />
 
-        <motion.div
-          ref={ref}
-          style={{ rotateX, transformPerspective: 1200 }}
-          className="relative z-10 text-center max-w-3xl mx-auto px-6 py-20"
-        >
-          <SpacedHeading
-            text="You don't get many chances to be early"
-            className="text-3xl md:text-4xl lg:text-5xl text-gradient-gold mb-4"
-          />
+        <div className="relative z-10 text-center max-w-2xl mx-auto px-6 py-20">
+          <motion.p
+            className="text-gold/60 tracking-[0.4em] uppercase text-[11px] font-body font-medium mb-6"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.2 }}
+          >
+            Join the Movement
+          </motion.p>
 
-          <motion.div
+          <motion.h2
+            className="text-3xl md:text-5xl font-heading font-light text-white mb-4 leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+          >
+            Experience the Power of
+          </motion.h2>
+          <motion.h2
+            className="text-3xl md:text-5xl font-heading font-light mb-8 leading-tight"
+            style={{ color: "hsl(40 55% 60%)" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.45 }}
+          >
+            Pure Botanicals
+          </motion.h2>
+
+          <motion.p
+            className="text-white/40 font-body mb-10 leading-relaxed max-w-lg mx-auto font-light"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.6 }}
           >
-            <SpacedHeading
-              text="To lead, not follow"
-              className="text-2xl md:text-3xl lg:text-4xl text-foreground/50 mb-8"
-              delay={0.8}
-            />
-          </motion.div>
-
-          <motion.p
-            className="text-muted-foreground font-body mb-10 leading-relaxed max-w-xl mx-auto"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 1.2 }}
-          >
-            Eco-Xent is already in the hands of thousands who chose purity over chemicals. 
-            If you're ready, we'll welcome you to the organic revolution.
+            Already trusted by thousands who chose purity over chemicals.
+            Your transformation starts here.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 1.5 }}
+            transition={{ delay: 0.8 }}
             className="flex flex-wrap justify-center gap-4"
           >
-            <MagneticButton
+            <motion.a
               href="#products"
-              strength={0.4}
-              className="inline-flex items-center gap-3 px-12 py-5 bg-primary text-primary-foreground font-body font-semibold tracking-[0.15em] uppercase text-xs rounded-full shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-shadow duration-500"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase text-white"
+              style={{
+                background: "linear-gradient(135deg, hsl(40 55% 48%), hsl(40 50% 42%))",
+                boxShadow: "0 4px 24px hsl(40 55% 52% / 0.3)",
+              }}
+              whileHover={{ scale: 1.03, boxShadow: "0 8px 40px hsl(40 55% 52% / 0.5)" }}
+              whileTap={{ scale: 0.97 }}
             >
-              <span>Shop Now</span>
+              Shop Now
               <ArrowRight className="w-4 h-4" />
-            </MagneticButton>
-
-            <MagneticButton
+            </motion.a>
+            <motion.a
               href="#contact"
-              strength={0.4}
-              className="inline-flex items-center gap-3 px-12 py-5 border border-primary/30 text-primary font-body font-semibold tracking-[0.15em] uppercase text-xs rounded-full hover:bg-primary/5 hover:border-primary/50 transition-all duration-500"
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full border border-white/15 text-white/60 font-body font-medium text-sm tracking-widest uppercase hover:text-white hover:border-white/30 transition-all"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
             >
-              <span>Contact Us</span>
-            </MagneticButton>
+              Contact Us
+            </motion.a>
           </motion.div>
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );

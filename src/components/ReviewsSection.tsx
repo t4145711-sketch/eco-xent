@@ -3,11 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const reviews = [
-  { name: "Fatima Malik", location: "Lahore", text: "Hair Oil ne mera hair fall bilkul band kar diya! 3 hafte mein farq aaya. Pehle bahut zyada baal girte the, ab bilkul nahi. Shukria Eco-Xent! 🌿", rating: 5, initials: "FM" },
-  { name: "Sara Ahmed", location: "Karachi", text: "Cold Process Soap use kiya — 2 hafte mein acne marks halke ho gaye! Pehle har cheez try ki thi, kuch kaam nahi aaya. Yeh soap amazing hai.", rating: 5, initials: "SA" },
-  { name: "Zainab Khan", location: "Islamabad", text: "Herbal Shampoo se mere baal itne silky ho gaye hain jitne kabhi nahi the. Koi chemical wali smell bhi nahi. Natural fragrance bahut pyari hai. Highly recommend!", rating: 5, initials: "ZK" },
-  { name: "Usman Raza", location: "Rawalpindi", text: "Meri wife ke liye order kiya tha serum — usne kaha ke 1 mahine mein skin glow kar rahi hai. Ab toh hum dono use karte hain! COD bhi mila, bahut asan tha.", rating: 5, initials: "UR" },
-  { name: "Hina Butt", location: "Faisalabad", text: "Pehle mujhe trust nahi tha online order ka. Par Eco-Xent ne delivery time par di, packaging zabardast thi. Aur products sach mein kaam karte hain! Ab main regular customer hoon.", rating: 5, initials: "HB" },
+  { name: "Fatima M.", location: "Lahore", text: "The Hair Oil completely stopped my hair fall within 3 weeks. I tried everything before this — nothing worked like Eco-Xent. Truly remarkable results.", rating: 5, initials: "FM" },
+  { name: "Sara A.", location: "Karachi", text: "The Herbal Soap cleared my acne marks in just 2 weeks. My skin has never felt this clean and healthy. Amazing quality.", rating: 5, initials: "SA" },
+  { name: "Zainab K.", location: "Islamabad", text: "The Herbal Shampoo made my hair incredibly silky without any chemical smell. The natural fragrance is beautiful. Highly recommend!", rating: 5, initials: "ZK" },
+  { name: "Usman R.", location: "Rawalpindi", text: "Ordered the Botanic Shield Serum for my wife — she says her skin is glowing after just one month. Now we both use it daily!", rating: 5, initials: "UR" },
+  { name: "Hina B.", location: "Faisalabad", text: "First time ordering online and Eco-Xent exceeded all expectations. Premium packaging, fast delivery, and the products actually work!", rating: 5, initials: "HB" },
 ];
 
 const ReviewsSection = () => {
@@ -24,31 +24,21 @@ const ReviewsSection = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const goTo = (index: number) => {
-    setDirection(index > current ? 1 : -1);
-    setCurrent(index);
-  };
-
   return (
-    <section id="reviews" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 gradient-radial-gold opacity-10" />
+    <section id="reviews" className="relative py-28 overflow-hidden bg-white">
+      <div className="absolute inset-0 gradient-radial-gold opacity-15" />
 
       <div ref={ref} className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary/50" />
-            <p className="text-primary tracking-[0.4em] uppercase text-xs font-body font-medium">Testimonials</p>
-            <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary/50" />
-          </div>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-gradient-gold">
-            Real Results, Real People
+          <p className="text-gold tracking-[0.4em] uppercase text-[11px] font-body font-medium mb-4">Testimonials</p>
+          <h2 className="text-4xl md:text-5xl font-heading font-semibold text-foreground">
+            What Our <span className="text-gradient-gold italic">Customers</span> Say
           </h2>
-          <p className="text-muted-foreground font-body text-sm mt-3">Pakistan ke hazaron customers ki zindagi badal di</p>
+          <div className="w-16 h-px bg-gold/40 mx-auto mt-6" />
         </motion.div>
 
         <div className="max-w-3xl mx-auto">
@@ -57,62 +47,49 @@ const ReviewsSection = () => {
               key={current}
               custom={direction}
               variants={{
-                enter: (dir: number) => ({ x: dir > 0 ? 200 : -200, opacity: 0, scale: 0.95, filter: "blur(8px)" }),
-                center: { x: 0, opacity: 1, scale: 1, filter: "blur(0px)" },
-                exit: (dir: number) => ({ x: dir > 0 ? -200 : 200, opacity: 0, scale: 0.95, filter: "blur(8px)" }),
+                enter: (dir: number) => ({ x: dir > 0 ? 150 : -150, opacity: 0 }),
+                center: { x: 0, opacity: 1 },
+                exit: (dir: number) => ({ x: dir > 0 ? -150 : 150, opacity: 0 }),
               }}
               initial="enter"
               animate="center"
               exit="exit"
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-3xl p-10 md:p-14 text-center"
-              style={{
-                background: "linear-gradient(160deg, hsl(var(--primary) / 0.04), hsl(var(--secondary) / 0.3))",
-                border: "1px solid hsl(var(--primary) / 0.08)",
-              }}
+              className="relative rounded-xl p-10 md:p-14 text-center border border-border"
+              style={{ background: "hsl(40 30% 97%)" }}
             >
-              {/* Large quote mark */}
-              <div className="absolute top-6 left-8 opacity-[0.06]">
-                <Quote className="w-20 h-20 text-primary" />
+              <div className="absolute top-6 left-8 opacity-[0.05]">
+                <Quote className="w-16 h-16 text-gold" />
               </div>
 
               <div className="flex justify-center gap-1 mb-8">
                 {[...Array(reviews[current].rating)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.08 }}
-                  >
-                    <Star className="w-4 h-4 fill-primary text-primary" />
-                  </motion.div>
+                  <Star key={i} className="w-4 h-4 fill-gold text-gold" />
                 ))}
               </div>
 
-              <p className="text-lg md:text-xl text-foreground/80 font-body italic leading-relaxed mb-10 max-w-xl mx-auto">
+              <p className="text-lg md:text-xl text-foreground/80 font-heading italic leading-relaxed mb-10 max-w-xl mx-auto">
                 "{reviews[current].text}"
               </p>
 
-              {/* Avatar + name */}
               <div className="flex flex-col items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
-                  <span className="text-sm font-heading font-bold text-primary">{reviews[current].initials}</span>
+                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
+                  <span className="text-sm font-heading font-semibold text-gold-dark">{reviews[current].initials}</span>
                 </div>
                 <div>
-                  <p className="text-primary font-heading font-semibold text-lg">{reviews[current].name}</p>
-                  <p className="text-xs text-muted-foreground font-body tracking-wider">{reviews[current].location}</p>
+                  <p className="text-foreground font-heading font-semibold">{reviews[current].name}</p>
+                  <p className="text-xs text-muted-foreground font-body">{reviews[current].location}</p>
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Controls */}
           <div className="flex justify-center items-center gap-6 mt-10">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => { setDirection(-1); setCurrent((c) => (c - 1 + reviews.length) % reviews.length); }}
-              className="w-11 h-11 rounded-full border border-primary/15 flex items-center justify-center text-primary/50 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/30 transition-all"
             >
               <ChevronLeft className="w-4 h-4" />
             </motion.button>
@@ -120,17 +97,13 @@ const ReviewsSection = () => {
               {reviews.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => goTo(i)}
-                  className="relative h-2 rounded-full transition-all duration-500 overflow-hidden"
-                  style={{ width: i === current ? 32 : 8 }}
+                  onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
+                  className="relative h-1.5 rounded-full transition-all duration-500 overflow-hidden"
+                  style={{ width: i === current ? 28 : 8 }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-primary/15" />
+                  <div className="absolute inset-0 rounded-full bg-border" />
                   {i === current && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full bg-primary"
-                      layoutId="review-indicator"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
+                    <motion.div className="absolute inset-0 rounded-full bg-gold" layoutId="review-indicator" />
                   )}
                 </button>
               ))}
@@ -139,7 +112,7 @@ const ReviewsSection = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => { setDirection(1); setCurrent((c) => (c + 1) % reviews.length); }}
-              className="w-11 h-11 rounded-full border border-primary/15 flex items-center justify-center text-primary/50 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/30 transition-all"
             >
               <ChevronRight className="w-4 h-4" />
             </motion.button>

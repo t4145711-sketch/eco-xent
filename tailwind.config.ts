@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['"Playfair Display"', 'serif'],
-        body: ['Poppins', 'sans-serif'],
+        heading: ['"Cormorant Garamond"', 'serif'],
+        body: ['Inter', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -100,8 +100,8 @@ export default {
           "100%": { opacity: "1", transform: "scale(1)" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(43 50% 55% / 0.2)" },
-          "50%": { boxShadow: "0 0 40px hsl(43 50% 55% / 0.4)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(40 55% 52% / 0.15)" },
+          "50%": { boxShadow: "0 0 40px hsl(40 55% 52% / 0.35)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
@@ -110,6 +110,12 @@ export default {
         shimmer: {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
+        },
+        "float-particle": {
+          "0%, 100%": { transform: "translateY(0) translateX(0)", opacity: "0.3" },
+          "25%": { transform: "translateY(-20px) translateX(10px)", opacity: "0.8" },
+          "50%": { transform: "translateY(-10px) translateX(-5px)", opacity: "0.5" },
+          "75%": { transform: "translateY(-25px) translateX(8px)", opacity: "0.7" },
         },
       },
       animation: {
@@ -121,6 +127,7 @@ export default {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         float: "float 6s ease-in-out infinite",
         shimmer: "shimmer 3s ease-in-out infinite",
+        "float-particle": "float-particle 8s ease-in-out infinite",
       },
     },
   },
