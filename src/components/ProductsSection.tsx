@@ -3,10 +3,10 @@ import { useRef, useState } from "react";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 import CheckoutModal from "@/components/CheckoutModal";
 
-import productSerum from "@/assets/product-serum-premium.jpg";
+import productSerum from "@/assets/product-serum-new.png";
 import productHairOil from "@/assets/product-hairoil-premium.jpg";
 import productShampoo from "@/assets/product-shampoo-premium.jpg";
-import productSoap from "@/assets/product-soap-premium.jpg";
+import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner.png";
 
 interface Product {
