@@ -166,14 +166,14 @@ const ProductCard = ({
       {/* Product Image */}
       <div className="relative overflow-hidden" style={{ background: "hsl(40 20% 97%)" }}>
         <motion.div
-          className="w-full aspect-square flex items-center justify-center p-4"
+          className="w-full aspect-[3/4] flex items-center justify-center overflow-hidden"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover rounded-sm"
+            className="w-full h-full object-cover"
           />
         </motion.div>
 
@@ -263,7 +263,7 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
           </motion.div>
 
           {/* 4-column product grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {products.map((product, i) => (
               <ProductCard
                 key={product.id}
