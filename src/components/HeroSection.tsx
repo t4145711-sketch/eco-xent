@@ -5,25 +5,39 @@ import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import heroBanner1 from "@/assets/hero-banner-1.jpg";
 import heroBanner2 from "@/assets/hero-banner-2.jpg";
 import heroBanner3 from "@/assets/hero-banner-3.jpg";
+import heroBanner4 from "@/assets/hero-banner-4.jpg";
+import heroBanner5 from "@/assets/hero-banner-5.jpg";
 
 const slides = [
   {
     image: heroBanner1,
-    overline: "Premium Serums & Oils",
+    overline: "Botanic Shield Serum",
     headline: ["Pure Nature.", "Powerful Results."],
-    description: "Advanced organic formulations for healthy hair & radiant skin. Handcrafted with the finest botanical ingredients.",
+    description: "Advanced herbal defense & restoration serum with Hyaluronic Acid, Vitamin C & Rosehip Oil for radiant, youthful skin.",
   },
   {
     image: heroBanner2,
-    overline: "Herbal Haircare Collection",
+    overline: "Herbal Shampoo",
     headline: ["Nourish.", "Transform."],
-    description: "Sulfate-free herbal shampoo & conditioner crafted with lavender, amla & neem for silky, healthy hair.",
+    description: "Sulfate-free herbal shampoo infused with amla, neem & shikakai for soft, nourished and healthy hair.",
   },
   {
     image: heroBanner3,
-    overline: "Handcrafted Skincare",
-    headline: ["Heal Naturally.", "Glow Daily."],
-    description: "Artisan botanical soaps & face wash made with organic herbs, essential oils & nature's purest ingredients.",
+    overline: "Eco-Xent Cleansing Soap",
+    headline: ["Cleanse.", "Rejuvenate."],
+    description: "Luxurious herbal cleansing soap with Neem, Amla, Tea Tree & Frankincense for naturally clear skin.",
+  },
+  {
+    image: heroBanner4,
+    overline: "Hair Healer Oil",
+    headline: ["Heal Hair.", "Grow Strong."],
+    description: "Powerful herbal hair oil with Coconut, Castor, Black Seed & Amla oils to reduce hair fall and promote healthy growth.",
+  },
+  {
+    image: heroBanner5,
+    overline: "Herbal Soap Collection",
+    headline: ["Handcrafted.", "With Love."],
+    description: "Natural handcrafted herbal soaps infused with amla, neem & honey. Reduces acne, nourishes & hydrates skin.",
   },
 ];
 
@@ -83,6 +97,9 @@ const HeroSection = () => {
               src={slide.image}
               alt={slide.overline}
               className="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+              fetchPriority={current === 0 ? "high" : "low"}
               style={{ filter: "brightness(0.35)" }}
             />
             {/* Overlays */}
