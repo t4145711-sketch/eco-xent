@@ -1,194 +1,233 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import heroBg from "@/assets/hero-luxury-bg.jpg";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
-const FloatingParticle = ({ delay, x, y, size }: { delay: number; x: string; y: string; size: number }) => (
-  <motion.div
-    className="absolute rounded-full"
-    style={{
-      left: x,
-      top: y,
-      width: size,
-      height: size,
-      background: "radial-gradient(circle, hsl(80 45% 45% / 0.6) 0%, transparent 70%)",
-    }}
-    animate={{
-      y: [0, -25, 0],
-      opacity: [0.2, 0.6, 0.2],
-    }}
-    transition={{
-      duration: 6 + Math.random() * 4,
-      delay,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
-);
+import heroBanner1 from "@/assets/hero-banner-1.jpg";
+import heroBanner2 from "@/assets/hero-banner-2.jpg";
+import heroBanner3 from "@/assets/hero-banner-3.jpg";
+
+const slides = [
+  {
+    image: heroBanner1,
+    overline: "Premium Serums & Oils",
+    headline: ["Pure Nature.", "Powerful Results."],
+    description: "Advanced organic formulations for healthy hair & radiant skin. Handcrafted with the finest botanical ingredients.",
+  },
+  {
+    image: heroBanner2,
+    overline: "Herbal Haircare Collection",
+    headline: ["Nourish.", "Transform."],
+    description: "Sulfate-free herbal shampoo & conditioner crafted with lavender, amla & neem for silky, healthy hair.",
+  },
+  {
+    image: heroBanner3,
+    overline: "Handcrafted Skincare",
+    headline: ["Heal Naturally.", "Glow Daily."],
+    description: "Artisan botanical soaps & face wash made with organic herbs, essential oils & nature's purest ingredients.",
+  },
+];
 
 const HeroSection = () => {
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const goTo = useCallback((index: number) => {
+    setDirection(index > current ? 1 : -1);
+    setCurrent(index);
+  }, [current]);
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setCurrent((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setDirection(-1);
+    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [next]);
+
+  const slide = slides[current];
+
+  const imageVariants = {
+    enter: (dir: number) => ({ opacity: 0, scale: 1.1, x: dir > 0 ? 80 : -80 }),
+    center: { opacity: 1, scale: 1, x: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } },
+    exit: (dir: number) => ({ opacity: 0, scale: 1.05, x: dir > 0 ? -80 : 80, transition: { duration: 0.6 } }),
+  };
+
+  const textVariants = {
+    enter: { opacity: 0, y: 30 },
+    center: (delay: number) => ({ opacity: 1, y: 0, transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] } }),
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      id="hero"
-      className="relative w-full overflow-hidden"
-      style={{ marginTop: "72px" }}
-    >
+    <section id="hero" className="relative w-full overflow-hidden" style={{ marginTop: "72px" }}>
       <div className="relative w-full" style={{ minHeight: "92vh" }}>
-        {/* Cinematic Background */}
-        <motion.div
-          className="absolute inset-0"
-          style={{ y: bgY, scale: bgScale }}
-        >
-          <img
-            src={heroBg}
-            alt=""
-            className="w-full h-full object-cover"
-            style={{ filter: "brightness(0.4)" }}
-          />
-          {/* Gold light overlay */}
-          <div
+        {/* Background slides */}
+        <AnimatePresence custom={direction} mode="popLayout">
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={imageVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
             className="absolute inset-0"
-            style={{
-              background: "radial-gradient(ellipse 70% 50% at 30% 45%, hsl(120 35% 28% / 0.15) 0%, transparent 70%)",
-            }}
-          />
-          {/* Dark vignette */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(120 35% 8% / 0.6) 100%)",
-            }}
-          />
-        </motion.div>
-
-        {/* Floating light particles */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <FloatingParticle
-              key={i}
-              delay={i * 1.2}
-              x={`${15 + i * 18}%`}
-              y={`${20 + i * 15}%`}
-              size={3 + i * 1.5}
+          >
+            <img
+              src={slide.image}
+              alt={slide.overline}
+              className="w-full h-full object-cover"
+              style={{ filter: "brightness(0.35)" }}
             />
-          ))}
-        </div>
+            {/* Overlays */}
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 30% 45%, hsl(120 35% 28% / 0.15) 0%, transparent 70%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(120 35% 8% / 0.6) 100%)" }} />
+          </motion.div>
+        </AnimatePresence>
 
         {/* Content */}
-        <motion.div
-          className="relative z-10 container mx-auto px-6 md:px-10 flex flex-col justify-center"
-          style={{ y: textY, opacity, minHeight: "92vh" }}
-        >
+        <div className="relative z-10 container mx-auto px-6 md:px-10 flex flex-col justify-center" style={{ minHeight: "92vh" }}>
           <div className="max-w-3xl py-20">
-            {/* Luxury overline */}
-            <motion.div
-              className="inline-flex items-center gap-2.5 mb-8 px-5 py-2 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-gold" />
-              <span className="text-gold-light text-[11px] font-body font-medium tracking-[0.3em] uppercase">
-                Luxury Organic Personal Care
-              </span>
-            </motion.div>
+            <AnimatePresence mode="wait">
+              <motion.div key={current}>
+                {/* Overline */}
+                <motion.div
+                  className="inline-flex items-center gap-2.5 mb-8 px-5 py-2 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-sm"
+                  variants={textVariants}
+                  custom={0.1}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-gold" />
+                  <span className="text-gold-light text-[11px] font-body font-medium tracking-[0.3em] uppercase">
+                    {slide.overline}
+                  </span>
+                </motion.div>
 
-            {/* Main headline — elegant serif */}
-            <div className="overflow-hidden mb-3">
-              <motion.h1
-                className="text-[clamp(3rem,8vw,6.5rem)] font-heading font-light leading-[0.92] text-white tracking-tight"
-                initial={{ y: "110%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Pure Nature.
-              </motion.h1>
-            </div>
-            <div className="overflow-hidden mb-8">
-              <motion.h1
-                className="text-[clamp(3rem,8vw,6.5rem)] font-heading font-light leading-[0.92] tracking-tight"
-                style={{ color: "hsl(80 45% 55%)" }}
-                initial={{ y: "110%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 1, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Powerful Results.
-              </motion.h1>
-            </div>
+                {/* Headlines */}
+                {slide.headline.map((line, i) => (
+                  <div key={line} className="overflow-hidden mb-1">
+                    <motion.h1
+                      className={`text-[clamp(3rem,8vw,6.5rem)] font-heading font-light leading-[0.92] tracking-tight ${
+                        i === 1 ? "" : "text-white"
+                      }`}
+                      style={i === 1 ? { color: "hsl(80 45% 55%)" } : undefined}
+                      variants={textVariants}
+                      custom={0.2 + i * 0.15}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                    >
+                      {line}
+                    </motion.h1>
+                  </div>
+                ))}
 
-            <motion.p
-              className="text-white/50 font-body text-base md:text-lg leading-relaxed mb-12 max-w-xl font-light"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-            >
-              Advanced organic formulations for healthy hair & radiant skin.
-              Handcrafted with the finest botanical ingredients.
-            </motion.p>
+                {/* Description */}
+                <motion.p
+                  className="text-white/50 font-body text-base md:text-lg leading-relaxed mb-12 mt-8 max-w-xl font-light"
+                  variants={textVariants}
+                  custom={0.55}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                >
+                  {slide.description}
+                </motion.p>
 
-            {/* CTAs */}
-            <motion.div
-              className="flex flex-wrap gap-4 mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.1 }}
-            >
-              <motion.a
-                href="#products"
-                className="group inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase transition-all duration-500"
-                style={{
-                  background: "linear-gradient(135deg, hsl(120 35% 28%), hsl(120 40% 22%))",
-                  color: "hsl(0 0% 100%)",
-                  boxShadow: "0 4px 24px hsl(120 35% 28% / 0.3)",
-                }}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 8px 40px hsl(120 35% 28% / 0.5)",
-                }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Shop Collection
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-              </motion.a>
-              <motion.a
-                href="#about"
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase border border-white/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-500"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Our Story
-              </motion.a>
-            </motion.div>
+                {/* CTAs */}
+                <motion.div
+                  className="flex flex-wrap gap-4 mb-16"
+                  variants={textVariants}
+                  custom={0.7}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                >
+                  <motion.a
+                    href="#products"
+                    className="group inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase transition-all duration-500"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(120 35% 28%), hsl(120 40% 22%))",
+                      color: "hsl(0 0% 100%)",
+                      boxShadow: "0 4px 24px hsl(120 35% 28% / 0.3)",
+                    }}
+                    whileHover={{ scale: 1.03, boxShadow: "0 8px 40px hsl(120 35% 28% / 0.5)" }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    Shop Collection
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                  </motion.a>
+                  <motion.a
+                    href="#about"
+                    className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase border border-white/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-500"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    Our Story
+                  </motion.a>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Trust line */}
-            <motion.div
-              className="flex items-center gap-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.4, duration: 0.8 }}
-            >
+            <div className="flex items-center gap-8">
               {["100% Organic", "Cruelty Free", "Handcrafted"].map((text) => (
                 <div key={text} className="flex items-center gap-2">
                   <div className="w-1 h-1 rounded-full bg-gold/60" />
                   <span className="text-white/40 text-[11px] font-body tracking-widest uppercase">{text}</span>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Bottom gradient fade */}
+        {/* Navigation arrows */}
+        <div className="absolute bottom-8 right-6 md:right-10 z-20 flex items-center gap-3">
+          <button
+            onClick={prev}
+            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all duration-300"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            onClick={next}
+            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all duration-300"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Slide indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className="group relative h-1.5 rounded-full overflow-hidden transition-all duration-500"
+              style={{ width: current === i ? 32 : 12 }}
+            >
+              <div className="absolute inset-0 bg-white/20 rounded-full" />
+              {current === i && (
+                <motion.div
+                  className="absolute inset-0 bg-gold rounded-full"
+                  initial={{ scaleX: 0, originX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 5, ease: "linear" }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Bottom gradient */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
       </div>
     </section>
