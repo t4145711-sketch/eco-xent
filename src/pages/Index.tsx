@@ -10,12 +10,14 @@ import ProductShowcase from "@/components/ProductShowcase";
 import StatsBar from "@/components/StatsBar";
 import ProductsSection from "@/components/ProductsSection";
 import BestSellerSection from "@/components/BestSellerSection";
+import ReviewsSection from "@/components/ReviewsSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
 import FooterSection from "@/components/FooterSection";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileStickyBar from "@/components/MobileStickyBar";
 import { toast } from "sonner";
 
 const Index = () => {
@@ -43,6 +45,7 @@ const Index = () => {
       <MarqueeStrip />
       <ProductsSection onAddToCart={handleAddToCart} />
       <BestSellerSection />
+      <ReviewsSection />
       <StatsBar />
       <SolutionSection />
       <ProductShowcase />
@@ -52,6 +55,7 @@ const Index = () => {
       <FinalCTA />
       <FooterSection />
       <WhatsAppButton />
+      <MobileStickyBar />
     </div>
   );
 };

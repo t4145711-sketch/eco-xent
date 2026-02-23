@@ -16,7 +16,7 @@ const faqs = [
 const FAQItem = ({ faq, index }: { faq: { q: string; a: string }; index: number }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-40px" });
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.div
@@ -26,8 +26,8 @@ const FAQItem = ({ faq, index }: { faq: { q: string; a: string }; index: number 
       transition={{ duration: 0.5, delay: index * 0.06 }}
       className="rounded-xl overflow-hidden border transition-all duration-300"
       style={{
-        borderColor: open ? "hsl(40 55% 52% / 0.2)" : "hsl(var(--border))",
-        background: open ? "hsl(40 30% 97%)" : "white",
+        borderColor: open ? "hsl(var(--gold) / 0.2)" : "hsl(var(--border))",
+        background: open ? "hsl(var(--cream))" : "hsl(var(--background))",
       }}
     >
       <button
@@ -41,8 +41,8 @@ const FAQItem = ({ faq, index }: { faq: { q: string; a: string }; index: number 
           animate={{ rotate: open ? 180 : 0 }}
           className="flex-shrink-0 w-7 h-7 rounded-full border flex items-center justify-center mt-0.5"
           style={{
-            borderColor: open ? "hsl(40 55% 52% / 0.3)" : "hsl(var(--border))",
-            background: open ? "hsl(40 55% 52% / 0.1)" : "transparent",
+            borderColor: open ? "hsl(var(--gold) / 0.3)" : "hsl(var(--border))",
+            background: open ? "hsl(var(--gold) / 0.1)" : "transparent",
           }}
         >
           {open ? <Minus className="w-3.5 h-3.5 text-gold" /> : <Plus className="w-3.5 h-3.5 text-muted-foreground" />}
@@ -69,10 +69,10 @@ const FAQItem = ({ faq, index }: { faq: { q: string; a: string }; index: number 
 
 const FAQSection = () => {
   const headingRef = useRef(null);
-  const isHeadingInView = useInView(headingRef, { once: false, margin: "-80px" });
+  const isHeadingInView = useInView(headingRef, { once: true, margin: "-80px" });
 
   return (
-    <section id="faq" className="relative py-28 overflow-hidden bg-white">
+    <section id="faq" className="relative py-28 overflow-hidden bg-background">
       <div className="container mx-auto px-6 relative z-10 max-w-3xl">
         <motion.div
           ref={headingRef}
@@ -97,8 +97,7 @@ const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isHeadingInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.5 }}
-          className="text-center rounded-xl p-8 border border-gold/15"
-          style={{ background: "hsl(40 30% 97%)" }}
+          className="text-center rounded-xl p-8 border border-gold/15 bg-cream"
         >
           <p className="font-heading font-semibold text-foreground text-lg mb-2">Still have questions?</p>
           <p className="text-muted-foreground font-body text-sm mb-5 font-light">Our team is ready to help via WhatsApp.</p>

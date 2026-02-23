@@ -11,10 +11,10 @@ const values = [
 
 const AboutSection = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="about" className="relative py-28 overflow-hidden bg-white">
+    <section id="about" className="relative py-28 overflow-hidden bg-background">
       <div className="container mx-auto px-6 relative z-10">
         {/* Heading */}
         <motion.div
@@ -37,7 +37,7 @@ const AboutSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <div className="rounded-xl p-8 md:p-10 border border-border" style={{ background: "hsl(40 30% 97%)" }}>
+            <div className="rounded-xl p-8 md:p-10 border border-border bg-cream">
               <h3 className="text-2xl font-heading font-semibold text-foreground mb-4">
                 The Power of Botanicals
               </h3>
@@ -62,7 +62,7 @@ const AboutSection = () => {
             {[
               { num: "5,000+", label: "Happy Customers", sub: "Nationwide" },
               { num: "100%", label: "Natural Ingredients", sub: "Zero chemicals" },
-              { num: "4", label: "Premium Products", sub: "Handcrafted" },
+              { num: "7", label: "Premium Products", sub: "Handcrafted" },
               { num: "0%", label: "Compromise", sub: "On quality" },
             ].map((stat, i) => (
               <motion.div

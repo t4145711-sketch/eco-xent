@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 const FinalCTA = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false });
+  const isInView = useInView(ref, { once: true });
 
   return (
     <section className="relative py-8 px-4 md:px-8 overflow-hidden">
@@ -18,7 +18,7 @@ const FinalCTA = () => {
         {/* Subtle gold light */}
         <div
           className="absolute inset-0"
-          style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, hsl(40 55% 52% / 0.08) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, hsl(var(--gold) / 0.08) 0%, transparent 70%)" }}
         />
 
         <div className="relative z-10 text-center max-w-2xl mx-auto px-6 py-20">
@@ -40,8 +40,7 @@ const FinalCTA = () => {
             Experience the Power of
           </motion.h2>
           <motion.h2
-            className="text-3xl md:text-5xl font-heading font-light mb-8 leading-tight"
-            style={{ color: "hsl(40 55% 60%)" }}
+            className="text-3xl md:text-5xl font-heading font-light mb-8 leading-tight text-gold-light"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.45 }}
@@ -69,10 +68,10 @@ const FinalCTA = () => {
               href="#products"
               className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase text-white"
               style={{
-                background: "linear-gradient(135deg, hsl(40 55% 48%), hsl(40 50% 42%))",
-                boxShadow: "0 4px 24px hsl(40 55% 52% / 0.3)",
+                background: "linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-dark)))",
+                boxShadow: "0 4px 24px hsl(var(--gold) / 0.3)",
               }}
-              whileHover={{ scale: 1.03, boxShadow: "0 8px 40px hsl(40 55% 52% / 0.5)" }}
+              whileHover={{ scale: 1.03, boxShadow: "0 8px 40px hsl(var(--gold) / 0.5)" }}
               whileTap={{ scale: 0.97 }}
             >
               Shop Now
