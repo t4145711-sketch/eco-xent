@@ -66,11 +66,15 @@ const slides = [
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(() => new Set());
 
   // Track which images have loaded
   const handleImageLoad = useCallback((index: number) => {
-    setLoadedImages((prev) => new Set(prev).add(index));
+    setLoadedImages((prev) => {
+      const next = new Set(prev);
+      next.add(index);
+      return next;
+    });
   }, []);
 
   const goTo = useCallback((index: number) => {
@@ -126,15 +130,11 @@ const HeroSection = () => {
             <img
               src={slide.image}
               alt={slide.overline}
-              className="w-full h-full object-cover transition-opacity duration-500"
-              style={{ 
-                filter: "brightness(0.35)",
-                opacity: loadedImages.has(current) ? 1 : 0,
-              }}
+              className="w-full h-full object-cover"
+              style={{ filter: "brightness(0.35)" }}
               loading="eager"
               decoding="async"
               fetchPriority={current === 0 ? "high" : "auto"}
-              onLoad={() => handleImageLoad(current)}
             />
             {/* Overlays */}
             <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 30% 45%, hsl(120 35% 28% / 0.15) 0%, transparent 70%)" }} />
