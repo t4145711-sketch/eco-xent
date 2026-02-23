@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 import heroBanner1 from "@/assets/hero-banner-1.jpg";
@@ -65,30 +65,16 @@ const slides = [
 
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(() => new Set());
-
-  // Track which images have loaded
-  const handleImageLoad = useCallback((index: number) => {
-    setLoadedImages((prev) => {
-      const next = new Set(prev);
-      next.add(index);
-      return next;
-    });
-  }, []);
 
   const goTo = useCallback((index: number) => {
-    setDirection(index > current ? 1 : -1);
     setCurrent(index);
-  }, [current]);
+  }, []);
 
   const next = useCallback(() => {
-    setDirection(1);
     setCurrent((prev) => (prev + 1) % slides.length);
   }, []);
 
   const prev = useCallback(() => {
-    setDirection(-1);
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
@@ -99,12 +85,6 @@ const HeroSection = () => {
 
   const slide = slides[current];
 
-  const imageVariants = {
-    enter: (dir: number) => ({ opacity: 0, scale: 1.1, x: dir > 0 ? 80 : -80 }),
-    center: { opacity: 1, scale: 1, x: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } },
-    exit: (dir: number) => ({ opacity: 0, scale: 1.05, x: dir > 0 ? -80 : 80, transition: { duration: 0.6 } }),
-  };
-
   const textVariants = {
     enter: { opacity: 0, y: 30 },
     center: (delay: number) => ({ opacity: 1, y: 0, transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] } }),
@@ -114,33 +94,29 @@ const HeroSection = () => {
   return (
     <section id="hero" className="relative w-full overflow-hidden" style={{ marginTop: "72px" }}>
       <div className="relative w-full" style={{ minHeight: "92vh" }}>
-        {/* Background slides */}
-        <AnimatePresence custom={direction} mode="popLayout">
+        {/* Background slides - all rendered, only current visible */}
+        {slides.map((s, i) => (
           <motion.div
-            key={current}
-            custom={direction}
-            variants={imageVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
+            key={i}
+            animate={{ opacity: i === current ? 1 : 0, scale: i === current ? 1 : 1.05 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0"
+            style={{ zIndex: i === current ? 1 : 0 }}
           >
-            {/* Gradient placeholder always visible */}
             <div className="absolute inset-0 bg-gradient-to-br from-forest-dark via-forest to-forest-dark" />
             <img
-              src={slide.image}
-              alt={slide.overline}
+              src={s.image}
+              alt={s.overline}
               className="w-full h-full object-cover"
               style={{ filter: "brightness(0.35)" }}
-              loading="eager"
+              loading={i === 0 ? "eager" : "lazy"}
               decoding="async"
-              fetchPriority={current === 0 ? "high" : "auto"}
+              fetchPriority={i === 0 ? "high" : "auto"}
             />
-            {/* Overlays */}
             <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 30% 45%, hsl(120 35% 28% / 0.15) 0%, transparent 70%)" }} />
             <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(120 35% 8% / 0.6) 100%)" }} />
           </motion.div>
-        </AnimatePresence>
+        ))}
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-6 md:px-10 flex flex-col justify-center" style={{ minHeight: "92vh" }}>
