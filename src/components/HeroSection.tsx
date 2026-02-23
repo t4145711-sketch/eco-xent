@@ -8,6 +8,13 @@ import heroBanner3 from "@/assets/hero-banner-3.jpg";
 import heroBanner4 from "@/assets/hero-banner-4.jpg";
 import heroBanner5 from "@/assets/hero-banner-5.jpg";
 
+// Preload first banner for instant hero render
+const preloadLink = document.createElement("link");
+preloadLink.rel = "preload";
+preloadLink.as = "image";
+preloadLink.href = heroBanner1;
+document.head.appendChild(preloadLink);
+
 const slides = [
   {
     image: heroBanner1,

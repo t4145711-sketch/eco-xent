@@ -95,16 +95,17 @@ const ProductShowcase = () => {
               style={{
                 boxShadow: "0 0 50px hsl(var(--gold) / 0.2), 0 0 100px hsl(var(--gold) / 0.08), 0 20px 60px hsl(var(--forest) / 0.1)",
                 border: "3px solid hsl(var(--gold) / 0.35)",
+                background: "linear-gradient(135deg, hsl(var(--cream)), hsl(var(--secondary)))",
               }}
             >
               <motion.img
                 key={activeIndex}
                 src={activeProduct.image}
                 alt={activeProduct.name}
-                initial={{ opacity: 0, scale: 1.2 }}
-                animate={{ opacity: 1, scale: 1.1 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain p-4"
               />
             </div>
             {/* Decorative ring */}
