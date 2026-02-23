@@ -89,14 +89,7 @@ const ProductShowcase = () => {
         {/* Main showcase — image left, info right */}
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-5xl mx-auto">
           {/* Left: Active product image */}
-          <motion.div
-            key={activeIndex}
-            className="relative flex-shrink-0"
-            initial={{ opacity: 0, x: -60, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 60 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="relative flex-shrink-0">
             <div
               className="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden relative"
               style={{
@@ -104,17 +97,14 @@ const ProductShowcase = () => {
                 border: "3px solid hsl(var(--gold) / 0.35)",
               }}
             >
-              <img
+              <motion.img
+                key={activeIndex}
                 src={activeProduct.image}
                 alt={activeProduct.name}
-                loading="lazy"
-                className="w-full h-full object-cover scale-110"
-              />
-              {/* Shimmer effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                animate={{ x: ["-100%", "200%"] }}
-                transition={{ duration: 2, repeat: Infinity, repeatDelay: 4, ease: "easeInOut" }}
+                initial={{ opacity: 0, scale: 1.2 }}
+                animate={{ opacity: 1, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
+                className="w-full h-full object-cover"
               />
             </div>
             {/* Decorative ring */}
@@ -124,7 +114,7 @@ const ProductShowcase = () => {
                 border: "1px solid hsl(var(--gold) / 0.12)",
               }}
             />
-          </motion.div>
+          </div>
 
           {/* Right: Product info */}
           <motion.div
