@@ -64,8 +64,8 @@ const products: Product[] = [
     image: productNew1, discount: 25, badge: "Best Seller", category: "Skincare",
   },
   {
-    id: 7, name: "Herbal Body Lotion", tagline: "Silk Hydration",
-    description: "Luxurious herbal body lotion infused with botanical oils for all-day deep moisture and silky smooth skin.",
+    id: 7, name: "Eco-Xent Cleaning Soap", tagline: "Silk Hydration",
+    description: "Luxurious herbal cleaning soap infused with botanical oils for deep cleansing and silky smooth skin.",
     price: 700, originalPrice: 950, priceDisplay: "Rs.700", originalPriceDisplay: "Rs.950",
     image: productNew2, discount: 26, badge: "New", category: "Skincare",
   },
