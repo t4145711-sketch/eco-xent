@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, User, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
+import ecoxentAiLogo from "@/assets/ecoxent-ai-logo.jpeg";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -197,11 +198,9 @@ const AIChatbot = () => {
               style={{ background: "linear-gradient(135deg, hsl(var(--forest)), hsl(var(--forest-dark)))" }}
             >
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-gold/20 flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-gold-light" />
-                </div>
+                <img src={ecoxentAiLogo} alt="Eco-Xent AI" className="w-9 h-9 rounded-full object-cover border border-gold/30" />
                 <div>
-                  <h3 className="text-white font-heading font-semibold text-sm">Eco-Xent AI</h3>
+                  <h3 className="text-white font-heading font-semibold text-sm">Eco-Xent AI Assistant</h3>
                   <p className="text-white/50 text-[10px] font-body">Multilingual Assistant • Online</p>
                 </div>
               </div>
@@ -233,7 +232,7 @@ const AIChatbot = () => {
                         : "bg-gold/10 text-gold"
                     }`}
                   >
-                    {msg.role === "assistant" ? <Bot className="w-3.5 h-3.5" /> : <User className="w-3.5 h-3.5" />}
+                    {msg.role === "assistant" ? <img src={ecoxentAiLogo} alt="AI" className="w-7 h-7 rounded-full object-cover" /> : <User className="w-3.5 h-3.5" />}
                   </div>
                   <div
                     className={`max-w-[80%] px-4 py-2.5 rounded-2xl text-sm font-body leading-relaxed ${
@@ -254,9 +253,7 @@ const AIChatbot = () => {
               ))}
               {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
                 <div className="flex gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-forest/10 text-forest flex items-center justify-center">
-                    <Bot className="w-3.5 h-3.5" />
-                  </div>
+                  <img src={ecoxentAiLogo} alt="AI" className="w-7 h-7 rounded-full object-cover flex-shrink-0" />
                   <div className="bg-secondary px-4 py-3 rounded-2xl rounded-bl-sm">
                     <Loader2 className="w-4 h-4 animate-spin text-foreground/40" />
                   </div>
