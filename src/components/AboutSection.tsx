@@ -2,6 +2,52 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Leaf, Heart, Star, Shield } from "lucide-react";
 
+import productSerum from "@/assets/product-serum-new.png";
+import productHairOil from "@/assets/product-hairoil-premium.jpg";
+import productShampoo from "@/assets/product-shampoo-premium.jpg";
+import productSoap from "@/assets/product-soap-new.png";
+import productConditioner from "@/assets/product-conditioner.png";
+import productNew1 from "@/assets/product-new-botanical.png";
+import productNew2 from "@/assets/product-new-herbal.png";
+
+const healingProducts = [
+  {
+    name: "Botanic Shield Serum",
+    image: productSerum,
+    healing: "Proven to heal dull, sun-damaged skin. Real users saw visible radiance and protection from environmental stress within weeks of regular use.",
+  },
+  {
+    name: "Hair Healer Oil",
+    image: productHairOil,
+    healing: "Healed thousands of damaged scalps. 13+ therapeutic oils that have repaired weak follicles and restored hair growth in real people.",
+  },
+  {
+    name: "Herbal Shampoo",
+    image: productShampoo,
+    healing: "Healed chemically treated and weakened hair for hundreds of users. Sulfate-free formula that gently removes toxins while preserving natural scalp oils.",
+  },
+  {
+    name: "Herbal Soap",
+    image: productSoap,
+    healing: "Healed irritated, acne-prone skin naturally. Handcrafted organic herbs draw out impurities and restore your skin's balance without any harsh chemicals.",
+  },
+  {
+    name: "Velvet Ritual Conditioner",
+    image: productConditioner,
+    healing: "Healed dry, brittle hair that nothing else could fix. Deep herbal nourishment that transforms rough, lifeless strands into silky smooth results after every wash.",
+  },
+  {
+    name: "All-in-One Serum",
+    image: productNew1,
+    healing: "Healed melasma, dark spots and fine lines for countless users. Clinical-grade Niacinamide, Vitamin C, Kojic Acid & Alpha Arbutin deliver visible, proven results.",
+  },
+  {
+    name: "Eco-Xent Cleaning Soap",
+    image: productNew2,
+    healing: "Healed rough, dry body skin with luxury botanical oils. Deep pore cleansing that repairs and leaves your skin feeling silky smooth and naturally refreshed.",
+  },
+];
+
 const values = [
   { icon: Leaf, title: "Pure Ingredients", desc: "Every ingredient is organic and therapeutic — zero chemicals." },
   { icon: Heart, title: "Handcrafted Care", desc: "Each product is made by hand with love and precision." },
@@ -11,7 +57,9 @@ const values = [
 
 const AboutSection = () => {
   const ref = useRef(null);
+  const productsRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isProductsInView = useInView(productsRef, { once: true, margin: "-50px" });
 
   return (
     <section id="about" className="relative py-28 overflow-hidden bg-background">
@@ -80,6 +128,42 @@ const AboutSection = () => {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+
+        {/* Healing Products Section */}
+        <div ref={productsRef} className="max-w-5xl mx-auto mb-20">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isProductsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-gold tracking-[0.3em] uppercase text-[11px] font-body font-medium mb-3">Proven Healing</p>
+            <h3 className="text-2xl md:text-3xl font-heading font-semibold text-foreground">
+              Every Product Has a <span className="text-gradient-gold italic">Healing Story</span>
+            </h3>
+          </motion.div>
+
+          <div className="flex flex-col gap-4">
+            {healingProducts.map((product, i) => (
+              <motion.div
+                key={product.name}
+                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                animate={isProductsInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                whileHover={{ scale: 1.01 }}
+                className="flex items-center gap-5 rounded-xl p-4 md:p-5 border border-border hover:border-gold/20 transition-all duration-300 bg-card"
+              >
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden flex-shrink-0 bg-forest-light">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-heading font-semibold text-foreground text-sm md:text-base mb-1">{product.name}</h4>
+                  <p className="text-xs md:text-sm text-muted-foreground font-body leading-relaxed">{product.healing}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* Values */}
