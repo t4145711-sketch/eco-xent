@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 import heroBanner1 from "@/assets/hero-banner-1.jpg";
@@ -13,7 +13,22 @@ const preloadLink = document.createElement("link");
 preloadLink.rel = "preload";
 preloadLink.as = "image";
 preloadLink.href = heroBanner1;
+preloadLink.fetchPriority = "high";
 document.head.appendChild(preloadLink);
+
+// Preload all other banners after page load
+const preloadImages = (srcs: string[]) => {
+  srcs.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+};
+
+if (typeof window !== "undefined") {
+  window.addEventListener("load", () => {
+    preloadImages([heroBanner2, heroBanner3, heroBanner4, heroBanner5]);
+  }, { once: true });
+}
 
 const slides = [
   {
@@ -51,6 +66,12 @@ const slides = [
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
+
+  // Track which images have loaded
+  const handleImageLoad = useCallback((index: number) => {
+    setLoadedImages((prev) => new Set(prev).add(index));
+  }, []);
 
   const goTo = useCallback((index: number) => {
     setDirection(index > current ? 1 : -1);
@@ -100,14 +121,20 @@ const HeroSection = () => {
             exit="exit"
             className="absolute inset-0"
           >
+            {/* Gradient placeholder always visible */}
+            <div className="absolute inset-0 bg-gradient-to-br from-forest-dark via-forest to-forest-dark" />
             <img
               src={slide.image}
               alt={slide.overline}
-              className="w-full h-full object-cover"
-              loading={current === 0 ? "eager" : "lazy"}
+              className="w-full h-full object-cover transition-opacity duration-500"
+              style={{ 
+                filter: "brightness(0.35)",
+                opacity: loadedImages.has(current) ? 1 : 0,
+              }}
+              loading="eager"
               decoding="async"
               fetchPriority={current === 0 ? "high" : "auto"}
-              style={{ filter: "brightness(0.35)" }}
+              onLoad={() => handleImageLoad(current)}
             />
             {/* Overlays */}
             <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 30% 45%, hsl(120 35% 28% / 0.15) 0%, transparent 70%)" }} />
