@@ -44,14 +44,17 @@ const ProductShowcase = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [activeIndex, setActiveIndex] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(true);
 
-  // Auto-scroll every 3.5 seconds, loops infinitely
+  // Auto-scroll — wait for image to load before moving to next
   useEffect(() => {
+    if (!imageLoaded) return;
     const interval = setInterval(() => {
+      setImageLoaded(false);
       setActiveIndex((prev) => (prev + 1) % showcaseProducts.length);
-    }, 3500);
+    }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [imageLoaded]);
 
   const activeProduct = showcaseProducts[activeIndex];
 
@@ -91,7 +94,7 @@ const ProductShowcase = () => {
           {/* Left: Active product image */}
           <div className="relative flex-shrink-0">
             <div
-              className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden relative flex items-center justify-center"
+              className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden relative flex items-center justify-center"
               style={{
                 boxShadow: "0 0 50px hsl(var(--gold) / 0.2), 0 0 100px hsl(var(--gold) / 0.08), 0 20px 60px hsl(var(--forest) / 0.1)",
                 border: "3px solid hsl(var(--gold) / 0.35)",
@@ -102,15 +105,16 @@ const ProductShowcase = () => {
                 key={activeIndex}
                 src={activeProduct.image}
                 alt={activeProduct.name}
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="w-[85%] h-[85%] object-contain drop-shadow-lg"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={imageLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                onLoad={() => setImageLoaded(true)}
+                className="w-[90%] h-[90%] object-contain drop-shadow-lg"
               />
             </div>
             {/* Decorative ring */}
             <div
-              className="absolute -inset-3 rounded-full pointer-events-none"
+              className="absolute -inset-3 rounded-[2rem] pointer-events-none"
               style={{
                 border: "1px solid hsl(var(--gold) / 0.12)",
               }}
@@ -152,7 +156,10 @@ const ProductShowcase = () => {
           {showcaseProducts.map((product, i) => (
             <button
               key={product.name}
-              onClick={() => setActiveIndex(i)}
+              onClick={() => {
+                setImageLoaded(false);
+                setActiveIndex(i);
+              }}
               className="group relative flex flex-col items-center gap-2 transition-all duration-500"
             >
               <div
