@@ -4,6 +4,7 @@ import { MessageCircle, X, Send, User, Loader2 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { toast } from "sonner";
 import ecoxentAiLogo from "@/assets/ecoxent-ai-logo.jpeg";
+import ecoxentChatLogo from "@/assets/ecoxent-chat-logo.jpeg";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -166,14 +167,11 @@ const AIChatbot = () => {
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300"
-            style={{
-              background: "linear-gradient(135deg, hsl(var(--forest)), hsl(var(--forest-dark)))",
-            }}
+            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 overflow-hidden border-2 border-gold/30"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <MessageCircle className="w-6 h-6 text-white" />
+            <img src={ecoxentChatLogo} alt="Eco-Xent AI" className="w-full h-full object-cover" />
             <span className="absolute -top-1 -right-1 w-4 h-4 bg-gold rounded-full flex items-center justify-center">
               <span className="text-[8px] font-bold text-forest-dark">AI</span>
             </span>
