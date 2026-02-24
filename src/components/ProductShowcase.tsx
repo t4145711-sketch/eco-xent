@@ -42,19 +42,37 @@ const showcaseProducts = [
 
 const ProductShowcase = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
 
-  // Auto-scroll — wait for image to load before moving to next
+  // Preload first image on mount
   useEffect(() => {
-    if (!imageLoaded) return;
-    const interval = setInterval(() => {
+    const img = new Image();
+    img.src = showcaseProducts[0].image;
+    img.onload = () => {
+      setImageLoaded(true);
+      setInitialLoad(false);
+    };
+  }, []);
+
+  // Auto-scroll — wait for image to fully load before moving
+  useEffect(() => {
+    if (!imageLoaded || initialLoad) return;
+    const timer = setTimeout(() => {
       setImageLoaded(false);
       setActiveIndex((prev) => (prev + 1) % showcaseProducts.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [imageLoaded]);
+    }, 6000);
+    return () => clearTimeout(timer);
+  }, [imageLoaded, initialLoad]);
+
+  // Preload next image when current one is shown
+  useEffect(() => {
+    const nextIndex = (activeIndex + 1) % showcaseProducts.length;
+    const img = new Image();
+    img.src = showcaseProducts[nextIndex].image;
+  }, [activeIndex]);
 
   const activeProduct = showcaseProducts[activeIndex];
 
@@ -69,22 +87,23 @@ const ProductShowcase = () => {
           <motion.p
             className="text-gold tracking-[0.4em] uppercase text-[11px] font-body font-medium mb-4"
             initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ duration: 0.6 }}
           >
             Our Collection
           </motion.p>
           <motion.h2
             className="text-3xl md:text-5xl font-heading font-semibold text-foreground"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
           >
             Discover <span className="text-gradient-gold italic">Eco-Xent</span> Products
           </motion.h2>
           <motion.div
             className="w-16 h-px bg-gold/40 mx-auto mt-6"
             initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
+            animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           />
         </div>
@@ -92,42 +111,60 @@ const ProductShowcase = () => {
         {/* Main showcase — image left, info right */}
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-5xl mx-auto">
           {/* Left: Active product image */}
-          <div className="relative flex-shrink-0">
+          <motion.div
+            className="relative flex-shrink-0"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             <div
-              className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden relative flex items-center justify-center"
+              className="w-72 h-80 md:w-80 md:h-[22rem] lg:w-[22rem] lg:h-[26rem] rounded-2xl overflow-hidden relative flex items-center justify-center"
               style={{
-                boxShadow: "0 0 50px hsl(var(--gold) / 0.2), 0 0 100px hsl(var(--gold) / 0.08), 0 20px 60px hsl(var(--forest) / 0.1)",
-                border: "3px solid hsl(var(--gold) / 0.35)",
-                background: "linear-gradient(135deg, hsl(var(--cream)), hsl(var(--secondary)))",
+                boxShadow: "0 8px 40px hsl(var(--gold) / 0.15), 0 2px 20px hsl(var(--forest) / 0.08)",
+                border: "2px solid hsl(var(--gold) / 0.25)",
+                background: "linear-gradient(160deg, hsl(var(--cream)), hsl(var(--secondary)), hsl(var(--cream)))",
               }}
             >
+              {/* Shimmer loading placeholder */}
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full border-2 border-gold/30 border-t-gold animate-spin" />
+                </div>
+              )}
               <motion.img
                 key={activeIndex}
                 src={activeProduct.image}
                 alt={activeProduct.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={imageLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.92, y: 15 }}
+                animate={imageLoaded ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 15 }}
+                transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                 onLoad={() => setImageLoaded(true)}
-                className="w-[90%] h-[90%] object-contain drop-shadow-lg"
+                className="w-[82%] h-[82%] object-contain drop-shadow-xl relative z-10"
+              />
+              {/* Subtle inner glow */}
+              <div
+                className="absolute inset-0 pointer-events-none rounded-2xl"
+                style={{
+                  background: "radial-gradient(ellipse at 50% 80%, hsl(var(--gold) / 0.06), transparent 70%)",
+                }}
               />
             </div>
-            {/* Decorative ring */}
+            {/* Decorative outer ring */}
             <div
-              className="absolute -inset-3 rounded-[2rem] pointer-events-none"
+              className="absolute -inset-3 rounded-3xl pointer-events-none"
               style={{
-                border: "1px solid hsl(var(--gold) / 0.12)",
+                border: "1px solid hsl(var(--gold) / 0.1)",
               }}
             />
-          </div>
+          </motion.div>
 
           {/* Right: Product info */}
           <motion.div
             key={`info-${activeIndex}`}
             className="text-center lg:text-left flex-1"
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           >
             <p className="text-[11px] font-body font-medium tracking-[0.3em] uppercase text-gold mb-2">
               {activeProduct.tagline}
@@ -141,7 +178,7 @@ const ProductShowcase = () => {
                   key={h}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + idx * 0.1 }}
+                  transition={{ delay: 0.35 + idx * 0.08 }}
                   className="px-4 py-2 rounded-full text-xs font-body font-medium border border-gold/20 text-foreground/80 bg-cream"
                 >
                   ✓ {h}
@@ -152,20 +189,22 @@ const ProductShowcase = () => {
         </div>
 
         {/* Bottom: Thumbnail strip */}
-        <div className="flex justify-center gap-6 md:gap-8 mt-16">
+        <div className="flex justify-center gap-5 md:gap-7 mt-16">
           {showcaseProducts.map((product, i) => (
             <button
               key={product.name}
               onClick={() => {
-                setImageLoaded(false);
-                setActiveIndex(i);
+                if (i !== activeIndex) {
+                  setImageLoaded(false);
+                  setActiveIndex(i);
+                }
               }}
               className="group relative flex flex-col items-center gap-2 transition-all duration-500"
             >
               <div
-                className={`w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] rounded-full overflow-hidden transition-all duration-500 ${
+                className={`w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] rounded-xl overflow-hidden transition-all duration-500 ${
                   activeIndex === i
-                    ? "ring-2 ring-gold scale-110 shadow-lg"
+                    ? "ring-2 ring-gold scale-110 shadow-lg shadow-gold/10"
                     : "ring-1 ring-border opacity-50 group-hover:opacity-80 group-hover:scale-105"
                 }`}
               >
@@ -183,6 +222,14 @@ const ProductShowcase = () => {
               >
                 {product.name.split(" ")[0]}
               </span>
+              {/* Active indicator dot */}
+              {activeIndex === i && (
+                <motion.div
+                  layoutId="showcase-dot"
+                  className="w-1.5 h-1.5 rounded-full bg-gold"
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
             </button>
           ))}
         </div>
