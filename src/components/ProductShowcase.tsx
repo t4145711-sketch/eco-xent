@@ -91,7 +91,7 @@ const ProductShowcase = () => {
           {/* Left: Active product image */}
           <div className="relative flex-shrink-0">
             <div
-              className="w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden relative"
+              className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden relative flex items-center justify-center"
               style={{
                 boxShadow: "0 0 50px hsl(var(--gold) / 0.2), 0 0 100px hsl(var(--gold) / 0.08), 0 20px 60px hsl(var(--forest) / 0.1)",
                 border: "3px solid hsl(var(--gold) / 0.35)",
@@ -102,10 +102,10 @@ const ProductShowcase = () => {
                 key={activeIndex}
                 src={activeProduct.image}
                 alt={activeProduct.name}
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="w-full h-full object-contain p-4"
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="w-[85%] h-[85%] object-contain drop-shadow-lg"
               />
             </div>
             {/* Decorative ring */}
