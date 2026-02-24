@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -6,12 +7,81 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const MAX_MESSAGES = 50;
+const MAX_MESSAGE_LENGTH = 2000;
+const MAX_TOTAL_LENGTH = 10000;
+const RATE_LIMIT = 20; // requests per hour
+const RATE_WINDOW = 3600000; // 1 hour in ms
+
 serve(async (req) => {
   if (req.method === "OPTIONS")
     return new Response(null, { headers: corsHeaders });
 
   try {
     const { messages } = await req.json();
+
+    // --- Input validation ---
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > MAX_MESSAGES) {
+      return new Response(
+        JSON.stringify({ error: "Invalid messages format or count" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    let totalLength = 0;
+    for (const msg of messages) {
+      if (!msg.role || typeof msg.content !== "string") {
+        return new Response(
+          JSON.stringify({ error: "Invalid message structure" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (msg.content.length > MAX_MESSAGE_LENGTH) {
+        return new Response(
+          JSON.stringify({ error: `Message too long (max ${MAX_MESSAGE_LENGTH} chars)` }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      totalLength += msg.content.length;
+    }
+    if (totalLength > MAX_TOTAL_LENGTH) {
+      return new Response(
+        JSON.stringify({ error: "Total conversation too long" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // --- Rate limiting by IP ---
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
+    const now = Date.now();
+    const { data: rl } = await supabase
+      .from("chat_rate_limits")
+      .select("count, last_reset")
+      .eq("ip_address", ip)
+      .single();
+
+    const withinWindow = rl && rl.last_reset > now - RATE_WINDOW;
+
+    if (withinWindow && rl.count >= RATE_LIMIT) {
+      return new Response(
+        JSON.stringify({ error: "Too many requests. Please try again later." }),
+        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Update rate limit counter (fire and forget)
+    supabase.from("chat_rate_limits").upsert({
+      ip_address: ip,
+      count: withinWindow ? rl.count + 1 : 1,
+      last_reset: withinWindow ? rl.last_reset : now,
+    }).then(() => {});
+
+    // --- AI call ---
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
