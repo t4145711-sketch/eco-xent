@@ -42,8 +42,8 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
             <img src={logoImg} alt="Eco-Xent" className="object-contain" style={{ height: "48px" }} />
           </motion.a>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop nav — centered */}
+          <div className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
             {navItems.map((item, i) => (
               <motion.a
                 key={item.label}
@@ -51,10 +51,9 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.06 }}
-                className="relative px-5 py-2 text-[12px] font-body font-medium tracking-widest uppercase text-foreground/60 hover:text-foreground transition-colors duration-300 group"
+                className="px-5 py-2 rounded-full text-[12px] font-body font-medium tracking-widest uppercase text-foreground/60 hover:text-primary-foreground hover:bg-primary transition-all duration-300"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-5 right-5 h-[1px] bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center" />
               </motion.a>
             ))}
           </div>
