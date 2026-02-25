@@ -18,9 +18,7 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
   const [hidden, setHidden] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const diff = latest - lastScrollY.current;
-    if (diff > 10 && latest > 150) setHidden(true);
-    else if (diff < -5) setHidden(false);
+    // Always visible — sticky navbar
     setScrolled(latest > 20);
     lastScrollY.current = latest;
   });
