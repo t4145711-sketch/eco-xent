@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import showcaseSerum from "@/assets/showcase-serum.png";
 import showcaseHairOil from "@/assets/showcase-hairoil.png";
@@ -43,15 +43,40 @@ const showcaseProducts = [
 const ProductShowcase = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  // Preload all images on mount
+  useEffect(() => {
+    let loaded = 0;
+    showcaseProducts.forEach((p) => {
+      const img = new Image();
+      img.src = p.image;
+      img.onload = () => {
+        loaded++;
+        if (loaded === showcaseProducts.length) setInitialLoad(false);
+      };
+    });
+  }, []);
+
+  // Auto-scroll
+  useEffect(() => {
+    if (initialLoad) return;
+    const timer = setTimeout(() => {
+      setActiveIndex((prev) => (prev + 1) % showcaseProducts.length);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [activeIndex, initialLoad]);
+
+  const activeProduct = showcaseProducts[activeIndex];
 
   return (
     <section className="relative py-24 md:py-32 bg-background overflow-hidden">
-      {/* Subtle radial glow */}
       <div className="absolute inset-0 gradient-radial-gold pointer-events-none" />
 
       <div ref={ref} className="container mx-auto px-6 relative z-10">
         {/* Heading */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <motion.p
             className="text-gold tracking-[0.4em] uppercase text-[11px] font-body font-medium mb-4"
             initial={{ opacity: 0, y: 15 }}
@@ -76,57 +101,113 @@ const ProductShowcase = () => {
           />
         </div>
 
-        {/* Product cards grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-          {showcaseProducts.map((product, i) => (
-            <motion.div
-              key={product.name}
-              initial={{ opacity: 0, y: 25 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-              transition={{ delay: 0.15 + i * 0.1, duration: 0.5 }}
-              className="group flex flex-col items-center text-center"
+        {/* Main showcase — image left, info right */}
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 max-w-5xl mx-auto">
+          {/* Left: Active product image */}
+          <motion.div
+            className="relative flex-shrink-0"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <div
+              className="w-72 h-80 md:w-80 md:h-[22rem] lg:w-[22rem] lg:h-[26rem] rounded-2xl overflow-hidden relative flex items-center justify-center"
+              style={{
+                boxShadow: "0 8px 40px hsl(var(--gold) / 0.15), 0 2px 20px hsl(var(--forest) / 0.08)",
+                border: "2px solid hsl(var(--gold) / 0.25)",
+                background: "linear-gradient(160deg, hsl(var(--cream)), hsl(var(--secondary)), hsl(var(--cream)))",
+              }}
             >
-              {/* Product image card */}
+              <motion.img
+                key={activeIndex}
+                src={activeProduct.image}
+                alt={activeProduct.name}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="w-[82%] h-[82%] object-contain drop-shadow-xl relative z-10"
+              />
               <div
-                className="w-full aspect-square rounded-2xl overflow-hidden relative flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-[1.03] group-hover:shadow-xl"
+                className="absolute inset-0 pointer-events-none rounded-2xl"
                 style={{
-                  boxShadow: "0 4px 24px hsl(var(--gold) / 0.1), 0 1px 12px hsl(var(--forest) / 0.06)",
-                  border: "1.5px solid hsl(var(--gold) / 0.2)",
-                  background: "linear-gradient(160deg, hsl(var(--cream)), hsl(var(--secondary)), hsl(var(--cream)))",
+                  background: "radial-gradient(ellipse at 50% 80%, hsl(var(--gold) / 0.06), transparent 70%)",
                 }}
+              />
+            </div>
+            <div
+              className="absolute -inset-3 rounded-3xl pointer-events-none"
+              style={{ border: "1px solid hsl(var(--gold) / 0.1)" }}
+            />
+          </motion.div>
+
+          {/* Right: Product info */}
+          <motion.div
+            key={`info-${activeIndex}`}
+            className="text-center lg:text-left flex-1"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          >
+            <p className="text-[11px] font-body font-medium tracking-[0.3em] uppercase text-gold mb-2">
+              {activeProduct.tagline}
+            </p>
+            <h3 className="text-2xl md:text-4xl font-heading font-semibold text-foreground mb-6">
+              {activeProduct.name}
+            </h3>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8">
+              {activeProduct.highlights.map((h, idx) => (
+                <motion.span
+                  key={h}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 + idx * 0.08 }}
+                  className="px-4 py-2 rounded-full text-xs font-body font-medium border border-gold/20 text-foreground/80 bg-cream"
+                >
+                  ✓ {h}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Bottom: Thumbnail strip */}
+        <div className="flex justify-center gap-5 md:gap-7 mt-16">
+          {showcaseProducts.map((product, i) => (
+            <button
+              key={product.name}
+              onClick={() => {
+                if (i !== activeIndex) setActiveIndex(i);
+              }}
+              className="group relative flex flex-col items-center gap-2 transition-all duration-500"
+            >
+              <div
+                className={`w-14 h-14 md:w-[4.5rem] md:h-[4.5rem] rounded-xl overflow-hidden transition-all duration-500 ${
+                  activeIndex === i
+                    ? "ring-2 ring-gold scale-110 shadow-lg shadow-gold/10"
+                    : "ring-1 ring-border opacity-50 group-hover:opacity-80 group-hover:scale-105"
+                }`}
               >
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-[78%] h-[78%] object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Inner glow */}
-                <div
-                  className="absolute inset-0 pointer-events-none rounded-2xl"
-                  style={{
-                    background: "radial-gradient(ellipse at 50% 80%, hsl(var(--gold) / 0.05), transparent 70%)",
-                  }}
+                  className="w-full h-full object-cover"
                 />
               </div>
-
-              {/* Product info */}
-              <p className="text-[10px] font-body font-medium tracking-[0.25em] uppercase text-gold mb-1">
-                {product.tagline}
-              </p>
-              <h3 className="text-sm md:text-base font-heading font-semibold text-foreground mb-2">
-                {product.name}
-              </h3>
-              <div className="flex flex-wrap justify-center gap-1.5">
-                {product.highlights.slice(0, 2).map((h) => (
-                  <span
-                    key={h}
-                    className="px-2.5 py-1 rounded-full text-[10px] font-body font-medium border border-gold/15 text-foreground/70 bg-cream"
-                  >
-                    ✓ {h}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+              <span
+                className={`text-[9px] md:text-[10px] font-body tracking-wider uppercase transition-all duration-300 ${
+                  activeIndex === i ? "text-gold font-semibold" : "text-muted-foreground"
+                }`}
+              >
+                {product.name.split(" ")[0]}
+              </span>
+              {activeIndex === i && (
+                <motion.div
+                  layoutId="showcase-dot"
+                  className="w-1.5 h-1.5 rounded-full bg-gold"
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
+            </button>
           ))}
         </div>
       </div>
