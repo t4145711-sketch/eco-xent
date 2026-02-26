@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
 
 const WHATSAPP_NUMBER = "923295991062";
 
-const WhatsAppButton = () => {
+const WhatsAppButton = React.memo(() => {
   const [visible, setVisible] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [pulse, setPulse] = useState(true);
@@ -90,6 +90,8 @@ const WhatsAppButton = () => {
       )}
     </AnimatePresence>
   );
-};
+});
+
+WhatsAppButton.displayName = "WhatsAppButton";
 
 export default WhatsAppButton;
