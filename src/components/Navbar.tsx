@@ -1,16 +1,20 @@
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { ShoppingBag, Menu, X, Phone, ChevronRight } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import logoImg from "@/assets/ecoxent-logo-new.jpeg";
 
 const navItems = [
   { label: "Home", href: "#hero" },
   { label: "Collection", href: "#products" },
+  { label: "Track Order", href: "/track", isPage: true },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
 const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: () => void }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -24,6 +28,7 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
 
   // Track active section
   useEffect(() => {
+    if (location.pathname !== "/") return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -35,13 +40,13 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
       { rootMargin: "-40% 0px -55% 0px" }
     );
 
-    navItems.forEach((item) => {
+    navItems.filter(i => !i.isPage).forEach((item) => {
       const el = document.querySelector(item.href);
       if (el) observer.observe(el);
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   return (
     <motion.nav
@@ -87,11 +92,17 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
           {/* Desktop nav — centered with pill indicator */}
           <div className="hidden md:flex items-center gap-0.5 absolute left-1/2 -translate-x-1/2 bg-muted/50 rounded-full p-1 border border-border/50">
             {navItems.map((item, i) => {
-              const isActive = activeSection === item.href;
+              const isActive = item.isPage ? location.pathname === item.href : activeSection === item.href;
               return (
                 <motion.a
                   key={item.label}
                   href={item.href}
+                  onClick={(e) => {
+                    if (item.isPage) {
+                      e.preventDefault();
+                      navigate(item.href);
+                    }
+                  }}
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.05 }}
@@ -174,12 +185,18 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
           >
             <div className="px-5 py-4 flex flex-col gap-1">
               {navItems.map((item, i) => {
-                const isActive = activeSection === item.href;
+                const isActive = item.isPage ? location.pathname === item.href : activeSection === item.href;
                 return (
                   <motion.a
                     key={item.label}
                     href={item.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(e) => {
+                      setMenuOpen(false);
+                      if (item.isPage) {
+                        e.preventDefault();
+                        navigate(item.href);
+                      }
+                    }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.06 }}

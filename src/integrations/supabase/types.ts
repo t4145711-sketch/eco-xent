@@ -108,6 +108,18 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      lookup_orders_by_phone: {
+        Args: { phone_number: string }
+        Returns: {
+          created_at: string
+          id: string
+          payment_method: string
+          product_name: string
+          product_price: string
+          quantity: number
+          status: string
+        }[]
+      }
       no_admin_exists: { Args: never; Returns: boolean }
     }
     Enums: {
