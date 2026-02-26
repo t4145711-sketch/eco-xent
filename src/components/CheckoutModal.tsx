@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle, CheckCircle, Loader2, User, Phone, MapPin, CreditCard, Package } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,7 +30,7 @@ const paymentMethods = [
   { value: "Bank Transfer", label: "Bank Transfer", icon: "🏦", desc: "Bank account mein paise bhejein" },
 ];
 
-const CheckoutModal = ({ product, cartProducts, isOpen, onClose }: CheckoutModalProps) => {
+const CheckoutModal = React.memo(({ product, cartProducts, isOpen, onClose }: CheckoutModalProps) => {
   const [step, setStep] = useState<"form" | "success">("form");
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -379,6 +379,8 @@ const CheckoutModal = ({ product, cartProducts, isOpen, onClose }: CheckoutModal
       )}
     </AnimatePresence>
   );
-};
+});
+
+CheckoutModal.displayName = "CheckoutModal";
 
 export default CheckoutModal;
