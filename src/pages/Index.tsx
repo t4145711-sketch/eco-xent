@@ -4,6 +4,9 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import CartDrawer, { CartItem } from "@/components/CartDrawer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import MobileStickyBar from "@/components/MobileStickyBar";
+import CheckoutModal from "@/components/CheckoutModal";
 
 // Lazy load below-the-fold sections for faster initial load
 const TrustSection = lazy(() => import("@/components/TrustSection"));
@@ -20,10 +23,7 @@ const AboutSection = lazy(() => import("@/components/AboutSection"));
 const FAQSection = lazy(() => import("@/components/FAQSection"));
 const FinalCTA = lazy(() => import("@/components/FinalCTA"));
 const FooterSection = lazy(() => import("@/components/FooterSection"));
-const WhatsAppButton = lazy(() => import("@/components/WhatsAppButton"));
-const MobileStickyBar = lazy(() => import("@/components/MobileStickyBar"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
-const CheckoutModal = lazy(() => import("@/components/CheckoutModal"));
 import { toast } from "sonner";
 
 // Product info for cart (matches ProductsSection data)
