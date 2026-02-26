@@ -20,15 +20,15 @@ const FooterSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <footer id="contact" className="relative bg-white overflow-hidden">
-      <div className="w-full h-px" style={{ background: "linear-gradient(90deg, transparent, hsl(120 35% 28% / 0.4), transparent)" }} />
+    <footer id="contact" className="relative overflow-hidden" style={{ background: "hsl(90 35% 18%)" }}>
+      <div className="w-full h-px" style={{ background: "linear-gradient(90deg, transparent, hsl(45 55% 48% / 0.4), transparent)" }} />
 
       <div ref={ref} className="container mx-auto px-6 relative z-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-border">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/10">
           {/* Logo */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}}>
             <img src={logoImg} alt="Eco-Xent" className="object-contain mb-4" style={{ height: "44px" }} />
-            <p className="text-sm text-muted-foreground font-body leading-relaxed mb-5 font-light">
+            <p className="text-sm font-body leading-relaxed mb-5 font-light" style={{ color: "hsl(0 0% 100% / 0.7)" }}>
               Luxury organic personal care. Handcrafted with pure botanicals for healthy hair & radiant skin.
             </p>
             <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ const FooterSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.05 }}
-                  className="w-8 h-8 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/30 transition-all duration-300"
+                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-gold hover:border-gold/30 transition-all duration-300"
                 >
                   {label === "TikTok" || label === "Snapchat" ? <Icon /> : <Icon className="w-3.5 h-3.5" />}
                 </motion.a>
@@ -76,11 +76,11 @@ const FooterSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.2 + gi * 0.1 }}
             >
-              <h4 className="text-xs font-body font-medium tracking-widest uppercase text-foreground mb-5">{group.title}</h4>
+              <h4 className="text-xs font-body font-medium tracking-widest uppercase text-white mb-5">{group.title}</h4>
               <ul className="space-y-3">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-sm text-muted-foreground hover:text-gold transition-colors font-body font-light">{link.label}</a>
+                    <a href={link.href} className="text-sm text-white/70 hover:text-gold transition-colors font-body font-light">{link.label}</a>
                   </li>
                 ))}
               </ul>
@@ -88,7 +88,7 @@ const FooterSection = () => {
           ))}
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4 }}>
-            <h4 className="text-xs font-body font-medium tracking-widest uppercase text-foreground mb-5">Contact</h4>
+            <h4 className="text-xs font-body font-medium tracking-widest uppercase text-white mb-5">Contact</h4>
             <ul className="space-y-3">
               {[
                 { icon: Mail, text: "ecoxent@gmail.com", href: "mailto:ecoxent@gmail.com" },
@@ -97,7 +97,7 @@ const FooterSection = () => {
               ].map(({ icon: Icon, text, href }) => (
                 <li key={text} className="flex items-start gap-2.5">
                   <Icon className="w-3.5 h-3.5 text-gold mt-0.5 flex-shrink-0" />
-                  <a href={href} className="text-sm text-muted-foreground font-body font-light hover:text-gold transition-colors">{text}</a>
+                  <a href={href} className="text-sm text-white/70 font-body font-light hover:text-gold transition-colors">{text}</a>
                 </li>
               ))}
             </ul>
@@ -105,15 +105,15 @@ const FooterSection = () => {
         </div>
 
         <div className="py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground/60 font-body font-light">© 2026 Eco-Xent. All rights reserved.</p>
-          <p className="text-xs text-muted-foreground/60 font-body font-light">
+          <p className="text-xs text-white/50 font-body font-light">© 2026 Eco-Xent. All rights reserved.</p>
+          <p className="text-xs text-white/50 font-body font-light">
             Website by{" "}
             <a href="mailto:neonesttechnologies@gmail.com" className="hover:text-gold transition-colors underline">Neo Nest Technologies</a>
             {" "}— <a href="mailto:neonesttechnologies@gmail.com" className="hover:text-gold transition-colors">neonesttechnologies@gmail.com</a>
           </p>
           <div className="flex gap-5">
             {["Privacy Policy", "Terms of Service", "Refund Policy"].map((item) => (
-              <a key={item} href="#" className="text-xs text-muted-foreground/60 hover:text-gold transition-colors font-body font-light">{item}</a>
+              <a key={item} href="#" className="text-xs text-white/50 hover:text-gold transition-colors font-body font-light">{item}</a>
             ))}
           </div>
         </div>
