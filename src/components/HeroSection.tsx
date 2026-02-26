@@ -9,24 +9,20 @@ import heroBanner4 from "@/assets/hero-banner-4.jpg";
 import heroBanner5 from "@/assets/hero-banner-5.jpg";
 
 // Preload first banner for instant hero render
-const preloadLink = document.createElement("link");
-preloadLink.rel = "preload";
-preloadLink.as = "image";
-preloadLink.href = heroBanner1;
-preloadLink.fetchPriority = "high";
-document.head.appendChild(preloadLink);
-
-// Preload all other banners after page load
-const preloadImages = (srcs: string[]) => {
-  srcs.forEach((src) => {
-    const img = new Image();
-    img.src = src;
-  });
-};
-
 if (typeof window !== "undefined") {
+  const preloadLink = document.createElement("link");
+  preloadLink.rel = "preload";
+  preloadLink.as = "image";
+  preloadLink.href = heroBanner1;
+  preloadLink.fetchPriority = "high";
+  document.head.appendChild(preloadLink);
+
+  // Preload all other banners after page load
   window.addEventListener("load", () => {
-    preloadImages([heroBanner2, heroBanner3, heroBanner4, heroBanner5]);
+    [heroBanner2, heroBanner3, heroBanner4, heroBanner5].forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
   }, { once: true });
 }
 

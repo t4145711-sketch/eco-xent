@@ -57,8 +57,18 @@ const FooterSection = () => {
           </motion.div>
 
           {[
-            { title: "Collection", links: ["Serum", "Hair Oil", "Shampoo", "Soap"] },
-            { title: "Company", links: ["Our Story", "Sustainability", "Ingredients", "Blog"] },
+            { title: "Collection", links: [
+              { label: "Serum", href: "#products" },
+              { label: "Hair Oil", href: "#products" },
+              { label: "Shampoo", href: "#products" },
+              { label: "Soap", href: "#products" },
+            ]},
+            { title: "Company", links: [
+              { label: "Our Story", href: "#about" },
+              { label: "Sustainability", href: "#about" },
+              { label: "Ingredients", href: "#products" },
+              { label: "FAQ", href: "#faq" },
+            ]},
           ].map((group, gi) => (
             <motion.div
               key={group.title}
@@ -69,8 +79,8 @@ const FooterSection = () => {
               <h4 className="text-xs font-body font-medium tracking-widest uppercase text-foreground mb-5">{group.title}</h4>
               <ul className="space-y-3">
                 {group.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-muted-foreground hover:text-gold transition-colors font-body font-light">{link}</a>
+                  <li key={link.label}>
+                    <a href={link.href} className="text-sm text-muted-foreground hover:text-gold transition-colors font-body font-light">{link.label}</a>
                   </li>
                 ))}
               </ul>

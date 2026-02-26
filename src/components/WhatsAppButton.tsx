@@ -28,7 +28,7 @@ const WhatsAppButton = () => {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-3"
+          className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 md:bottom-6 bottom-20"
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
