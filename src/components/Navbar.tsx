@@ -106,7 +106,7 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 + i * 0.05 }}
-                  className="relative px-5 py-2 rounded-full text-[11px] font-body font-semibold tracking-[0.12em] uppercase transition-colors duration-300"
+                  className="relative px-5 py-2 rounded-full text-[11px] font-body font-semibold tracking-[0.12em] uppercase transition-colors duration-300 whitespace-nowrap"
                   style={{
                     color: isActive ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))",
                   }}
