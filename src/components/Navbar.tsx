@@ -10,7 +10,7 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-const Navbar = ({ cartCount }: { cartCount: number }) => {
+const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: () => void }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -118,6 +118,7 @@ const Navbar = ({ cartCount }: { cartCount: number }) => {
           <div className="flex items-center gap-2.5">
             {/* Cart */}
             <motion.button
+              onClick={onCartClick}
               className="relative w-10 h-10 rounded-full border border-border/60 flex items-center justify-center hover:border-primary/30 hover:bg-accent/50 transition-all duration-200"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
