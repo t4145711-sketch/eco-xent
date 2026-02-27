@@ -27,7 +27,7 @@ const AIChatbot = lazy(() => import("@/components/AIChatbot"));
 import { toast } from "sonner";
 
 // Product info for cart (matches ProductsSection data)
-import productSerum from "@/assets/product-serum-new.png";
+import productSerum from "@/assets/product-serum-updated.jpeg";
 import productHairOil from "@/assets/product-hairoil-premium.jpg";
 import productShampoo from "@/assets/product-shampoo-updated.jpeg";
 import productSoap from "@/assets/product-soap-new.png";

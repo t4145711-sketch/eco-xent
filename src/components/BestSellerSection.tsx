@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Star, Shield, Leaf } from "lucide-react";
-import productSerum from "@/assets/product-serum-premium.jpg";
+import productSerum from "@/assets/product-serum-updated.jpeg";
 
 const BestSellerSection = () => {
   const ref = useRef(null);
