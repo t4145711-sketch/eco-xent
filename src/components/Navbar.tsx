@@ -26,26 +26,30 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
     lastScrollY.current = latest;
   });
 
-  // Track active section
+  // Track active section via scroll
   useEffect(() => {
     if (location.pathname !== "/") return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(`#${entry.target.id}`);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px" }
-    );
 
-    navItems.filter(i => !i.isPage).forEach((item) => {
-      const el = document.querySelector(item.href);
-      if (el) observer.observe(el);
-    });
+    const sectionIds = navItems.filter(i => !i.isPage).map(i => i.href);
 
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight * 0.35;
+
+      // Check from bottom to top to find the last section that has been scrolled past
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.querySelector(sectionIds[i]) as HTMLElement;
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sectionIds[i]);
+          return;
+        }
+      }
+      // Default to first
+      setActiveSection(sectionIds[0]);
+    };
+
+    handleScroll(); // initial check
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
   return (
@@ -101,6 +105,8 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
                     if (item.isPage) {
                       e.preventDefault();
                       navigate(item.href);
+                    } else {
+                      setActiveSection(item.href);
                     }
                   }}
                   initial={{ opacity: 0, y: -8 }}
