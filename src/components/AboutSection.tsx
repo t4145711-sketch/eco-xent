@@ -4,7 +4,7 @@ import { Leaf, Heart, Star, Shield } from "lucide-react";
 
 import productSerum from "@/assets/product-serum-new.png";
 import productHairOil from "@/assets/product-hairoil-premium.jpg";
-import productShampoo from "@/assets/product-shampoo-premium.jpg";
+import productShampoo from "@/assets/product-shampoo-updated.jpeg";
 import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner.png";
 import productNew1 from "@/assets/product-new-botanical.png";
