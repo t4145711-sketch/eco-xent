@@ -222,13 +222,10 @@ const ProductShowcase = () => {
                   />
 
                   {/* Product image */}
-                  <motion.img
+                  <img
                     src={activeProduct.image}
                     alt={activeProduct.name}
                     className="w-[70%] h-[70%] object-contain drop-shadow-2xl relative z-10"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
                   />
 
                   {/* Bottom label */}
