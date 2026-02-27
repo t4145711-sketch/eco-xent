@@ -52,24 +52,79 @@ const ProductShowcase = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 left, 1 right
   const [isFlipping, setIsFlipping] = useState(false);
+  const [isPreparingFlip, setIsPreparingFlip] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
 
-  // Preload images
+  // Preload images and mark ready state
   useEffect(() => {
-    showcaseProducts.forEach((p) => {
+    let mounted = true;
+
+    showcaseProducts.forEach((p, index) => {
       const img = new Image();
       img.src = p.image;
+
+      if (img.complete) {
+        if (mounted) {
+          setLoadedImages((prev) => {
+            if (prev.has(index)) return prev;
+            const next = new Set(prev);
+            next.add(index);
+            return next;
+          });
+        }
+        return;
+      }
+
+      img.onload = () => {
+        if (!mounted) return;
+        setLoadedImages((prev) => {
+          if (prev.has(index)) return prev;
+          const next = new Set(prev);
+          next.add(index);
+          return next;
+        });
+      };
     });
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const goTo = useCallback(
     (newIndex: number, dir: number) => {
-      if (isFlipping) return;
-      setIsFlipping(true);
-      setDirection(dir);
-      setActiveIndex(newIndex);
-      setTimeout(() => setIsFlipping(false), 700);
+      if (isFlipping || isPreparingFlip || newIndex === activeIndex) return;
+
+      const performFlip = () => {
+        setIsFlipping(true);
+        setDirection(dir);
+        setActiveIndex(newIndex);
+        setTimeout(() => setIsFlipping(false), 1000);
+      };
+
+      if (loadedImages.has(newIndex)) {
+        performFlip();
+        return;
+      }
+
+      setIsPreparingFlip(true);
+      const img = new Image();
+      img.src = showcaseProducts[newIndex].image;
+      img.onload = () => {
+        setLoadedImages((prev) => {
+          if (prev.has(newIndex)) return prev;
+          const next = new Set(prev);
+          next.add(newIndex);
+          return next;
+        });
+        setIsPreparingFlip(false);
+        performFlip();
+      };
+      img.onerror = () => {
+        setIsPreparingFlip(false);
+      };
     },
-    [isFlipping]
+    [activeIndex, isFlipping, isPreparingFlip, loadedImages]
   );
 
   const goNext = useCallback(() => {
@@ -192,9 +247,9 @@ const ProductShowcase = () => {
                   animate="center"
                   exit="exit"
                   transition={{
-                    rotateY: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-                    opacity: { duration: 0.4 },
-                    scale: { duration: 0.5 },
+                    rotateY: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+                    opacity: { duration: 0.55 },
+                    scale: { duration: 0.7 },
                   }}
                   className="absolute inset-0 rounded-2xl overflow-hidden flex items-center justify-center"
                   style={{
@@ -225,6 +280,8 @@ const ProductShowcase = () => {
                   <img
                     src={activeProduct.image}
                     alt={activeProduct.name}
+                    loading="eager"
+                    decoding="sync"
                     className="w-[70%] h-[70%] object-contain drop-shadow-2xl relative z-10"
                   />
 
@@ -313,7 +370,7 @@ const ProductShowcase = () => {
             <button
               key={product.name}
               onClick={() => {
-                if (i !== activeIndex && !isFlipping) {
+                if (i !== activeIndex && !isFlipping && !isPreparingFlip) {
                   goTo(i, i > activeIndex ? 1 : -1);
                 }
               }}
