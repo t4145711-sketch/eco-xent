@@ -2,7 +2,10 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Brain, Heart, Shield, Sparkles, Users, Award } from "lucide-react";
+import { lazy, Suspense } from "react";
 import logoImg from "@/assets/ecoxent-logo-new.jpeg";
+
+const AIChatbot = lazy(() => import("@/components/AIChatbot"));
 
 const specialties = [
   { icon: Brain, title: "Certified NLP Practitioner", desc: "Rewire thought patterns for lasting positive change" },
@@ -195,6 +198,10 @@ const AboutCeo = () => {
           <p className="text-xs text-muted-foreground font-body">© {new Date().getFullYear()} Eco-Xent. All rights reserved.</p>
         </div>
       </footer>
+
+      <Suspense fallback={null}>
+        <AIChatbot />
+      </Suspense>
     </div>
   );
 };
