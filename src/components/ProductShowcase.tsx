@@ -147,18 +147,15 @@ const ProductShowcase = () => {
   const cardVariants = {
     enter: (dir: number) => ({
       rotateY: dir > 0 ? 90 : -90,
-      opacity: 0,
-      scale: 0.85,
+      scale: 0.92,
     }),
     center: {
       rotateY: 0,
-      opacity: 1,
       scale: 1,
     },
     exit: (dir: number) => ({
       rotateY: dir > 0 ? -90 : 90,
-      opacity: 0,
-      scale: 0.85,
+      scale: 0.92,
     }),
   };
 
@@ -248,7 +245,6 @@ const ProductShowcase = () => {
                   exit="exit"
                   transition={{
                     rotateY: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-                    opacity: { duration: 0.55 },
                     scale: { duration: 0.7 },
                   }}
                   className="absolute inset-0 rounded-2xl overflow-hidden flex items-center justify-center"
