@@ -5,7 +5,7 @@ import { ArrowLeft, Brain, Heart, Shield, Sparkles, Users, Award } from "lucide-
 import { lazy, Suspense } from "react";
 import logoImg from "@/assets/ecoxent-logo-new.jpeg";
 
-const AIChatbot = lazy(() => import("@/components/AIChatbot"));
+const FounderChatbot = lazy(() => import("@/components/FounderChatbot"));
 
 const specialties = [
   { icon: Brain, title: "Certified NLP Practitioner", desc: "Rewire thought patterns for lasting positive change" },
@@ -200,7 +200,7 @@ const AboutCeo = () => {
       </footer>
 
       <Suspense fallback={null}>
-        <AIChatbot />
+        <FounderChatbot />
       </Suspense>
     </div>
   );
