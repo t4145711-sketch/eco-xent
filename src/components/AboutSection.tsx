@@ -131,34 +131,43 @@ const AboutSection = () => {
         </div>
 
         {/* Healing Products Section */}
-        <div ref={productsRef} className="max-w-5xl mx-auto mb-20">
+        <div ref={productsRef} className="max-w-6xl mx-auto mb-20">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-14"
             initial={{ opacity: 0, y: 20 }}
             animate={isProductsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-gold tracking-[0.3em] uppercase text-[11px] font-body font-medium mb-3">Proven Healing</p>
-            <h3 className="text-2xl md:text-3xl font-heading font-semibold text-foreground">
+            <p className="text-gold tracking-[0.4em] uppercase text-[11px] font-body font-medium mb-3">Proven Healing</p>
+            <h3 className="text-3xl md:text-4xl font-heading font-semibold text-foreground">
               Every Product Has a <span className="text-gradient-gold italic">Healing Story</span>
             </h3>
+            <p className="text-muted-foreground font-body text-sm mt-4 max-w-xl mx-auto leading-relaxed">
+              Real results from real people — each formula is crafted to deliver deep, lasting therapeutic benefits.
+            </p>
+            <div className="w-16 h-px bg-gold/40 mx-auto mt-6" />
           </motion.div>
 
-          <div className="flex flex-col gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 xl:gap-6">
             {healingProducts.map((product, i) => (
               <motion.div
                 key={product.name}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-                animate={isProductsInView ? { opacity: 1, x: 0 } : {}}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isProductsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: i * 0.08, duration: 0.5 }}
-                whileHover={{ scale: 1.01 }}
-                className="flex items-center gap-5 rounded-xl p-4 md:p-5 border border-border hover:border-gold/20 transition-all duration-300 bg-card"
+                whileHover={{ y: -6 }}
+                className="group rounded-2xl overflow-hidden border border-border hover:border-gold/30 transition-all duration-500 bg-card hover:shadow-[0_8px_30px_-12px_hsl(var(--gold)/0.15)]"
               >
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-lg overflow-hidden flex-shrink-0 bg-forest-light">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
+                <div className="aspect-[4/3] overflow-hidden bg-accent/30">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-heading font-semibold text-foreground text-sm md:text-base mb-1">{product.name}</h4>
+                <div className="p-5 md:p-6">
+                  <h4 className="font-heading font-semibold text-foreground text-base mb-2 group-hover:text-gold-dark transition-colors duration-300">{product.name}</h4>
                   <p className="text-xs md:text-sm text-muted-foreground font-body leading-relaxed">{product.healing}</p>
                 </div>
               </motion.div>
