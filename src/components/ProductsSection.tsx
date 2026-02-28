@@ -9,7 +9,7 @@ import productShampoo from "@/assets/product-shampoo-with-ingredients.jpg";
 import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
-import productNew2 from "@/assets/product-new-herbal.png";
+import productNew2 from "@/assets/product-soap-with-ingredients.png";
 
 interface Product {
   id: number;
@@ -64,8 +64,8 @@ const products: Product[] = [
     image: productNew1, discount: 25, badge: "Best Seller", category: "Skincare",
   },
   {
-    id: 7, name: "Eco-Xent Cleaning Soap", tagline: "Silk Hydration",
-    description: "Healed rough, dry body skin with luxury botanical oils. Deep pore cleansing that repairs and leaves your skin feeling silky smooth and naturally refreshed.",
+    id: 7, name: "Eco-Xent Cleansing Soap", tagline: "Neem & Shea Butter",
+    description: "Healed rough, acne-prone skin with Neem, Amla, Tea Tree, Frankincense & Shea Butter. Deep pore cleansing that repairs and leaves your skin silky smooth and naturally refreshed.",
     price: 700, originalPrice: 950, priceDisplay: "Rs.700", originalPriceDisplay: "Rs.950",
     image: productNew2, discount: 26, badge: "New", category: "Skincare",
   },
