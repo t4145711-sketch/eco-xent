@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { Leaf, Heart, Star, Shield } from "lucide-react";
 
 import productSerum from "@/assets/product-serum-with-ingredients.jpg";
-import productHairOil from "@/assets/product-hairoil-updated.jpeg";
+import productHairOil from "@/assets/product-hairoil-with-ingredients.jpg";
 import productShampoo from "@/assets/product-shampoo-with-ingredients.jpg";
 import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
