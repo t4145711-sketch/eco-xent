@@ -10,6 +10,7 @@ import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
 import productNew2 from "@/assets/product-soap-with-ingredients.png";
+import productHairSerum from "@/assets/product-serum-labeled-with-ingredients.jpg";
 
 interface Product {
   id: number;
@@ -68,6 +69,12 @@ const products: Product[] = [
     description: "Healed rough, acne-prone skin with Neem, Amla, Tea Tree, Frankincense & Shea Butter. Deep pore cleansing that repairs and leaves your skin silky smooth and naturally refreshed.",
     price: 700, originalPrice: 950, priceDisplay: "Rs.700", originalPriceDisplay: "Rs.950",
     image: productNew2, discount: 26, badge: "New", category: "Skincare",
+  },
+  {
+    id: 8, name: "Hair Living Serum", tagline: "Advanced Hair Care & Shine",
+    description: "Nourish from nature and repair damage with Argan Oil, Marula Oil, Camellia Oil, Baobab Oil & Murumuru Butter. Controls frizz, adds natural shine and protects from environmental damage.",
+    price: 1200, originalPrice: 1600, priceDisplay: "Rs.1,200", originalPriceDisplay: "Rs.1,600",
+    image: productHairSerum, discount: 25, badge: "New", category: "Haircare",
   },
 ];
 

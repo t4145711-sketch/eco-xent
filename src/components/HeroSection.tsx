@@ -7,6 +7,7 @@ import heroBanner2 from "@/assets/hero-banner-hairoil-new.jpg";
 import heroBanner3 from "@/assets/hero-banner-shampoo-new.jpg";
 import heroBanner4 from "@/assets/hero-banner-soap-new.jpg";
 import heroBanner5 from "@/assets/hero-banner-conditioner-new.jpg";
+import heroBanner6 from "@/assets/hero-banner-hair-serum-new.jpg";
 
 // Preload first banner for instant hero render
 if (typeof window !== "undefined") {
@@ -19,7 +20,7 @@ if (typeof window !== "undefined") {
 
   // Preload all other banners after page load
   window.addEventListener("load", () => {
-    [heroBanner2, heroBanner3, heroBanner4, heroBanner5].forEach((src) => {
+    [heroBanner2, heroBanner3, heroBanner4, heroBanner5, heroBanner6].forEach((src) => {
       const img = new Image();
       img.src = src;
     });
@@ -56,6 +57,12 @@ const slides = [
     overline: "Velvet Ritual Conditioner",
     headline: ["Silky Smooth.", "Every Wash."],
     description: "Advanced herbal conditioner that deeply hydrates, enhances shine and provides daily shield protection for silky, healthy hair.",
+  },
+  {
+    image: heroBanner6,
+    overline: "Hair Living Serum",
+    headline: ["Shine & Repair.", "Naturally."],
+    description: "Advanced herbal hair serum with Argan Oil, Marula Oil, Camellia Oil & Murumuru Butter to nourish, control frizz and add natural shine.",
   },
 ];
 
