@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
-import heroBanner1 from "@/assets/hero-banner-1.jpg";
-import heroBanner2 from "@/assets/hero-banner-2.jpg";
-import heroBanner3 from "@/assets/hero-banner-3.jpg";
-import heroBanner4 from "@/assets/hero-banner-4.jpg";
-import heroBanner5 from "@/assets/hero-banner-5.jpg";
+import heroBanner1 from "@/assets/hero-banner-serum-new.jpg";
+import heroBanner2 from "@/assets/hero-banner-hairoil-new.jpg";
+import heroBanner3 from "@/assets/hero-banner-shampoo-new.jpg";
+import heroBanner4 from "@/assets/hero-banner-soap-new.jpg";
+import heroBanner5 from "@/assets/hero-banner-conditioner-new.jpg";
 
 // Preload first banner for instant hero render
 if (typeof window !== "undefined") {
