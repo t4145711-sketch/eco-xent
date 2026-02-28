@@ -4,7 +4,7 @@ import { ShoppingCart, ArrowRight, Filter } from "lucide-react";
 import CheckoutModal from "@/components/CheckoutModal";
 
 import productSerum from "@/assets/product-serum-with-ingredients.jpg";
-import productHairOil from "@/assets/product-hairoil-updated.jpeg";
+import productHairOil from "@/assets/product-hairoil-with-ingredients.jpg";
 import productShampoo from "@/assets/product-shampoo-with-ingredients.jpg";
 import productSoap from "@/assets/product-soap-new.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
