@@ -31,7 +31,7 @@ import productSerum from "@/assets/product-serum-with-ingredients.jpg";
 import productHairOil from "@/assets/product-hairoil-updated.jpeg";
 import productShampoo from "@/assets/product-shampoo-updated.jpeg";
 import productSoap from "@/assets/product-soap-new.png";
-import productConditioner from "@/assets/product-conditioner-updated.jpeg";
+import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 import productNew1 from "@/assets/product-new-botanical-updated.jpeg";
 import productNew2 from "@/assets/product-new-herbal.png";
 

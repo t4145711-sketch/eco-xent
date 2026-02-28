@@ -6,7 +6,7 @@ import showcaseSerum from "@/assets/product-new-botanical-updated.jpeg";
 import showcaseHairOil from "@/assets/product-hairoil-updated.jpeg";
 import showcaseShampoo from "@/assets/product-shampoo-updated.jpeg";
 import showcaseSoap from "@/assets/showcase-soap.png";
-import showcaseConditioner from "@/assets/product-conditioner-updated.jpeg";
+import showcaseConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 
 const showcaseProducts = [
   {
