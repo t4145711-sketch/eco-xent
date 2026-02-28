@@ -2,7 +2,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import showcaseSerum from "@/assets/product-new-botanical-updated.jpeg";
+import showcaseSerum from "@/assets/product-new-botanical-with-ingredients.jpg";
 import showcaseHairOil from "@/assets/product-hairoil-updated.jpeg";
 import showcaseShampoo from "@/assets/product-shampoo-updated.jpeg";
 import showcaseSoap from "@/assets/showcase-soap.png";
