@@ -35,27 +35,27 @@ const slides = [
   },
   {
     image: heroBanner2,
+    overline: "Hair Healer Oil",
+    headline: ["Heal Hair.", "Grow Strong."],
+    description: "Powerful herbal hair oil with 27 essential herbs including Coconut, Castor, Black Seed & Amla oils to reduce hair fall and promote healthy growth.",
+  },
+  {
+    image: heroBanner3,
     overline: "Herbal Shampoo",
     headline: ["Nourish.", "Transform."],
     description: "Sulfate-free herbal shampoo infused with amla, neem & shikakai for soft, nourished and healthy hair.",
   },
   {
-    image: heroBanner3,
+    image: heroBanner4,
     overline: "Eco-Xent Cleansing Soap",
     headline: ["Cleanse.", "Rejuvenate."],
     description: "Luxurious herbal cleansing soap with Neem, Amla, Tea Tree & Frankincense for naturally clear skin.",
   },
   {
-    image: heroBanner4,
-    overline: "Hair Healer Oil",
-    headline: ["Heal Hair.", "Grow Strong."],
-    description: "Powerful herbal hair oil with Coconut, Castor, Black Seed & Amla oils to reduce hair fall and promote healthy growth.",
-  },
-  {
     image: heroBanner5,
-    overline: "Herbal Soap Collection",
-    headline: ["Handcrafted.", "With Love."],
-    description: "Natural handcrafted herbal soaps infused with amla, neem & honey. Reduces acne, nourishes & hydrates skin.",
+    overline: "Velvet Ritual Conditioner",
+    headline: ["Silky Smooth.", "Every Wash."],
+    description: "Advanced herbal conditioner that deeply hydrates, enhances shine and provides daily shield protection for silky, healthy hair.",
   },
 ];
 
