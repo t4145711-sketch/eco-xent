@@ -7,10 +7,10 @@ import logoImg from "@/assets/ecoxent-logo-new.jpeg";
 const navItems = [
   { label: "Home", href: "#hero" },
   { label: "Collection", href: "#products" },
-  { label: "Track Order", href: "/track", isPage: true },
-  { label: "Founder", href: "/founder", isPage: true },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
+  { label: "Founder", href: "/founder", isPage: true },
+  { label: "Track Order", href: "/track", isPage: true },
 ];
 
 const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: () => void }) => {
