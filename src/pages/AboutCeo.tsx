@@ -17,12 +17,12 @@ const founderSlides = [
 const FounderChatbot = lazy(() => import("@/components/FounderChatbot"));
 
 const specialties = [
-  { icon: Brain, title: "Certified NLP Practitioner", desc: "Rewire thought patterns for lasting positive change through proven neuro-linguistic programming techniques.", color: "hsl(var(--gold))" },
-  { icon: Sparkles, title: "Silva Method Coach", desc: "Unlock your mind's hidden potential through dynamic meditation and visualization mastery.", color: "hsl(var(--gold))" },
-  { icon: Shield, title: "Metaphysics Specialist", desc: "Bridge the gap between science and spirituality for profound self-understanding.", color: "hsl(var(--gold))" },
-  { icon: Heart, title: "Trauma Healing Expert", desc: "Heal childhood wounds and overcome deep-rooted fears with compassionate therapeutic guidance.", color: "hsl(var(--gold))" },
-  { icon: Users, title: "Family Harmony Coach", desc: "Transform parent-child dynamics and restore harmony using proven relationship techniques.", color: "hsl(var(--gold))" },
-  { icon: Award, title: "Instant Results Method", desc: "Experience breakthrough healing and tangible transformation from the very first session.", color: "hsl(var(--gold))" },
+  { icon: Brain, title: "Certified NLP Practitioner", desc: "Rewire thought patterns for lasting positive change through proven neuro-linguistic programming techniques.", backDesc: "Transform limiting beliefs, overcome phobias, and build unshakeable confidence using advanced NLP protocols." },
+  { icon: Sparkles, title: "Silva Method Coach", desc: "Unlock your mind's hidden potential through dynamic meditation and visualization mastery.", backDesc: "Access alpha & theta brainwave states for peak performance, intuitive decision-making, and creative problem-solving." },
+  { icon: Shield, title: "Metaphysics Specialist", desc: "Bridge the gap between science and spirituality for profound self-understanding.", backDesc: "Explore the deeper dimensions of consciousness, energy healing, and the laws governing human potential." },
+  { icon: Heart, title: "Trauma Healing Expert", desc: "Heal childhood wounds and overcome deep-rooted fears with compassionate therapeutic guidance.", backDesc: "Release stored trauma from the nervous system using gentle yet powerful somatic and cognitive techniques." },
+  { icon: Users, title: "Family Harmony Coach", desc: "Transform parent-child dynamics and restore harmony using proven relationship techniques.", backDesc: "Rebuild trust, improve communication, and create lasting peace within your family system." },
+  { icon: Award, title: "Instant Results Method", desc: "Experience breakthrough healing and tangible transformation from the very first session.", backDesc: "No months of waiting — experience measurable shifts in mindset, emotions, and behavior from session one." },
 ];
 
 const testimonials = [
@@ -45,6 +45,135 @@ const process = [
   { step: "03", title: "Deep Healing", desc: "Guided sessions using NLP, Silva Method, and metaphysical techniques.", icon: Eye },
   { step: "04", title: "Lasting Freedom", desc: "Ongoing support to ensure your transformation is permanent and sustainable.", icon: Sparkles },
 ];
+
+/* ---- Flip Card Component ---- */
+const FlipCard = ({ specialty, index, isInView }: { specialty: typeof specialties[0]; index: number; isInView: boolean }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.08, duration: 0.5 }}
+      className="relative h-[280px] cursor-pointer group"
+      style={{ perspective: "1000px" }}
+      onMouseEnter={() => setIsFlipped(true)}
+      onMouseLeave={() => setIsFlipped(false)}
+      onClick={() => setIsFlipped(!isFlipped)}
+    >
+      <motion.div
+        className="relative w-full h-full"
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        {/* Front */}
+        <div
+          className="absolute inset-0 rounded-2xl p-8 border border-border bg-background overflow-hidden"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <div className="absolute -top-12 -right-12 w-24 h-24 opacity-[0.04] group-hover:opacity-[0.08] transition-opacity duration-500" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent)" }} />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold/0 group-hover:via-gold/30 to-transparent transition-all duration-500" />
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 border border-gold/15 group-hover:border-gold/30 group-hover:scale-110" style={{ background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--cream)))" }}>
+            <specialty.icon className="w-6 h-6 text-gold-dark" />
+          </div>
+          <h3 className="font-heading font-bold text-foreground mb-3 text-base">{specialty.title}</h3>
+          <p className="text-sm text-muted-foreground font-body leading-relaxed">{specialty.desc}</p>
+          <div className="absolute bottom-4 right-4 text-[10px] text-gold/40 font-body tracking-wider uppercase">Hover to learn more</div>
+        </div>
+        {/* Back */}
+        <div
+          className="absolute inset-0 rounded-2xl p-8 border border-gold/25 overflow-hidden flex flex-col justify-center"
+          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", background: "linear-gradient(145deg, hsl(var(--forest)), hsl(var(--forest-dark)))" }}
+        >
+          <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 1px, transparent 0)", backgroundSize: "24px 24px" }} />
+          <div className="relative z-10">
+            <specialty.icon className="w-8 h-8 text-gold mb-4" />
+            <h3 className="font-heading font-bold text-white mb-3 text-base">{specialty.title}</h3>
+            <p className="text-sm text-white/70 font-body leading-relaxed">{specialty.backDesc}</p>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+/* ---- Process Card with 3D tilt ---- */
+const ProcessCard = ({ p, index, isInView }: { p: typeof process[0]; index: number; isInView: boolean }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: y * -12, y: x * 12 });
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      onMouseMove={handleMouse}
+      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+      className="relative rounded-2xl p-6 border border-border hover:border-gold/25 transition-all duration-500 group bg-background cursor-pointer"
+      style={{
+        perspective: "800px",
+        transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: "transform 0.2s ease-out",
+      }}
+    >
+      <span className="absolute -top-3 -left-1 text-5xl font-heading font-black text-gold/[0.07] select-none">{p.step}</span>
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold/0 group-hover:via-gold/25 to-transparent transition-all duration-500" />
+      <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border border-gold/15 group-hover:border-gold/30 group-hover:scale-110 transition-all duration-300" style={{ background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--cream)))" }}>
+        <p.icon className="w-5 h-5 text-gold-dark" />
+      </div>
+      <h3 className="font-heading font-bold text-foreground mb-2 text-sm">{p.title}</h3>
+      <p className="text-xs text-muted-foreground font-body leading-relaxed">{p.desc}</p>
+      {/* Shine effect on hover */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+        <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/[0.04] to-transparent rotate-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+      </div>
+    </motion.div>
+  );
+};
+
+/* ---- Testimonial Card with glass effect ---- */
+const TestimonialCard = ({ t, index, isInView }: { t: typeof testimonials[0]; index: number; isInView: boolean }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      whileHover={{ y: -6, scale: 1.02 }}
+      className="rounded-2xl p-7 md:p-8 border border-white/8 relative transition-all duration-300 group overflow-hidden"
+      style={{ background: "hsla(0, 0%, 100%, 0.04)", backdropFilter: "blur(8px)" }}
+    >
+      {/* Animated border glow */}
+      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: "inset 0 0 30px -8px hsla(var(--gold), 0.1)" }} />
+      <div className="flex gap-0.5 mb-4">
+        {Array.from({ length: t.rating }).map((_, j) => (
+          <motion.div key={j} initial={{ opacity: 0, scale: 0 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: index * 0.1 + j * 0.05 + 0.3 }}>
+            <Star className="w-3.5 h-3.5 fill-gold text-gold" />
+          </motion.div>
+        ))}
+      </div>
+      <p className="text-white/75 font-body text-sm md:text-base leading-relaxed mb-6 italic">"{t.text}"</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-white font-heading font-bold text-sm">{t.name}</p>
+          <p className="text-white/35 text-xs font-body">{t.location}</p>
+        </div>
+        <div className="w-8 h-8 rounded-full flex items-center justify-center border border-gold/15 group-hover:border-gold/30 transition-all duration-300" style={{ background: "hsla(var(--gold), 0.08)" }}>
+          <Quote className="w-3.5 h-3.5 text-gold/40 group-hover:text-gold/60 transition-colors duration-300" />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const AboutCeo = () => {
   const navigate = useNavigate();
@@ -97,7 +226,6 @@ const AboutCeo = () => {
 
       {/* Hero Section — Banner Carousel */}
       <section ref={heroRef} className="pt-[68px] relative overflow-hidden min-h-[100vh] flex items-center">
-        {/* Background banner images */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -107,24 +235,16 @@ const AboutCeo = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
           >
-            <img
-              src={founderSlides[currentSlide].image}
-              alt=""
-              className="w-full h-full object-cover"
-              loading="eager"
-            />
+            <img src={founderSlides[currentSlide].image} alt="" className="w-full h-full object-cover" loading="eager" />
           </motion.div>
         </AnimatePresence>
 
-        {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
-        {/* Bottom gold accent */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent z-20" />
 
         <motion.div style={{ y: heroParallax }} className="container mx-auto px-6 relative z-10 py-16 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Animated badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -136,7 +256,6 @@ const AboutCeo = () => {
               <span className="text-gold text-[10px] tracking-[0.2em] uppercase font-body font-medium">Certified Mind Science Expert</span>
             </motion.div>
 
-            {/* Slide-specific content */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
@@ -159,7 +278,6 @@ const AboutCeo = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -190,7 +308,6 @@ const AboutCeo = () => {
               </motion.a>
             </motion.div>
 
-            {/* Slide indicators */}
             <div className="flex items-center justify-center gap-2.5 mb-12">
               {founderSlides.map((_, i) => (
                 <button
@@ -201,7 +318,6 @@ const AboutCeo = () => {
               ))}
             </div>
 
-            {/* Stats row */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -214,11 +330,11 @@ const AboutCeo = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.6 + i * 0.08 }}
-                  whileHover={{ y: -4 }}
-                  className="text-center py-5 px-4 rounded-2xl border border-white/10 backdrop-blur-md transition-all duration-300"
+                  whileHover={{ y: -4, scale: 1.03 }}
+                  className="text-center py-5 px-4 rounded-2xl border border-white/10 backdrop-blur-md transition-all duration-300 group"
                   style={{ background: "hsla(0, 0%, 0%, 0.3)" }}
                 >
-                  <stat.icon className="w-4 h-4 text-gold/60 mx-auto mb-2" />
+                  <stat.icon className="w-4 h-4 text-gold/60 mx-auto mb-2 group-hover:text-gold transition-colors duration-300" />
                   <p className="text-2xl md:text-3xl font-heading font-bold text-gold mb-1">{stat.value}</p>
                   <p className="text-[9px] md:text-[10px] text-white/50 font-body tracking-[0.15em] uppercase">{stat.label}</p>
                 </motion.div>
@@ -227,7 +343,6 @@ const AboutCeo = () => {
           </div>
         </motion.div>
 
-        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
           animate={{ y: [0, 8, 0] }}
@@ -243,7 +358,7 @@ const AboutCeo = () => {
         </motion.div>
       </section>
 
-      {/* Mission Statement — Enhanced */}
+      {/* Mission Statement */}
       <section ref={missionRef} className="py-24 md:py-32 bg-cream relative">
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background/30 to-transparent" />
         <div className="container mx-auto px-6 relative z-10">
@@ -261,45 +376,33 @@ const AboutCeo = () => {
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={isMissionInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.15 }}
-                className="rounded-2xl p-8 md:p-10 border border-border bg-background relative overflow-hidden group hover:border-gold/20 transition-all duration-500"
-              >
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-gold/60 via-gold/20 to-transparent" />
-                <div className="absolute top-0 right-0 w-24 h-24 opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent)" }} />
-                <Quote className="w-8 h-8 text-gold/20 mb-5" />
-                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-4 leading-snug">
-                  Empowering Parents for <span className="italic" style={{ color: "hsl(var(--gold-dark))" }}>Instant Healing</span>
-                </h3>
-                <p className="text-muted-foreground font-body leading-relaxed text-sm md:text-base font-light">
-                  My expertise empowers parents to experience instant healing and results, creating a more <strong className="text-foreground/90 font-medium">harmonious and loving family environment</strong>. I believe that when parents heal, the entire family transforms.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={isMissionInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.25 }}
-                className="rounded-2xl p-8 md:p-10 border border-border bg-background relative overflow-hidden group hover:border-gold/20 transition-all duration-500"
-              >
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-gold/60 via-gold/20 to-transparent" />
-                <div className="absolute top-0 right-0 w-24 h-24 opacity-[0.03]" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent)" }} />
-                <Brain className="w-8 h-8 text-gold/20 mb-5" />
-                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-4 leading-snug">
-                  The Science of <span className="italic" style={{ color: "hsl(var(--gold-dark))" }}>Transformation</span>
-                </h3>
-                <p className="text-muted-foreground font-body leading-relaxed text-sm md:text-base font-light">
-                  Through proven NLP techniques, the Silva Method, and metaphysical wisdom, I guide families toward lasting peace, deeper connections, and <strong className="text-foreground/90 font-medium">emotional freedom</strong> that transforms every aspect of their lives.
-                </p>
-              </motion.div>
+              {[
+                { icon: Quote, title: "Empowering Parents for", highlight: "Instant Healing", text: "My expertise empowers parents to experience instant healing and results, creating a more <strong class='text-foreground/90 font-medium'>harmonious and loving family environment</strong>. I believe that when parents heal, the entire family transforms." },
+                { icon: Brain, title: "The Science of", highlight: "Transformation", text: "Through proven NLP techniques, the Silva Method, and metaphysical wisdom, I guide families toward lasting peace, deeper connections, and <strong class='text-foreground/90 font-medium'>emotional freedom</strong> that transforms every aspect of their lives." },
+              ].map((card, i) => (
+                <motion.div
+                  key={card.highlight}
+                  initial={{ opacity: 0, x: i === 0 ? -30 : 30 }}
+                  animate={isMissionInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.7, delay: 0.15 + i * 0.1 }}
+                  whileHover={{ y: -6, boxShadow: "0 20px 50px -12px hsla(var(--gold), 0.12)" }}
+                  className="rounded-2xl p-8 md:p-10 border border-border bg-background relative overflow-hidden group hover:border-gold/20 transition-all duration-500"
+                >
+                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-gold/60 via-gold/20 to-transparent" />
+                  <div className="absolute top-0 right-0 w-24 h-24 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent)" }} />
+                  <card.icon className="w-8 h-8 text-gold/20 mb-5 group-hover:text-gold/30 transition-colors duration-300" />
+                  <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-4 leading-snug">
+                    {card.title} <span className="italic" style={{ color: "hsl(var(--gold-dark))" }}>{card.highlight}</span>
+                  </h3>
+                  <p className="text-muted-foreground font-body leading-relaxed text-sm md:text-base font-light" dangerouslySetInnerHTML={{ __html: card.text }} />
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Process Section — NEW */}
+      {/* Process Section with 3D tilt cards */}
       <section ref={processRef} className="py-24 md:py-32 bg-background relative">
         <div className="container mx-auto px-6">
           <motion.div
@@ -317,28 +420,13 @@ const AboutCeo = () => {
 
           <div className="max-w-4xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {process.map((p, i) => (
-              <motion.div
-                key={p.step}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isProcessInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -8 }}
-                className="relative rounded-2xl p-6 border border-border hover:border-gold/25 transition-all duration-500 group bg-background"
-              >
-                {/* Step number */}
-                <span className="absolute -top-3 -left-1 text-5xl font-heading font-black text-gold/[0.07] select-none">{p.step}</span>
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 border border-gold/15 group-hover:border-gold/30 transition-all duration-300" style={{ background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--cream)))" }}>
-                  <p.icon className="w-5 h-5 text-gold-dark" />
-                </div>
-                <h3 className="font-heading font-bold text-foreground mb-2 text-sm">{p.title}</h3>
-                <p className="text-xs text-muted-foreground font-body leading-relaxed">{p.desc}</p>
-              </motion.div>
+              <ProcessCard key={p.step} p={p} index={i} isInView={isProcessInView} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Specialties Grid — Enhanced */}
+      {/* Specialties Grid with Flip Cards */}
       <section id="specialties" ref={specialtiesRef} className="py-24 md:py-32 bg-cream">
         <div className="container mx-auto px-6">
           <motion.div
@@ -352,35 +440,20 @@ const AboutCeo = () => {
               What I <span className="italic" style={{ color: "hsl(var(--gold-dark))" }}>Specialize In</span>
             </h2>
             <div className="w-10 h-[2px] mx-auto mt-4" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)" }} />
+            <p className="text-muted-foreground text-sm font-body mt-4">Hover or tap cards to discover more</p>
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {specialties.map((s, i) => (
-              <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isSpecialtiesInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                whileHover={{ y: -8, boxShadow: "0 16px 50px -12px hsla(var(--gold), 0.15)" }}
-                className="rounded-2xl p-8 border border-border hover:border-gold/25 transition-all duration-500 group bg-background relative overflow-hidden"
-              >
-                {/* Subtle corner glow on hover */}
-                <div className="absolute -top-12 -right-12 w-24 h-24 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent)" }} />
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 border border-gold/15 group-hover:border-gold/30 group-hover:scale-110" style={{ background: "linear-gradient(135deg, hsl(var(--accent)), hsl(var(--cream)))" }}>
-                  <s.icon className="w-6 h-6 text-gold-dark" />
-                </div>
-                <h3 className="font-heading font-bold text-foreground mb-3 text-base">{s.title}</h3>
-                <p className="text-sm text-muted-foreground font-body leading-relaxed">{s.desc}</p>
-              </motion.div>
+              <FlipCard key={s.title} specialty={s} index={i} isInView={isSpecialtiesInView} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials — Premium */}
+      {/* Testimonials with enhanced cards */}
       <section ref={testimonialsRef} className="py-24 md:py-32 relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(var(--forest-deep)), hsl(90 30% 12%))" }}>
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
-        {/* Ambient glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.04]" style={{ background: "radial-gradient(ellipse, hsl(var(--gold)), transparent 70%)", filter: "blur(60px)" }} />
 
         <div className="container mx-auto px-6 relative z-10">
@@ -399,39 +472,14 @@ const AboutCeo = () => {
 
           <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 25 }}
-                animate={isTestimonialsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -4, borderColor: "hsla(var(--gold), 0.2)" }}
-                className="rounded-2xl p-7 md:p-8 border border-white/8 relative transition-all duration-300"
-                style={{ background: "hsla(0, 0%, 100%, 0.04)" }}
-              >
-                <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} className="w-3.5 h-3.5 fill-gold text-gold" />
-                  ))}
-                </div>
-                <p className="text-white/75 font-body text-sm md:text-base leading-relaxed mb-6 italic">"{t.text}"</p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-white font-heading font-bold text-sm">{t.name}</p>
-                    <p className="text-white/35 text-xs font-body">{t.location}</p>
-                  </div>
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center border border-gold/15" style={{ background: "hsla(var(--gold), 0.08)" }}>
-                    <Quote className="w-3.5 h-3.5 text-gold/40" />
-                  </div>
-                </div>
-              </motion.div>
+              <TestimonialCard key={t.name} t={t} index={i} isInView={isTestimonialsInView} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA — Premium */}
+      {/* CTA */}
       <section className="py-24 md:py-32 bg-cream relative overflow-hidden">
-        {/* Ambient decoration */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] opacity-[0.04]" style={{ background: "radial-gradient(ellipse, hsl(var(--gold)), transparent 70%)", filter: "blur(60px)" }} />
 
         <div className="container mx-auto px-6 text-center relative z-10">
