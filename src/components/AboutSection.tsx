@@ -2,13 +2,14 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Leaf, Heart, Star, Shield } from "lucide-react";
 
-import productSerum from "@/assets/product-serum-with-ingredients.jpg";
-import productHairOil from "@/assets/product-hairoil-with-ingredients.jpg";
-import productShampoo from "@/assets/product-shampoo-with-ingredients.jpg";
-import productSoap from "@/assets/product-soap-new.png";
-import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
-import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
+import productSerum from "@/assets/product-serum-updated.jpeg";
+import productHairOil from "@/assets/product-hairoil-updated.jpeg";
+import productShampoo from "@/assets/product-shampoo-updated.jpeg";
+import productSoap from "@/assets/product-soap-premium-new.jpg";
+import productConditioner from "@/assets/product-conditioner-updated.jpeg";
+import productNew1 from "@/assets/product-new-botanical-updated.jpeg";
 import productNew2 from "@/assets/product-new-herbal.png";
+import productHairSerum from "@/assets/product-serum-new.png";
 
 const healingProducts = [
   {
@@ -45,6 +46,11 @@ const healingProducts = [
     name: "Eco-Xent Cleaning Soap",
     image: productNew2,
     healing: "Healed rough, dry body skin with luxury botanical oils. Deep pore cleansing that repairs and leaves your skin feeling silky smooth and naturally refreshed.",
+  },
+  {
+    name: "Hair Living Serum",
+    image: productHairSerum,
+    healing: "Healed thinning, lifeless hair for hundreds of users. A lightweight yet powerful serum that revives damaged follicles and promotes healthy, voluminous hair growth naturally.",
   },
 ];
 
