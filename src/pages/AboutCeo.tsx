@@ -1,9 +1,18 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Brain, Heart, Shield, Sparkles, Users, Award, Quote, Star, MessageCircle, ChevronRight, Play, Zap, Target, Eye } from "lucide-react";
 import { lazy, Suspense } from "react";
 import logoImg from "@/assets/ecoxent-logo-new.jpeg";
+import founderBanner1 from "@/assets/founder-banner-1.jpg";
+import founderBanner2 from "@/assets/founder-banner-2.jpg";
+import founderBanner3 from "@/assets/founder-banner-3.jpg";
+
+const founderSlides = [
+  { image: founderBanner1, subtitle: "Neuro-Linguistic Programming", heading1: "Rewire Your", heading2: "Mind.", desc: "Transform limiting beliefs into empowering patterns with certified NLP techniques." },
+  { image: founderBanner2, subtitle: "Silva Method Mastery", heading1: "Unlock Your", heading2: "Potential.", desc: "Dynamic meditation and visualization to access your mind's deepest power." },
+  { image: founderBanner3, subtitle: "Family & Trauma Healing", heading1: "Heal Within.", heading2: "Transform Forever.", desc: "Overcome childhood traumas and restore family harmony from the very first session." },
+];
 
 const FounderChatbot = lazy(() => import("@/components/FounderChatbot"));
 
@@ -53,6 +62,17 @@ const AboutCeo = () => {
   const { scrollYProgress } = useScroll();
   const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, -60]);
 
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % founderSlides.length);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5500);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Top bar */}
@@ -75,16 +95,32 @@ const AboutCeo = () => {
         </div>
       </div>
 
-      {/* Hero Section — Ultra Cinematic */}
+      {/* Hero Section — Banner Carousel */}
       <section ref={heroRef} className="pt-[68px] relative overflow-hidden min-h-[100vh] flex items-center">
-        {/* Layered background */}
-        <div className="absolute inset-0" style={{ background: "linear-gradient(170deg, hsl(var(--forest-deep)) 0%, hsl(var(--forest-dark)) 50%, hsl(90 30% 12%) 100%)" }} />
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
-        {/* Ambient glow orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent 70%)", filter: "blur(80px)" }} />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, hsl(var(--gold)), transparent 70%)", filter: "blur(60px)" }} />
-        {/* Bottom accent */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+        {/* Background banner images */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            className="absolute inset-0"
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
+            <img
+              src={founderSlides[currentSlide].image}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
+        {/* Bottom gold accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent z-20" />
 
         <motion.div style={{ y: heroParallax }} className="container mx-auto px-6 relative z-10 py-16 md:py-24">
           <div className="max-w-4xl mx-auto text-center">
@@ -93,75 +129,50 @@ const AboutCeo = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/20 mb-10"
-              style={{ background: "hsla(var(--gold), 0.06)" }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 mb-10 backdrop-blur-sm"
+              style={{ background: "hsla(0,0%,0%,0.3)" }}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-              <span className="text-gold text-[10px] tracking-[0.2em] uppercase font-body font-medium">Certified Healing Professional</span>
+              <span className="text-gold text-[10px] tracking-[0.2em] uppercase font-body font-medium">Certified Mind Science Expert</span>
             </motion.div>
 
-            {/* Avatar with animated ring */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.8, type: "spring", bounce: 0.3 }}
-              className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-10"
-            >
-              {/* Spinning outer ring */}
+            {/* Slide-specific content */}
+            <AnimatePresence mode="wait">
               <motion.div
-                className="absolute -inset-3 rounded-full border border-gold/20"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                style={{ borderStyle: "dashed" }}
-              />
-              <div className="absolute inset-0 rounded-full border-2 border-gold/30" />
-              <div className="w-full h-full rounded-full flex items-center justify-center overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(var(--gold) / 0.2), hsl(var(--forest-light) / 0.15))" }}>
-                <span className="text-5xl md:text-6xl font-heading font-bold text-gold drop-shadow-lg">F</span>
-              </div>
-              {/* Status dot */}
-              <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-2 border-forest-dark flex items-center justify-center">
-                <span className="w-2 h-2 rounded-full bg-white" />
-              </div>
-            </motion.div>
+                key={currentSlide}
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.6 }}
+              >
+                <p className="text-gold/80 tracking-[0.4em] uppercase text-[10px] md:text-[11px] font-body font-semibold mb-5">{founderSlides[currentSlide].subtitle}</p>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-3 leading-[1.1] drop-shadow-lg">
+                  {founderSlides[currentSlide].heading1}
+                </h1>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-[1.1]">
+                  <span className="italic bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent drop-shadow-lg">{founderSlides[currentSlide].heading2}</span>
+                </h1>
+                <div className="w-16 h-[2px] mx-auto mb-6" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)" }} />
+                <p className="text-base md:text-lg text-white/60 font-body leading-relaxed font-light max-w-xl mx-auto mb-10">
+                  {founderSlides[currentSlide].desc}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <p className="text-gold tracking-[0.5em] uppercase text-[10px] md:text-[11px] font-body font-semibold mb-6">Founder & Mind Science Expert</p>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-4 leading-[1.1]">
-                Healing Minds.
-              </h1>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-8 leading-[1.1]">
-                <span className="italic bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-transparent">Transforming Lives.</span>
-              </h1>
-              <div className="w-16 h-[2px] mx-auto mb-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--gold)), transparent)" }} />
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.35 }}
-              className="text-base md:text-lg lg:text-xl text-white/65 font-body leading-relaxed font-light max-w-2xl mx-auto mb-12"
-            >
-              As a certified <strong className="text-white/90 font-medium">NLP practitioner</strong>, <strong className="text-white/90 font-medium">Silva Method coach</strong>, and <strong className="text-white/90 font-medium">metaphysics specialist</strong>, I help parents heal traumas, overcome fears, and transform their families — delivering results from the very first session.
-            </motion.p>
-
-            {/* CTA buttons in hero */}
+            {/* CTA buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.45 }}
-              className="flex flex-col sm:flex-row gap-3 justify-center mb-16"
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-3 justify-center mb-10"
             >
               <motion.a
                 href="https://wa.me/923295991062?text=I%20want%20to%20know%20more%20about%20coaching%20sessions"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-body font-semibold text-sm tracking-wide text-forest-dark"
+                className="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-body font-semibold text-sm tracking-wide text-forest-dark shadow-xl"
                 style={{ background: "linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-light)))" }}
-                whileHover={{ scale: 1.04, boxShadow: "0 12px 40px -8px hsla(var(--gold), 0.4)" }}
+                whileHover={{ scale: 1.04, boxShadow: "0 12px 40px -8px hsla(var(--gold), 0.5)" }}
                 whileTap={{ scale: 0.97 }}
               >
                 <Play className="w-4 h-4 fill-current" />
@@ -169,7 +180,8 @@ const AboutCeo = () => {
               </motion.a>
               <motion.a
                 href="#specialties"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-body font-semibold text-sm tracking-wide border border-white/20 text-white/80 hover:text-white hover:border-white/40 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-body font-semibold text-sm tracking-wide border border-white/25 text-white/80 hover:text-white hover:border-white/50 transition-all backdrop-blur-sm"
+                style={{ background: "hsla(0,0%,0%,0.2)" }}
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -178,7 +190,18 @@ const AboutCeo = () => {
               </motion.a>
             </motion.div>
 
-            {/* Stats row — glass cards */}
+            {/* Slide indicators */}
+            <div className="flex items-center justify-center gap-2.5 mb-12">
+              {founderSlides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={`h-1 rounded-full transition-all duration-500 ${i === currentSlide ? "w-8 bg-gold" : "w-3 bg-white/25 hover:bg-white/40"}`}
+                />
+              ))}
+            </div>
+
+            {/* Stats row */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -191,13 +214,13 @@ const AboutCeo = () => {
                   initial={{ opacity: 0, y: 15 }}
                   animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.6 + i * 0.08 }}
-                  whileHover={{ y: -4, borderColor: "hsla(var(--gold), 0.25)" }}
-                  className="text-center py-5 px-4 rounded-2xl border border-white/8 backdrop-blur-sm transition-all duration-300"
-                  style={{ background: "hsla(0, 0%, 100%, 0.04)" }}
+                  whileHover={{ y: -4 }}
+                  className="text-center py-5 px-4 rounded-2xl border border-white/10 backdrop-blur-md transition-all duration-300"
+                  style={{ background: "hsla(0, 0%, 0%, 0.3)" }}
                 >
                   <stat.icon className="w-4 h-4 text-gold/60 mx-auto mb-2" />
                   <p className="text-2xl md:text-3xl font-heading font-bold text-gold mb-1">{stat.value}</p>
-                  <p className="text-[9px] md:text-[10px] text-white/45 font-body tracking-[0.15em] uppercase">{stat.label}</p>
+                  <p className="text-[9px] md:text-[10px] text-white/50 font-body tracking-[0.15em] uppercase">{stat.label}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -206,7 +229,7 @@ const AboutCeo = () => {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
