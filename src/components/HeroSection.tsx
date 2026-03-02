@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -18,7 +18,6 @@ if (typeof window !== "undefined") {
   preloadLink.fetchPriority = "high";
   document.head.appendChild(preloadLink);
 
-  // Preload all other banners after page load
   window.addEventListener("load", () => {
     [heroBanner2, heroBanner3, heroBanner4, heroBanner5, heroBanner6].forEach((src) => {
       const img = new Image();
@@ -66,157 +65,280 @@ const slides = [
   },
 ];
 
+const textVariants = {
+  enter: { opacity: 0, y: 40, filter: "blur(8px)" },
+  center: { opacity: 1, y: 0, filter: "blur(0px)" },
+  exit: { opacity: 0, y: -30, filter: "blur(6px)" },
+};
+
+const stagger = {
+  center: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+};
+
 const HeroSection = () => {
   const [current, setCurrent] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const goTo = useCallback((index: number) => {
-    setCurrent(index);
-  }, []);
-
-  const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % slides.length);
-  }, []);
-
-  const prev = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
+  const goTo = useCallback((index: number) => setCurrent(index), []);
+  const next = useCallback(() => setCurrent((p) => (p + 1) % slides.length), []);
+  const prev = useCallback(() => setCurrent((p) => (p - 1 + slides.length) % slides.length), []);
 
   useEffect(() => {
+    if (isHovered) return;
     const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
-  }, [next]);
+  }, [next, isHovered]);
 
   const slide = slides[current];
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden" style={{ marginTop: "72px" }}>
+    <section
+      id="hero"
+      className="relative w-full overflow-hidden"
+      style={{ marginTop: "72px" }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="relative w-full" style={{ minHeight: "92vh" }}>
-        {/* Background slides - CSS transition only */}
+        {/* Background images with Ken Burns effect */}
         {slides.map((s, i) => (
           <div
             key={i}
-            className="absolute inset-0 transition-opacity duration-500 ease-in-out"
+            className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
             style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
           >
-            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, hsl(90 35% 12%), hsl(90 30% 18%), hsl(90 35% 12%))" }} />
-            <img
-              src={s.image}
-              alt={s.overline}
-              className="w-full h-full object-cover"
-              style={{ filter: "brightness(0.35)" }}
-              loading="eager"
-              decoding="async"
-              fetchPriority={i === 0 ? "high" : "auto"}
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(135deg, hsl(90 35% 8%), hsl(90 30% 14%), hsl(90 35% 8%))" }}
             />
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 50% at 30% 45%, hsl(90 30% 28% / 0.15) 0%, transparent 70%)" }} />
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, hsl(90 30% 8% / 0.6) 100%)" }} />
+            <div
+              className="w-full h-full transition-transform duration-[8000ms] ease-out"
+              style={{
+                transform: i === current ? "scale(1.08)" : "scale(1)",
+              }}
+            >
+              <img
+                src={s.image}
+                alt={s.overline}
+                className="w-full h-full object-cover"
+                style={{ filter: "brightness(0.3) saturate(1.1)" }}
+                loading="eager"
+                decoding="async"
+                fetchPriority={i === 0 ? "high" : "auto"}
+              />
+            </div>
+            {/* Premium overlays */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsl(90 30% 8% / 0.4) 0%, transparent 40%, transparent 60%, hsl(90 30% 8% / 0.7) 100%)" }} />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 60% at 25% 50%, hsl(45 40% 50% / 0.04) 0%, transparent 70%)" }} />
           </div>
         ))}
 
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-6 md:px-10 flex flex-col justify-center" style={{ minHeight: "92vh" }}>
-           <div className="max-w-3xl py-20">
-              {/* Overline */}
-              <div className="inline-flex items-center gap-2.5 mb-8 px-5 py-2 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5 text-gold" />
-                <span className="text-gold-light text-[11px] font-body font-medium tracking-[0.3em] uppercase">
-                  {slide.overline}
-                </span>
-              </div>
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent z-10" />
+        <div className="absolute top-20 right-[10%] w-px h-32 bg-gradient-to-b from-gold/20 to-transparent z-10 hidden lg:block" />
+        <div className="absolute bottom-32 left-[8%] w-px h-24 bg-gradient-to-t from-gold/15 to-transparent z-10 hidden lg:block" />
 
-              {/* Headlines */}
-              {slide.headline.map((line, i) => (
-                <div key={line} className="overflow-hidden mb-1">
-                  <h1
-                    className={`text-[clamp(3rem,8vw,6.5rem)] font-heading font-light leading-[0.92] tracking-tight ${
-                      i === 1 ? "" : "text-white"
-                    }`}
-                    style={i === 1 ? { color: "hsl(45 55% 58%)" } : undefined}
-                  >
-                    {line}
-                  </h1>
-                </div>
-              ))}
-
-              {/* Description */}
-              <p className="text-white/50 font-body text-base md:text-lg leading-relaxed mb-12 mt-8 max-w-xl font-light">
-                {slide.description}
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4 mb-16">
-                <a
-                  href="#products"
-                  className="group inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase transition-all duration-300 hover:scale-[1.03]"
-                  style={{
-                    background: "linear-gradient(135deg, hsl(90 30% 30%), hsl(90 35% 22%))",
-                    color: "hsl(0 0% 100%)",
-                    boxShadow: "0 4px 24px hsl(90 30% 30% / 0.3)",
-                  }}
-                >
-                  Shop Collection
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                </a>
-                <a
-                  href="#about"
-                  className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase border border-white/20 text-white/70 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300 hover:scale-[1.03]"
-                >
-                  Our Story
-                </a>
-              </div>
-
-            {/* Trust line */}
-            <div className="flex items-center gap-8">
-              {["100% Organic", "Cruelty Free", "Handcrafted"].map((text) => (
-                <div key={text} className="flex items-center gap-2">
-                  <div className="w-1 h-1 rounded-full bg-gold/60" />
-                  <span className="text-white/40 text-[11px] font-body tracking-widest uppercase">{text}</span>
-                </div>
-              ))}
-            </div>
+        {/* Slide counter - top right */}
+        <div className="absolute top-8 right-6 md:right-10 z-20 hidden md:flex items-center gap-3">
+          <span className="text-white/30 font-heading text-5xl font-light tabular-nums">
+            {String(current + 1).padStart(2, "0")}
+          </span>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-px h-6 bg-gold/40" />
+            <span className="text-white/20 font-body text-xs tabular-nums">
+              {String(slides.length).padStart(2, "0")}
+            </span>
           </div>
         </div>
 
-        {/* Navigation arrows */}
-        <div className="absolute bottom-8 right-6 md:right-10 z-20 flex items-center gap-3">
+        {/* Main content */}
+        <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-16 flex flex-col justify-center" style={{ minHeight: "92vh" }}>
+          <div className="max-w-3xl py-20">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                variants={stagger}
+                initial="enter"
+                animate="center"
+                exit="exit"
+              >
+                {/* Overline badge */}
+                <motion.div
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="mb-8"
+                >
+                  <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-gold/20 backdrop-blur-md"
+                    style={{ background: "linear-gradient(135deg, hsl(45 50% 50% / 0.08), hsl(45 50% 50% / 0.03))" }}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-gold" />
+                    <span className="text-gold-light text-[11px] font-body font-semibold tracking-[0.35em] uppercase">
+                      {slide.overline}
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Headlines with staggered reveal */}
+                {slide.headline.map((line, i) => (
+                  <motion.div
+                    key={line}
+                    variants={textVariants}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden mb-1"
+                  >
+                    <h1
+                      className={`text-[clamp(2.8rem,8vw,6.5rem)] font-heading leading-[0.92] tracking-tight ${
+                        i === 0 ? "font-extralight text-white" : "font-normal"
+                      }`}
+                      style={i === 1 ? { 
+                        background: "linear-gradient(135deg, hsl(45 55% 62%), hsl(45 45% 48%), hsl(45 55% 58%))",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      } : undefined}
+                    >
+                      {line}
+                    </h1>
+                  </motion.div>
+                ))}
+
+                {/* Description */}
+                <motion.p
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="text-white/45 font-body text-base md:text-lg leading-relaxed mb-12 mt-8 max-w-xl font-light"
+                >
+                  {slide.description}
+                </motion.p>
+
+                {/* CTAs */}
+                <motion.div
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-wrap gap-4 mb-16"
+                >
+                  <a
+                    href="#products"
+                    className="group relative inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-[1.03]"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(90 30% 32%), hsl(90 35% 24%))",
+                      color: "hsl(0 0% 100%)",
+                      boxShadow: "0 4px 30px hsl(90 30% 25% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
+                    }}
+                  >
+                    <span className="relative z-10">Shop Collection</span>
+                    <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  </a>
+                  <a
+                    href="#about"
+                    className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase border border-white/15 text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.03]"
+                  >
+                    Our Story
+                  </a>
+                </motion.div>
+
+                {/* Trust badges */}
+                <motion.div
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center gap-6 md:gap-8"
+                >
+                  {["100% Organic", "Cruelty Free", "Handcrafted"].map((text, i) => (
+                    <div key={text} className="flex items-center gap-2.5">
+                      <div
+                        className="w-1.5 h-1.5 rounded-full"
+                        style={{ background: `hsl(${45 + i * 5} ${50 - i * 5}% ${50 + i * 5}%)` }}
+                      />
+                      <span className="text-white/35 text-[10px] md:text-[11px] font-body font-medium tracking-[0.25em] uppercase">
+                        {text}
+                      </span>
+                    </div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Vertical navigation - right side */}
+        <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col items-center gap-4">
           <button
             onClick={prev}
-            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all duration-300"
+            className="w-10 h-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white/40 hover:text-white hover:border-gold/30 hover:bg-white/10 transition-all duration-400"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 rotate-90" />
           </button>
+
+          {/* Vertical dots */}
+          <div className="flex flex-col gap-2.5 py-3">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className="relative w-2 rounded-full overflow-hidden transition-all duration-500"
+                style={{ height: current === i ? 28 : 8 }}
+              >
+                <div className="absolute inset-0 bg-white/15 rounded-full" />
+                {current === i && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full"
+                    style={{ background: "linear-gradient(180deg, hsl(45 55% 55%), hsl(45 50% 42%))" }}
+                    initial={{ scaleY: 0, originY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 5, ease: "linear" }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+
           <button
             onClick={next}
-            className="w-10 h-10 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all duration-300"
+            className="w-10 h-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center text-white/40 hover:text-white hover:border-gold/30 hover:bg-white/10 transition-all duration-400"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 rotate-90" />
           </button>
         </div>
 
-        {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              className="group relative h-1.5 rounded-full overflow-hidden transition-all duration-500"
-              style={{ width: current === i ? 32 : 12 }}
-            >
-              <div className="absolute inset-0 bg-white/20 rounded-full" />
-              {current === i && (
-                <motion.div
-                  className="absolute inset-0 bg-gold rounded-full"
-                  initial={{ scaleX: 0, originX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 5, ease: "linear" }}
-                />
-              )}
-            </button>
-          ))}
+        {/* Mobile bottom navigation */}
+        <div className="absolute bottom-8 left-0 right-0 z-20 flex md:hidden items-center justify-center gap-3">
+          <button
+            onClick={prev}
+            className="w-9 h-9 rounded-full border border-white/15 bg-white/5 backdrop-blur-md flex items-center justify-center text-white/50"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </button>
+          <div className="flex gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className="relative h-1.5 rounded-full overflow-hidden transition-all duration-500"
+                style={{ width: current === i ? 28 : 10 }}
+              >
+                <div className="absolute inset-0 bg-white/20 rounded-full" />
+                {current === i && (
+                  <motion.div
+                    className="absolute inset-0 bg-gold rounded-full"
+                    initial={{ scaleX: 0, originX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 5, ease: "linear" }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={next}
+            className="w-9 h-9 rounded-full border border-white/15 bg-white/5 backdrop-blur-md flex items-center justify-center text-white/50"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
         {/* Bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background via-background/40 to-transparent z-10 pointer-events-none" />
       </div>
     </section>
   );
