@@ -33,13 +33,13 @@ const FooterSection = () => {
             </p>
             <div className="flex items-center gap-2">
               {[
-                { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1Bx4wMoGHi/" },
-                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/eco_xent" },
-                { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@eco_xent" },
-                { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ecoxent" },
-                { icon: Twitter, label: "X", href: "https://x.com/eco_xent" },
-                { icon: SnapchatIcon, label: "Snapchat", href: "https://www.snapchat.com/add/eco_xent" },
-              ].map(({ icon: Icon, label, href }, i) => (
+                { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/1Bx4wMoGHi/", hoverColor: "#1877F2", hoverBorder: "rgba(24,119,242,0.4)" },
+                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/eco_xent", hoverColor: "#E4405F", hoverBorder: "rgba(228,64,95,0.4)" },
+                { icon: TikTokIcon, label: "TikTok", href: "https://www.tiktok.com/@eco_xent", hoverColor: "#00F2EA", hoverBorder: "rgba(0,242,234,0.4)" },
+                { icon: Youtube, label: "YouTube", href: "https://youtube.com/@ecoxent", hoverColor: "#FF0000", hoverBorder: "rgba(255,0,0,0.4)" },
+                { icon: Twitter, label: "X", href: "https://x.com/eco_xent", hoverColor: "#FFFFFF", hoverBorder: "rgba(255,255,255,0.4)" },
+                { icon: SnapchatIcon, label: "Snapchat", href: "https://www.snapchat.com/add/eco_xent", hoverColor: "#FFFC00", hoverBorder: "rgba(255,252,0,0.4)" },
+              ].map(({ icon: Icon, label, href, hoverColor, hoverBorder }, i) => (
                 <motion.a
                   key={label}
                   href={href}
@@ -48,7 +48,18 @@ const FooterSection = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.05 }}
-                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-gold hover:border-gold/30 transition-all duration-300"
+                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/70 transition-all duration-300 group/social"
+                  style={{ "--hover-color": hoverColor, "--hover-border": hoverBorder } as React.CSSProperties}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = hoverColor;
+                    e.currentTarget.style.borderColor = hoverBorder;
+                    e.currentTarget.style.boxShadow = `0 0 12px ${hoverBorder}`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = '';
+                    e.currentTarget.style.borderColor = '';
+                    e.currentTarget.style.boxShadow = '';
+                  }}
                 >
                   {label === "TikTok" || label === "Snapchat" ? <Icon /> : <Icon className="w-3.5 h-3.5" />}
                 </motion.a>
