@@ -9,6 +9,9 @@ import Index from "./pages/Index";
 const Admin = lazy(() => import("./pages/Admin"));
 const TrackOrder = lazy(() => import("./pages/TrackOrder"));
 const AboutCeo = lazy(() => import("./pages/AboutCeo"));
+const FounderAbout = lazy(() => import("./pages/FounderAbout"));
+const FounderServices = lazy(() => import("./pages/FounderServices"));
+const FounderContact = lazy(() => import("./pages/FounderContact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -25,6 +28,9 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/track" element={<TrackOrder />} />
             <Route path="/founder" element={<AboutCeo />} />
+            <Route path="/founder/about" element={<FounderAbout />} />
+            <Route path="/founder/services" element={<FounderServices />} />
+            <Route path="/founder/contact" element={<FounderContact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
