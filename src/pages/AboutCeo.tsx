@@ -1,9 +1,8 @@
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Brain, Heart, Shield, Sparkles, Users, Award, Quote, Star, MessageCircle, ChevronRight, Play, Zap, Target, Eye } from "lucide-react";
-import { lazy, Suspense } from "react";
-import logoImg from "@/assets/ecoxent-logo-new.jpeg";
+import { Brain, Heart, Shield, Sparkles, Users, Award, Quote, Star, MessageCircle, ChevronRight, Play, Zap, Target, Eye } from "lucide-react";
+import FounderLayout from "@/components/founder/FounderLayout";
 import founderBanner1 from "@/assets/founder-banner-1.jpg";
 import founderBanner2 from "@/assets/founder-banner-2.jpg";
 import founderBanner3 from "@/assets/founder-banner-3.jpg";
@@ -14,7 +13,7 @@ const founderSlides = [
   { image: founderBanner3, subtitle: "Family & Trauma Healing", heading1: "Heal Within.", heading2: "Transform Forever.", desc: "Overcome childhood traumas and restore family harmony from the very first session." },
 ];
 
-const FounderChatbot = lazy(() => import("@/components/FounderChatbot"));
+
 
 const specialties = [
   { icon: Brain, title: "Certified NLP Practitioner", desc: "Rewire thought patterns for lasting positive change through proven neuro-linguistic programming techniques.", backDesc: "Transform limiting beliefs, overcome phobias, and build unshakeable confidence using advanced NLP protocols." },
@@ -203,29 +202,9 @@ const AboutCeo = () => {
   }, [nextSlide]);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Top bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 border-b border-border/50" style={{ background: "hsla(90, 35%, 18%, 0.98)", backdropFilter: "blur(16px)" }}>
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between h-[68px]">
-          <motion.button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-white/70 hover:text-white transition-colors font-body text-sm"
-            whileHover={{ x: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Back to Home</span>
-          </motion.button>
-          <motion.a href="/" whileHover={{ scale: 1.02 }}>
-            <img src={logoImg} alt="Eco-Xent" className="object-contain rounded-sm" style={{ height: "44px" }} />
-          </motion.a>
-          <div className="w-20" />
-        </div>
-      </div>
-
+    <FounderLayout activeTab="home">
       {/* Hero Section — Banner Carousel */}
-      <section ref={heroRef} className="pt-[68px] relative overflow-hidden min-h-[100vh] flex items-center">
+      <section ref={heroRef} className="relative overflow-hidden min-h-[100vh] flex items-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -525,17 +504,7 @@ const AboutCeo = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 border-t border-border bg-background">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-xs text-muted-foreground font-body">© {new Date().getFullYear()} Eco-Xent. All rights reserved.</p>
-        </div>
-      </footer>
-
-      <Suspense fallback={null}>
-        <FounderChatbot />
-      </Suspense>
-    </div>
+    </FounderLayout>
   );
 };
 
