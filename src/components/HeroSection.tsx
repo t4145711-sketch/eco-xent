@@ -111,17 +111,12 @@ const HeroSection = () => {
               className="absolute inset-0"
               style={{ background: "linear-gradient(135deg, hsl(90 35% 8%), hsl(90 30% 14%), hsl(90 35% 8%))" }}
             />
-            <div
-              className="w-full h-full transition-transform duration-[8000ms] ease-out"
-              style={{
-                transform: i === current ? "scale(1.08)" : "scale(1)",
-              }}
-            >
+            <div className="w-full h-full">
               <img
                 src={s.image}
                 alt={s.overline}
                 className="w-full h-full object-cover"
-                style={{ filter: "brightness(0.3) saturate(1.1)" }}
+                style={{ filter: "brightness(0.45) saturate(1.15)" }}
                 loading="eager"
                 decoding="async"
                 fetchPriority={i === 0 ? "high" : "auto"}
