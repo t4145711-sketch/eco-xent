@@ -94,12 +94,12 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative w-full overflow-hidden"
-      style={{ marginTop: "72px" }}
+      className="relative w-full overflow-hidden -mt-[1px]"
+      style={{ background: "hsl(90 35% 8%)" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative w-full" style={{ minHeight: "92vh" }}>
+      <div className="relative w-full" style={{ minHeight: "100vh", paddingTop: "68px" }}>
         {/* Background images with Ken Burns effect */}
         {slides.map((s, i) => (
           <div
@@ -152,7 +152,7 @@ const HeroSection = () => {
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-16 flex flex-col justify-center" style={{ minHeight: "92vh" }}>
+        <div className="relative z-10 container mx-auto px-5 sm:px-6 md:px-10 lg:px-16 flex flex-col justify-center" style={{ minHeight: "calc(100vh - 68px)" }}>
           <div className="max-w-3xl py-20">
             <AnimatePresence mode="wait">
               <motion.div
@@ -215,11 +215,11 @@ const HeroSection = () => {
                 <motion.div
                   variants={textVariants}
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-wrap gap-4 mb-16"
+                  className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mb-10 sm:mb-16"
                 >
                   <a
                     href="#products"
-                    className="group relative inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-[1.03]"
+                    className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body font-medium text-xs sm:text-sm tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-[1.03]"
                     style={{
                       background: "linear-gradient(135deg, hsl(90 30% 32%), hsl(90 35% 24%))",
                       color: "hsl(0 0% 100%)",
@@ -232,7 +232,7 @@ const HeroSection = () => {
                   </a>
                   <a
                     href="#about"
-                    className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase border border-white/15 text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.03]"
+                    className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body font-medium text-xs sm:text-sm tracking-widest uppercase border border-white/15 text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.03]"
                   >
                     Our Story
                   </a>
@@ -337,8 +337,8 @@ const HeroSection = () => {
           </button>
         </div>
 
-        {/* Bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background via-background/40 to-transparent z-10 pointer-events-none" />
+        {/* Bottom gradient — matches dark hero, no white bleed */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(90 35% 8%), hsl(90 35% 8% / 0.5), transparent)" }} />
       </div>
     </section>
   );
