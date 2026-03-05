@@ -167,7 +167,7 @@ const AIChatbot = () => {
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 overflow-hidden border-2 border-gold/30 ring-2 ring-gold/10 ring-offset-2"
+            className="fixed bottom-24 right-6 z-50 w-14 h-14 max-sm:w-12 max-sm:h-12 max-sm:bottom-20 max-sm:right-4 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 overflow-hidden border-2 border-gold/30 ring-2 ring-gold/10 ring-offset-2"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -187,8 +187,8 @@ const AIChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-4 z-50 w-[360px] max-w-[calc(100vw-2rem)] rounded-2xl overflow-hidden shadow-2xl border border-gold/20"
-            style={{ maxHeight: "min(550px, calc(100vh - 140px))" }}
+            className="fixed bottom-24 right-4 z-50 w-[360px] max-w-[calc(100vw-2rem)] sm:rounded-2xl rounded-xl overflow-hidden shadow-2xl border border-gold/20 max-sm:bottom-16 max-sm:right-2 max-sm:left-2 max-sm:w-auto max-sm:max-w-none"
+            style={{ maxHeight: "min(480px, calc(100vh - 140px))" }}
           >
             {/* Header */}
             <div
@@ -213,8 +213,8 @@ const AIChatbot = () => {
             {/* Messages */}
             <div
               ref={scrollRef}
-              className="overflow-y-auto p-4 space-y-4 bg-background"
-              style={{ height: "350px" }}
+              className="overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-background"
+              style={{ height: "min(300px, calc(100vh - 280px))" }}
             >
               {messages.map((msg, i) => (
                 <motion.div
