@@ -8,7 +8,7 @@ import productShampoo from "@/assets/product-shampoo-updated.jpeg";
 import productSoap from "@/assets/product-soap-with-box.png";
 import productConditioner from "@/assets/product-conditioner-updated.jpeg";
 import productNew1 from "@/assets/product-new-botanical-updated.jpeg";
-import productNew2 from "@/assets/product-soap-with-ingredients.png";
+import productNew2 from "@/assets/product-cleaning-soap-updated.jpg";
 import productHairSerum from "@/assets/product-serum-new.png";
 
 const healingProducts = [

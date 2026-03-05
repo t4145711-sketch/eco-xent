@@ -33,7 +33,7 @@ import productShampoo from "@/assets/product-shampoo-with-ingredients.jpg";
 import productSoap from "@/assets/product-soap-with-box.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
-import productNew2 from "@/assets/product-new-herbal.png";
+import productNew2 from "@/assets/product-cleaning-soap-updated.jpg";
 
 const productMap: Record<number, { name: string; price: number; priceDisplay: string; image: string }> = {
   1: { name: "Botanic Shield Serum", price: 1550, priceDisplay: "Rs.1,550", image: productSerum },
