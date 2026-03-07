@@ -116,14 +116,17 @@ const HeroSection = () => {
                 src={s.image}
                 alt={s.overline}
                 className="w-full h-full object-cover md:object-center object-right"
-                style={{ filter: "brightness(0.85) saturate(1.1)" }}
+                style={{ filter: "brightness(0.55) saturate(1.15)" }}
                 loading="eager"
                 decoding="async"
                 fetchPriority={i === 0 ? "high" : "auto"}
               />
             </div>
-            {/* Light edge vignette only */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(90 30% 8% / 0.15) 0%, transparent 15%, transparent 85%, hsl(90 30% 8% / 0.4) 100%)" }} />
+            {/* Premium overlays */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, hsl(90 30% 8% / 0.7) 0%, hsl(90 30% 8% / 0.4) 50%, hsl(90 30% 8% / 0.15) 100%)" }} />
+            <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to bottom, hsl(90 30% 8% / 0.5) 0%, transparent 30%, transparent 50%, hsl(90 30% 8% / 0.6) 100%)" }} />
+            <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(180deg, hsl(90 30% 8% / 0.3) 0%, transparent 40%, transparent 60%, hsl(90 30% 8% / 0.5) 100%)" }} />
+            <div className="absolute inset-0 hidden md:block" style={{ background: "radial-gradient(ellipse 60% 60% at 25% 50%, hsl(45 40% 50% / 0.04) 0%, transparent 70%)" }} />
           </div>
         ))}
 
@@ -145,8 +148,106 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Main content - clean banner, no text overlay */}
-        <div className="relative z-10" style={{ minHeight: "calc(100vh - 68px)" }} />
+        {/* Main content */}
+        <div className="relative z-10 container mx-auto px-5 sm:px-6 md:px-10 lg:px-16 flex flex-col justify-center" style={{ minHeight: "calc(100vh - 68px)" }}>
+          <div className="max-w-[65%] sm:max-w-[60%] md:max-w-3xl py-20">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current}
+                variants={stagger}
+                initial="enter"
+                animate="center"
+                exit="exit"
+              >
+                {/* Overline badge */}
+                <motion.div
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="mb-8"
+                >
+                  <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-gold/20 backdrop-blur-md"
+                    style={{ background: "linear-gradient(135deg, hsl(45 50% 50% / 0.08), hsl(45 50% 50% / 0.03))" }}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-gold" />
+                    <span className="text-gold-light text-[11px] font-body font-semibold tracking-[0.35em] uppercase">
+                      {slide.overline}
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Headlines */}
+                {slide.headline.map((line, i) => (
+                  <motion.div
+                    key={line}
+                    variants={textVariants}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden mb-1"
+                  >
+                    <h1
+                      className={`text-[clamp(2.8rem,8vw,6.5rem)] font-heading leading-[0.92] tracking-tight ${
+                        i === 0 ? "font-extralight text-white" : "font-normal"
+                      }`}
+                      style={i === 1 ? { 
+                        background: "linear-gradient(135deg, hsl(45 55% 62%), hsl(45 45% 48%), hsl(45 55% 58%))",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      } : undefined}
+                    >
+                      {line}
+                    </h1>
+                  </motion.div>
+                ))}
+
+                {/* CTAs */}
+                <motion.div
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mb-10 sm:mb-16 mt-10"
+                >
+                  <a
+                    href="#products"
+                    className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body font-medium text-xs sm:text-sm tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-[1.03]"
+                    style={{
+                      background: "linear-gradient(135deg, hsl(90 30% 32%), hsl(90 35% 24%))",
+                      color: "hsl(0 0% 100%)",
+                      boxShadow: "0 4px 30px hsl(90 30% 25% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
+                    }}
+                  >
+                    <span className="relative z-10">Shop Collection</span>
+                    <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  </a>
+                  <a
+                    href="#about"
+                    className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body font-medium text-xs sm:text-sm tracking-widest uppercase border border-white/15 text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.03]"
+                  >
+                    Our Story
+                  </a>
+                </motion.div>
+
+                {/* Trust badges */}
+                <motion.div
+                  variants={textVariants}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center gap-6 md:gap-8"
+                >
+                  {["100% Organic", "Cruelty Free", "Handcrafted"].map((text, i) => (
+                    <div key={text} className="flex items-center gap-2.5">
+                      <div
+                        className="w-1.5 h-1.5 rounded-full"
+                        style={{ background: `hsl(${45 + i * 5} ${50 - i * 5}% ${50 + i * 5}%)` }}
+                      />
+                      <span className="text-white/35 text-[10px] md:text-[11px] font-body font-medium tracking-[0.25em] uppercase">
+                        {text}
+                      </span>
+                    </div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
 
         {/* Vertical navigation - right side */}
         <div className="absolute right-6 md:right-10 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col items-center gap-4">
