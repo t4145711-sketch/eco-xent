@@ -80,17 +80,7 @@ const AboutCompany = () => {
 
   return (
     <>
-      <Helmet>
-        <title>About Eco-Xent | Organic Herbal Wellness Company Pakistan</title>
-        <meta
-          name="description"
-          content="Learn about Eco-Xent — Pakistan's trusted herbal wellness company offering 100% natural, organic personal care products. Discover our story, mission, vision, and commitment to quality."
-        />
-        <meta property="og:title" content="About Eco-Xent | Organic Herbal Wellness Company Pakistan" />
-        <meta property="og:description" content="Eco-Xent is a herbal wellness brand providing 100% natural products for health, beauty, and personal care across Pakistan." />
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://eco-xent.lovable.app/about" />
-      </Helmet>
+      {/* SEO meta tags set via useEffect */}
 
       <div className="min-h-screen bg-background">
         {/* Hero Banner */}
