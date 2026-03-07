@@ -199,32 +199,6 @@ const HeroSection = () => {
                   </motion.div>
                 ))}
 
-                {/* CTAs */}
-                <motion.div
-                  variants={textVariants}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mb-10 sm:mb-16 mt-10"
-                >
-                  <a
-                    href="#products"
-                    className="group relative inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body font-medium text-xs sm:text-sm tracking-widest uppercase overflow-hidden transition-all duration-500 hover:scale-[1.03]"
-                    style={{
-                      background: "linear-gradient(135deg, hsl(90 30% 32%), hsl(90 35% 24%))",
-                      color: "hsl(0 0% 100%)",
-                      boxShadow: "0 4px 30px hsl(90 30% 25% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
-                    }}
-                  >
-                    <span className="relative z-10">Shop Collection</span>
-                    <ArrowRight className="relative z-10 w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  </a>
-                  <a
-                    href="#about"
-                    className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body font-medium text-xs sm:text-sm tracking-widest uppercase border border-white/15 text-white/60 hover:text-white hover:border-white/30 hover:bg-white/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.03]"
-                  >
-                    Our Story
-                  </a>
-                </motion.div>
 
                 {/* Trust badges */}
                 <motion.div
