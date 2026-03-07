@@ -10,7 +10,7 @@ import productSoap from "@/assets/product-soap-with-box.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
 import productNew2 from "@/assets/product-cleaning-soap-updated.jpg";
-import productHairSerum from "@/assets/product-serum-labeled-with-ingredients.jpg";
+import productHairSerum from "@/assets/product-hair-serum-new.jpg";
 
 interface Product {
   id: number;

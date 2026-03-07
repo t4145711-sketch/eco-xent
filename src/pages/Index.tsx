@@ -34,6 +34,7 @@ import productSoap from "@/assets/product-soap-with-box.png";
 import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
 import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
 import productNew2 from "@/assets/product-cleaning-soap-updated.jpg";
+import productHairSerum from "@/assets/product-hair-serum-new.jpg";
 
 const productMap: Record<number, { name: string; price: number; priceDisplay: string; image: string }> = {
   1: { name: "Botanic Shield Serum", price: 1550, priceDisplay: "Rs.1,550", image: productSerum },
@@ -43,6 +44,7 @@ const productMap: Record<number, { name: string; price: number; priceDisplay: st
   5: { name: "Velvet Ritual Conditioner", price: 850, priceDisplay: "Rs.850", image: productConditioner },
   6: { name: "All-in-One Serum", price: 1500, priceDisplay: "Rs.1,500", image: productNew1 },
   7: { name: "Eco-Xent Cleaning Soap", price: 700, priceDisplay: "Rs.700", image: productNew2 },
+  8: { name: "Hair Living Serum", price: 1200, priceDisplay: "Rs.1,200", image: productHairSerum },
 };
 
 const Index = () => {
