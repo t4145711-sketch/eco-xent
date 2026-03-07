@@ -201,13 +201,17 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
                     key={item.label}
                     href={item.href}
                     onClick={(e) => {
+                      e.preventDefault();
                       setMenuOpen(false);
                       if (item.isPage) {
-                        e.preventDefault();
                         navigate(item.href);
                       } else if (location.pathname !== "/") {
-                        e.preventDefault();
                         navigate("/" + item.href);
+                      } else {
+                        setTimeout(() => {
+                          const el = document.querySelector(item.href);
+                          if (el) el.scrollIntoView({ behavior: "smooth" });
+                        }, 350);
                       }
                     }}
                     initial={{ opacity: 0, x: -20 }}
