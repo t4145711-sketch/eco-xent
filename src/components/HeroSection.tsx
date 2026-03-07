@@ -116,17 +116,14 @@ const HeroSection = () => {
                 src={s.image}
                 alt={s.overline}
                 className="w-full h-full object-cover md:object-center object-right"
-                style={{ filter: "brightness(0.55) saturate(1.15)" }}
+                style={{ filter: "brightness(0.85) saturate(1.1)" }}
                 loading="eager"
                 decoding="async"
                 fetchPriority={i === 0 ? "high" : "auto"}
               />
             </div>
-            {/* Premium overlays — lighter on mobile so product shows */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, hsl(90 30% 8% / 0.7) 0%, hsl(90 30% 8% / 0.4) 50%, hsl(90 30% 8% / 0.15) 100%)" }} />
-            <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to bottom, hsl(90 30% 8% / 0.5) 0%, transparent 30%, transparent 50%, hsl(90 30% 8% / 0.6) 100%)" }} />
-            <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(180deg, hsl(90 30% 8% / 0.3) 0%, transparent 40%, transparent 60%, hsl(90 30% 8% / 0.5) 100%)" }} />
-            <div className="absolute inset-0 hidden md:block" style={{ background: "radial-gradient(ellipse 60% 60% at 25% 50%, hsl(45 40% 50% / 0.04) 0%, transparent 70%)" }} />
+            {/* Light edge vignette only */}
+            <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, hsl(90 30% 8% / 0.15) 0%, transparent 15%, transparent 85%, hsl(90 30% 8% / 0.4) 100%)" }} />
           </div>
         ))}
 
