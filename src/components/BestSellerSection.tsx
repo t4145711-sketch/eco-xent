@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, Star, Shield, Leaf } from "lucide-react";
+import { Star, Shield, Leaf } from "lucide-react";
 import productSerum from "@/assets/product-serum-with-ingredients.jpg";
 
 const BestSellerSection = () => {
@@ -102,19 +102,6 @@ const BestSellerSection = () => {
               </span>
             </div>
 
-            <motion.a
-              href="#products"
-              className="inline-flex items-center gap-3 px-10 py-4 rounded-full font-body font-medium text-sm tracking-widest uppercase text-white transition-all duration-500"
-              style={{
-                background: "linear-gradient(135deg, hsl(40 55% 48%), hsl(40 50% 42%))",
-                boxShadow: "0 4px 24px hsl(40 55% 52% / 0.3)",
-              }}
-              whileHover={{ scale: 1.03, boxShadow: "0 8px 40px hsl(40 55% 52% / 0.5)" }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Buy Now
-              <ArrowRight className="w-4 h-4" />
-            </motion.a>
           </motion.div>
         </div>
       </div>
