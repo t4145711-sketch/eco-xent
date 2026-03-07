@@ -2,12 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Leaf, Heart, Star, Shield } from "lucide-react";
 
-import productSerum from "@/assets/product-serum-updated.jpeg";
-import productHairOil from "@/assets/product-hairoil-updated.jpeg";
-import productShampoo from "@/assets/product-shampoo-updated.jpeg";
+import productSerum from "@/assets/product-serum-with-ingredients.jpg";
+import productHairOil from "@/assets/product-hairoil-with-ingredients.jpg";
+import productShampoo from "@/assets/product-shampoo-with-ingredients.jpg";
 import productSoap from "@/assets/product-soap-with-box.png";
-import productConditioner from "@/assets/product-conditioner-updated.jpeg";
-import productNew1 from "@/assets/product-new-botanical-updated.jpeg";
+import productConditioner from "@/assets/product-conditioner-with-ingredients.jpg";
+import productNew1 from "@/assets/product-new-botanical-with-ingredients.jpg";
 import productNew2 from "@/assets/product-cleaning-soap-updated.jpg";
 import productHairSerum from "@/assets/product-hair-serum-new.jpg";
 
