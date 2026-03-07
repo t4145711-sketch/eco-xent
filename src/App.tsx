@@ -29,6 +29,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/track" element={<TrackOrder />} />
             <Route path="/founder" element={<AboutCeo />} />
+            <Route path="/about" element={<AboutCompany />} />
             <Route path="/founder/about" element={<FounderAbout />} />
             <Route path="/founder/services" element={<FounderServices />} />
             <Route path="/founder/contact" element={<FounderContact />} />
