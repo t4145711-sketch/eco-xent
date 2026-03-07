@@ -101,7 +101,7 @@ const Index = () => {
         Skip to Products
       </a>
 
-      {/* JSON-LD Structured Data */}
+      {/* JSON-LD: Organization */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -109,43 +109,67 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "Eco-Xent",
-            url: "https://eco-xent.lovable.app",
-            logo: "https://eco-xent.lovable.app/favicon.png",
+            url: "https://www.ecoxent.com",
+            logo: "https://www.ecoxent.com/favicon.png",
+            description: "Pakistan's trusted organic herbal wellness brand offering 100% natural personal care products including hair oil, shampoo, soap, serum and conditioner.",
             contactPoint: {
               "@type": "ContactPoint",
               telephone: "+92-329-5991062",
               contactType: "customer service",
               availableLanguage: ["English", "Urdu"],
+              areaServed: "PK",
             },
             sameAs: [
               "https://www.facebook.com/share/1Bx4wMoGHi/",
               "https://www.instagram.com/eco_xent",
               "https://www.tiktok.com/@eco_xent",
+              "https://youtube.com/@ecoxent",
+              "https://x.com/eco_xent",
             ],
           }),
         }}
       />
+      {/* JSON-LD: Product List */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            name: "Eco-Xent Products",
+            name: "Eco-Xent Organic Herbal Products",
+            description: "Complete collection of 100% natural herbal products for hair care, skincare and personal wellness.",
             itemListElement: Object.values(productMap).map((p, i) => ({
               "@type": "ListItem",
               position: i + 1,
               item: {
                 "@type": "Product",
                 name: p.name,
+                brand: { "@type": "Brand", name: "Eco-Xent" },
                 offers: {
                   "@type": "Offer",
                   priceCurrency: "PKR",
                   price: p.price,
                   availability: "https://schema.org/InStock",
+                  seller: { "@type": "Organization", name: "Eco-Xent" },
                 },
               },
             })),
+          }),
+        }}
+      />
+      {/* JSON-LD: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.ecoxent.com/" },
+              { "@type": "ListItem", position: 2, name: "Products", item: "https://www.ecoxent.com/#products" },
+              { "@type": "ListItem", position: 3, name: "About", item: "https://www.ecoxent.com/about" },
+              { "@type": "ListItem", position: 4, name: "Contact", item: "https://www.ecoxent.com/#contact" },
+            ],
           }),
         }}
       />

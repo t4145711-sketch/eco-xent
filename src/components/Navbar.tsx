@@ -7,7 +7,7 @@ import logoImg from "@/assets/ecoxent-logo-new.jpeg";
 const navItems = [
   { label: "Home", href: "#hero" },
   { label: "Collection", href: "#products" },
-  { label: "About", href: "#about" },
+  { label: "About", href: "/about", isPage: true },
   { label: "Contact", href: "#contact" },
   { label: "Founder", href: "/founder", isPage: true },
   { label: "Track Order", href: "/track", isPage: true },

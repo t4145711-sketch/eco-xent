@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 
-Sitemap: https://eco-xent.lovable.app/sitemap.xml
+Sitemap: https://www.ecoxent.com/sitemap.xml

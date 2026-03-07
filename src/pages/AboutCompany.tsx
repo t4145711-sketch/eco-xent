@@ -80,6 +80,8 @@ const AboutCompany = () => {
 
   useEffect(() => {
     document.title = "About Eco-Xent | Organic Herbal Wellness Company Pakistan";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", "Learn about Eco-Xent — Pakistan's trusted herbal wellness company offering 100% natural, organic personal care products for health, beauty, and personal care.");
     return () => { document.title = "Eco-Xent | 100% Organic Herbal Products Pakistan"; };
   }, []);
 

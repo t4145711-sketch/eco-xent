@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 import logoImg from "@/assets/ecoxent-logo-new.jpeg";
 
 const FacebookIcon = () => (
@@ -99,8 +100,8 @@ const FooterSection = () => {
               { label: "Soap", href: "#products" },
             ]},
             { title: "Company", links: [
+              { label: "About Eco-Xent", href: "/about", isPage: true },
               { label: "Our Story", href: "#about" },
-              { label: "Sustainability", href: "#about" },
               { label: "Ingredients", href: "#products" },
               { label: "FAQ", href: "#faq" },
             ]},
@@ -115,7 +116,11 @@ const FooterSection = () => {
               <ul className="space-y-3">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-sm text-white/70 hover:text-gold transition-colors font-body font-light">{link.label}</a>
+                    {'isPage' in link && link.isPage ? (
+                      <Link to={link.href} className="text-sm text-white/70 hover:text-gold transition-colors font-body font-light">{link.label}</Link>
+                    ) : (
+                      <a href={link.href} className="text-sm text-white/70 hover:text-gold transition-colors font-body font-light">{link.label}</a>
+                    )}
                   </li>
                 ))}
               </ul>
