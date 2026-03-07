@@ -33,7 +33,7 @@ const WhatsAppButton = forwardRef<HTMLDivElement>((_props, ref) => {
               onClick={handleClick}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.92 }}
-              className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-xl"
+              className="relative w-14 h-14 max-sm:w-12 max-sm:h-12 rounded-full flex items-center justify-center shadow-xl overflow-hidden border-2 border-[#25D366]/30 ring-2 ring-[#25D366]/10 ring-offset-2"
               style={{
                 background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)",
                 boxShadow: "0 4px 20px rgba(37,211,102,0.45), 0 2px 8px rgba(0,0,0,0.2)",
