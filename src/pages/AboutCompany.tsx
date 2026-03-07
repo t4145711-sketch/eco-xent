@@ -78,6 +78,11 @@ const sections = [
 const AboutCompany = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = "About Eco-Xent | Organic Herbal Wellness Company Pakistan";
+    return () => { document.title = "Eco-Xent | 100% Organic Herbal Products Pakistan"; };
+  }, []);
+
   return (
     <>
       {/* SEO meta tags set via useEffect */}
