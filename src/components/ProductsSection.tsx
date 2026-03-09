@@ -225,8 +225,8 @@ const ProductsSection = ({ onAddToCart }: { onAddToCart: (id: number) => void })
 
   return (
     <>
-      <section id="products" className="relative py-24 overflow-hidden bg-background">
-        <div className="container mx-auto px-6 relative z-10">
+      <section id="products" className="relative py-16 sm:py-20 md:py-24 overflow-hidden bg-background">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Section heading */}
           <motion.div
             ref={headingRef}
