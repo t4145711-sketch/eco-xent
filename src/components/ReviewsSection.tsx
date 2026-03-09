@@ -55,7 +55,7 @@ const ReviewsSection = () => {
               animate="center"
               exit="exit"
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-xl p-10 md:p-14 text-center border border-border"
+              className="relative rounded-xl p-6 sm:p-10 md:p-14 text-center border border-border"
               style={{ background: "hsl(40 30% 97%)" }}
             >
               <div className="absolute top-6 left-8 opacity-[0.05]">
