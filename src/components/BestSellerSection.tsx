@@ -69,7 +69,7 @@ const BestSellerSection = () => {
               Botanic Shield
               <span className="block text-gradient-gold">Serum</span>
             </h2>
-            <p className="text-muted-foreground font-body text-base leading-relaxed mb-8 max-w-lg">
+            <p className="text-muted-foreground font-body text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg">
               Our most advanced formulation combines 15+ rare botanical extracts
               to create a protective shield for your skin. Clinically proven to
               reduce dark spots by 40% in just 4 weeks.
