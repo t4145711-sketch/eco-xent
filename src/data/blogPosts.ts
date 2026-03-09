@@ -1510,7 +1510,7 @@ Start your hair care journey today with [Eco-Xent's organic herbal products](/) 
     tags: ["women hair care", "hair care routine", "hair types", "natural hair care"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-07",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogWomenHairCare,
     featuredImageAlt: "Woman with beautiful healthy hair following a natural hair care routine with herbal products",
     excerpt: "Every woman deserves beautiful, healthy hair. This complete guide covers hair care routines for every hair type with natural, herbal solutions.",
     content: `
