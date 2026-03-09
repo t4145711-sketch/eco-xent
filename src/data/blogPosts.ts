@@ -306,7 +306,7 @@ Start your journey to healthier, stronger hair today with [Eco-Xent's complete r
     tags: ["neem", "natural ingredients", "hair care", "skin care", "herbal remedies"],
     author: "Eco-Xent Team",
     publishDate: "2026-02-25",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogNeemBenefits,
     featuredImageAlt: "Fresh neem leaves and neem oil used in natural hair and skin care treatments",
     excerpt: "Neem is nature's pharmacy. Discover how this powerful herb can transform your hair and skin health with its antibacterial, antifungal, and nourishing properties.",
     content: `
