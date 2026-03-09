@@ -21,7 +21,7 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const lastScrollY = useRef(0);
-  const [activeSection, setActiveSection] = useState("#hero");
+  const [activeSection, setActiveSection] = useState("#top");
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 20);
