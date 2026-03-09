@@ -201,7 +201,6 @@ const Index = () => {
       <WhatsAppButton />
       <Suspense fallback={null}>
         <AIChatbot />
-        <WhatsAppPopup />
       </Suspense>
       <MobileStickyBar />
       <CartDrawer
