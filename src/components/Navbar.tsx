@@ -108,6 +108,11 @@ const Navbar = ({ cartCount, onCartClick }: { cartCount: number; onCartClick: ()
                     if (item.isPage) {
                       e.preventDefault();
                       navigate(item.href);
+                    } else if (item.href === "#top") {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      history.replaceState(null, '', '/');
+                      setActiveSection(item.href);
                     } else if (location.pathname !== "/") {
                       e.preventDefault();
                       navigate("/" + item.href);
