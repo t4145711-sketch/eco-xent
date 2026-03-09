@@ -92,10 +92,10 @@ const BestSellerSection = () => {
             </div>
 
             {/* Price + CTA */}
-            <div className="flex items-center gap-6 mb-8">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-6 sm:mb-8">
               <div>
-                <span className="text-3xl font-heading font-bold text-foreground">Rs.1,550</span>
-                <span className="text-lg font-body text-muted-foreground line-through ml-3">Rs.1,999</span>
+                <span className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Rs.1,550</span>
+                <span className="text-base sm:text-lg font-body text-muted-foreground line-through ml-2 sm:ml-3">Rs.1,999</span>
               </div>
               <span className="px-3 py-1 rounded-md text-xs font-body font-semibold text-white bg-forest">
                 Save 22%

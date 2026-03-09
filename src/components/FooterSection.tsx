@@ -144,16 +144,15 @@ const FooterSection = () => {
           </motion.div>
         </div>
 
-        <div className="py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/50 font-body font-light">© 2026 Eco-Xent. All rights reserved.</p>
-          <p className="text-xs text-white/50 font-body font-light">
+        <div className="py-4 sm:py-5 flex flex-col items-center gap-3 sm:gap-2">
+          <p className="text-[10px] sm:text-xs text-white/50 font-body font-light text-center">© 2026 Eco-Xent. All rights reserved.</p>
+          <p className="text-[10px] sm:text-xs text-white/50 font-body font-light text-center">
             Website by{" "}
             <a href="mailto:neonesttechnologies@gmail.com" className="hover:text-gold transition-colors underline">Neo Nest Technologies</a>
-            {" "}— <a href="mailto:neonesttechnologies@gmail.com" className="hover:text-gold transition-colors">neonesttechnologies@gmail.com</a>
           </p>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
             {["Privacy Policy", "Terms of Service", "Refund Policy"].map((item) => (
-              <a key={item} href="#" className="text-xs text-white/50 hover:text-gold transition-colors font-body font-light">{item}</a>
+              <a key={item} href="#" className="text-[10px] sm:text-xs text-white/50 hover:text-gold transition-colors font-body font-light">{item}</a>
             ))}
           </div>
         </div>

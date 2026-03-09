@@ -68,7 +68,7 @@ const ReviewsSection = () => {
                 ))}
               </div>
 
-              <p className="text-lg md:text-xl text-foreground/80 font-heading italic leading-relaxed mb-10 max-w-xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-foreground/80 font-heading italic leading-relaxed mb-8 sm:mb-10 max-w-xl mx-auto">
                 "{reviews[current].text}"
               </p>
 

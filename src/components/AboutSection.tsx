@@ -68,8 +68,8 @@ const AboutSection = () => {
   const isProductsInView = useInView(productsRef, { once: true, margin: "-50px" });
 
   return (
-    <section id="about" className="relative py-28 overflow-hidden bg-background">
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="about" className="relative py-16 sm:py-20 md:py-28 overflow-hidden bg-background">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Heading */}
         <motion.div
           className="text-center mb-16"

@@ -178,7 +178,7 @@ const ProductShowcase = () => {
     <section className="relative py-24 md:py-32 bg-background overflow-hidden">
       <div className="absolute inset-0 gradient-radial-gold pointer-events-none" />
 
-      <div ref={ref} className="container mx-auto px-6 relative z-10">
+      <div ref={ref} className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Heading */}
         <div className="text-center mb-16 md:mb-20">
           <motion.p
