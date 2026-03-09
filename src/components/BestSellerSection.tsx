@@ -76,7 +76,7 @@ const BestSellerSection = () => {
             </p>
 
             {/* Features */}
-            <div className="grid grid-cols-3 gap-4 mb-10">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
               {[
                 { icon: Leaf, label: "100% Organic" },
                 { icon: Shield, label: "Skin Shield" },
