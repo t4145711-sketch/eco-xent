@@ -1,3 +1,14 @@
+import blogHairGrowthOils from "@/assets/blog-hair-growth-oils.jpg";
+import blogStopHairFall from "@/assets/blog-stop-hair-fall.jpg";
+import blogNeemBenefits from "@/assets/blog-neem-benefits.jpg";
+import blogHerbalSoap from "@/assets/blog-herbal-soap.jpg";
+import blogSkincareRoutine from "@/assets/blog-skincare-routine.jpg";
+import blogHairIngredients from "@/assets/blog-hair-ingredients.jpg";
+import blogHerbalVsChemical from "@/assets/blog-herbal-vs-chemical.jpg";
+import blogGlowingSkin from "@/assets/blog-glowing-skin.jpg";
+import blogMenHairCare from "@/assets/blog-men-hair-care.jpg";
+import blogWomenHairCare from "@/assets/blog-women-hair-care.jpg";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -30,7 +41,7 @@ export const blogPosts: BlogPost[] = [
     tags: ["hair growth", "natural oils", "hair care", "herbal hair oil"],
     author: "Eco-Xent Team",
     publishDate: "2026-02-15",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogHairGrowthOils,
     featuredImageAlt: "Natural hair growth oils including coconut, castor and herbal blends for healthy hair",
     excerpt: "Looking for the best natural hair growth oils? Learn about coconut oil, castor oil, argan oil and herbal blends that promote thicker, healthier hair naturally.",
     content: `
@@ -156,7 +167,7 @@ Start your natural hair care journey today with [Eco-Xent's range of 100% organi
     tags: ["hair fall", "home remedies", "natural treatment", "hair care tips"],
     author: "Eco-Xent Team",
     publishDate: "2026-02-20",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogStopHairFall,
     featuredImageAlt: "Woman showing healthy thick hair after using natural hair fall remedies",
     excerpt: "Struggling with hair fall? Discover 15 proven natural remedies and lifestyle changes that can help you stop hair loss and regrow thicker, healthier hair.",
     content: `
@@ -295,7 +306,7 @@ Start your journey to healthier, stronger hair today with [Eco-Xent's complete r
     tags: ["neem", "natural ingredients", "hair care", "skin care", "herbal remedies"],
     author: "Eco-Xent Team",
     publishDate: "2026-02-25",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogNeemBenefits,
     featuredImageAlt: "Fresh neem leaves and neem oil used in natural hair and skin care treatments",
     excerpt: "Neem is nature's pharmacy. Discover how this powerful herb can transform your hair and skin health with its antibacterial, antifungal, and nourishing properties.",
     content: `
@@ -435,7 +446,7 @@ Experience the power of neem with [Eco-Xent's range of neem-infused herbal produ
     tags: ["herbal soap", "natural soap", "skin care", "organic products"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-01",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogHerbalSoap,
     featuredImageAlt: "Eco-Xent herbal soap bars with natural ingredients for healthy glowing skin",
     excerpt: "Chemical soaps damage your skin. Discover why herbal soaps are better and how to choose the best natural soap for your skin type.",
     content: `
@@ -582,7 +593,7 @@ Experience the difference with [Eco-Xent's herbal soaps](/) — handcrafted with
     tags: ["skincare routine", "natural skincare", "home remedies", "skin care tips"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-02",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogSkincareRoutine,
     featuredImageAlt: "Natural skincare routine products and ingredients arranged on a clean surface",
     excerpt: "Build a complete natural skincare routine at home with our step-by-step guide. Learn which organic ingredients work best for your skin type.",
     content: `
@@ -776,7 +787,7 @@ Start simple, be consistent, and listen to your skin. The results will speak for
     tags: ["hair growth ingredients", "natural ingredients", "hair care", "herbal remedies"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-03",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogHairIngredients,
     featuredImageAlt: "Natural hair growth ingredients including amla, bhringraj, castor oil and herbs",
     excerpt: "Science-backed natural ingredients that promote hair growth. From biotin to bhringraj, learn what actually works and how Eco-Xent harnesses these ingredients.",
     content: `
@@ -944,7 +955,7 @@ The best natural ingredients for hair growth have centuries of traditional use b
     tags: ["herbal shampoo", "chemical shampoo", "hair care comparison", "natural products"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-04",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogHerbalVsChemical,
     featuredImageAlt: "Comparison between herbal shampoo with natural ingredients and chemical shampoo with synthetic ingredients",
     excerpt: "Is herbal shampoo really better than chemical shampoo? A detailed comparison of ingredients, benefits, and long-term effects on your hair health.",
     content: `
@@ -1109,7 +1120,7 @@ Make the switch to [Eco-Xent Herbal Shampoo](/) today and experience the differe
     tags: ["glowing skin", "natural beauty", "skin care tips", "home remedies"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-05",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogGlowingSkin,
     featuredImageAlt: "Woman with naturally glowing healthy skin using organic skincare products",
     excerpt: "Want naturally glowing skin? Here are 20 proven tips covering diet, skincare routine, and lifestyle habits that actually work for radiant skin.",
     content: `
@@ -1293,7 +1304,7 @@ Remember: consistency is key. Start today, be patient, and let nature work its m
     tags: ["men hair care", "hair care routine", "men grooming", "hair loss prevention"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-06",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogMenHairCare,
     featuredImageAlt: "Man with healthy well-groomed hair following a natural hair care routine",
     excerpt: "Men need a proper hair care routine too. Learn the best practices for preventing hair loss, managing dandruff, and maintaining healthy, thick hair naturally.",
     content: `
@@ -1499,7 +1510,7 @@ Start your hair care journey today with [Eco-Xent's organic herbal products](/) 
     tags: ["women hair care", "hair care routine", "hair types", "natural hair care"],
     author: "Eco-Xent Team",
     publishDate: "2026-03-07",
-    featuredImage: "/placeholder.svg",
+    featuredImage: blogWomenHairCare,
     featuredImageAlt: "Woman with beautiful healthy hair following a natural hair care routine with herbal products",
     excerpt: "Every woman deserves beautiful, healthy hair. This complete guide covers hair care routines for every hair type with natural, herbal solutions.",
     content: `
