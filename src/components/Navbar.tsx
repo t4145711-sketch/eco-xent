@@ -8,6 +8,7 @@ const navItems = [
   { label: "Home", href: "#hero" },
   { label: "Collection", href: "#products" },
   { label: "About", href: "/about", isPage: true },
+  { label: "Blog", href: "/blog", isPage: true },
   { label: "Contact", href: "#contact" },
   { label: "Founder", href: "/founder", isPage: true },
   { label: "Track Order", href: "/track", isPage: true },
