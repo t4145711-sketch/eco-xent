@@ -126,17 +126,17 @@ const HeroSection = () => {
             {/* Left gradient for text readability */}
             <div
               className="absolute inset-0"
-              style={{ background: "linear-gradient(to right, hsl(90 30% 6% / 0.85) 0%, hsl(90 30% 6% / 0.6) 35%, hsl(90 30% 6% / 0.2) 60%, transparent 100%)" }}
+              style={{ background: "linear-gradient(to right, hsl(90 30% 6% / 0.75) 0%, hsl(90 30% 6% / 0.4) 30%, hsl(90 30% 6% / 0.1) 55%, transparent 100%)" }}
             />
-            {/* Mobile: stronger overlay for text */}
+            {/* Mobile: lighter overlay to keep banners HD */}
             <div
               className="absolute inset-0 md:hidden"
-              style={{ background: "linear-gradient(to bottom, hsl(90 30% 6% / 0.6) 0%, hsl(90 30% 6% / 0.3) 40%, hsl(90 30% 6% / 0.5) 100%)" }}
+              style={{ background: "linear-gradient(to bottom, hsl(90 30% 6% / 0.4) 0%, hsl(90 30% 6% / 0.1) 35%, hsl(90 30% 6% / 0.3) 100%)" }}
             />
-            {/* Top/bottom vignette */}
+            {/* Subtle top/bottom vignette */}
             <div
               className="absolute inset-0"
-              style={{ background: "linear-gradient(180deg, hsl(90 30% 6% / 0.4) 0%, transparent 25%, transparent 75%, hsl(90 30% 6% / 0.5) 100%)" }}
+              style={{ background: "linear-gradient(180deg, hsl(90 30% 6% / 0.25) 0%, transparent 20%, transparent 80%, hsl(90 30% 6% / 0.35) 100%)" }}
             />
           </div>
         ))}
