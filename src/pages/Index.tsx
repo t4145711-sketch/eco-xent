@@ -24,6 +24,7 @@ const ProductShowcase = lazy(() => import("@/components/ProductShowcase"));
 const ExperienceSection = lazy(() => import("@/components/ExperienceSection"));
 const FinalCTA = lazy(() => import("@/components/FinalCTA"));
 const AIChatbot = lazy(() => import("@/components/AIChatbot"));
+const WhatsAppPopup = lazy(() => import("@/components/WhatsAppPopup"));
 import { toast } from "sonner";
 
 // Product info for cart (matches ProductsSection data)
@@ -199,6 +200,7 @@ const Index = () => {
       <FooterSection />
       <Suspense fallback={null}>
         <AIChatbot />
+        <WhatsAppPopup />
       </Suspense>
       <MobileStickyBar />
       <CartDrawer
