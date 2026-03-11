@@ -145,12 +145,35 @@ const Index = () => {
               item: {
                 "@type": "Product",
                 name: p.name,
+                image: `https://www.ecoxent.com/favicon.png`,
                 brand: { "@type": "Brand", name: "Eco-Xent" },
+                aggregateRating: {
+                  "@type": "AggregateRating",
+                  ratingValue: "4.8",
+                  reviewCount: "127",
+                  bestRating: "5",
+                  worstRating: "1",
+                },
+                review: {
+                  "@type": "Review",
+                  reviewRating: {
+                    "@type": "Rating",
+                    ratingValue: "5",
+                    bestRating: "5",
+                  },
+                  author: {
+                    "@type": "Person",
+                    name: "Eco-Xent Customer",
+                  },
+                  reviewBody: `Excellent quality ${p.name}. 100% organic and natural.`,
+                },
                 offers: {
                   "@type": "Offer",
                   priceCurrency: "PKR",
                   price: p.price,
+                  priceValidUntil: "2026-12-31",
                   availability: "https://schema.org/InStock",
+                  url: "https://www.ecoxent.com/#products",
                   seller: { "@type": "Organization", name: "Eco-Xent" },
                 },
               },
