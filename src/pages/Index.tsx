@@ -145,7 +145,8 @@ const Index = () => {
               item: {
                 "@type": "Product",
                 name: p.name,
-                image: `https://www.ecoxent.com/favicon.png`,
+                description: `${p.name} - 100% organic herbal product by Eco-Xent. Natural ingredients for hair care & skincare.`,
+                image: `https://www.ecoxent.com${p.image}`,
                 brand: { "@type": "Brand", name: "Eco-Xent" },
                 aggregateRating: {
                   "@type": "AggregateRating",
