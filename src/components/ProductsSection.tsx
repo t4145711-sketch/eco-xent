@@ -37,7 +37,7 @@ const products: Product[] = [
   {
     id: 2, name: "Hair Healer Oil", tagline: "Deep Restoration",
     description: "Healed thousands of damaged scalps. 13+ therapeutic oils that have repaired weak follicles and restored hair growth in real people.",
-    price: 750, originalPrice: 999, priceDisplay: "Rs.750", originalPriceDisplay: "Rs.999",
+    price: 850, originalPrice: 999, priceDisplay: "Rs.850", originalPriceDisplay: "Rs.999",
     image: productHairOil, discount: 25, category: "Haircare",
   },
   {
