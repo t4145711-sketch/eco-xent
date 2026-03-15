@@ -25,7 +25,6 @@ interface CheckoutModalProps {
 }
 
 const paymentMethods = [
-  { value: "COD", label: "Cash on Delivery", icon: "💵", desc: "Pay when your order is delivered" },
   { value: "EasyPaisa", label: "EasyPaisa / JazzCash", icon: "📱", desc: "Mobile wallet transfer" },
   { value: "Bank Transfer", label: "Bank Transfer", icon: "🏦", desc: "Transfer to bank account" },
 ];
@@ -37,7 +36,7 @@ const CheckoutModal = ({ product, cartProducts, isOpen, onClose }: CheckoutModal
     customer_name: "",
     customer_phone: "",
     customer_address: "",
-    payment_method: "COD",
+    payment_method: "EasyPaisa",
     quantity: 1,
     notes: "",
   });
